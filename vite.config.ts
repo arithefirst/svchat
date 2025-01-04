@@ -8,11 +8,11 @@ function setupSocketIOServer(httpServer: never) {
 	}
 	const io = new SocketIOServer(httpServer);
 	io.on('connection', (socket) => {
-		console.log(`[socket.io] client connected (${socket.id})`);
+		console.log(`[ws] client connected (${socket.id})`);
 		io.emit('message', `Hello from SvelteKit ${new Date().toLocaleString()} (${socket.id})`);
 
 		socket.on('disconnect', () => {
-			console.log(`[socket.io] client disconnected (${socket.id})`);
+			io.emit(`[ws] client disconnected (${socket.id})`);
 		});
 	});
 }

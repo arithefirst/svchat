@@ -6,14 +6,14 @@ let io: SocketIOServer | undefined;
 
 const startupSocketIOServer = (httpServer: never) => {
 	if (io) return;
-	console.log('[socket.io:kit] setup');
+	console.log('[ws:kit] setup');
 	io = new SocketIOServer(httpServer);
 	io.on('connection', (socket) => {
-		console.log(`[socket.io:kit] client connected (${socket.id})`);
+		console.log(`[ws:kit] client connected (${socket.id})`);
 		socket.emit('message', `Hello from SvelteKit ${new Date().toLocaleString()} (${socket.id})`);
 
 		socket.on('disconnect', () => {
-			console.log(`[socket.io:kit] client disconnected (${socket.id})`);
+			console.log(`[ws:kit] client disconnected (${socket.id})`);
 		});
 	});
 };
