@@ -11,8 +11,7 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint .",
-		"db:push": "drizzle-kit push",
-		"db:migrate": "drizzle-kit migrate",
+		"db:migrate": "drizzle-kit generate --config  drizzle.config.ts && drizzle-kit push --config drizzle.config.ts",
 		"db:studio": "drizzle-kit studio"
 	},
 	"devDependencies": {
