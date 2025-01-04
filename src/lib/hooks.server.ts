@@ -1,10 +1,11 @@
 import { building } from '$app/environment';
 import type { Handle } from '@sveltejs/kit';
 import { Server as SocketIOServer } from 'socket.io';
+import type { HttpServer } from 'vite';
 
 let io: SocketIOServer | undefined;
 
-const startupSocketIOServer = (httpServer: never) => {
+const startupSocketIOServer = (httpServer: HttpServer | null) => {
 	if (io) return;
 	console.log('[ws:kit] setup');
 	io = new SocketIOServer(httpServer);
