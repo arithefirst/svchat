@@ -1,24 +1,9 @@
 import { building } from '$app/environment';
 import type { Handle } from '@sveltejs/kit';
 import { Server as SocketIOServer } from 'socket.io';
-import type { HttpServer } from 'vite';
+import { startupSocketIOServer } from '$lib/websocketConfig';
 
 let io: SocketIOServer | undefined;
-
-const startupSocketIOServer = (httpServer: HttpServer | null) => {
-	if (io) return;
-	console.log('[ws:kit] setup');
-	io = new SocketIOServer(httpServer);
-	io.on('connection', (socket) => {
-		console.log(`[ws:kit] client connected (${socket.id})`);
-		socket.emit('message', `Hello from SvelteKit ${new Date().toLocaleString()} (${socket.id})`);
-
-		socket.on('disconnect', () => {
-			console.log(`[ws:kit] client disconnected (${socket.id})`);
-		});
-	});
-};
-
 export const handle = (async ({ event, resolve }) => {
 	if (!building) {
 		startupSocketIOServer(event.locals.httpServer);

@@ -1,11 +1,30 @@
-import * as path from 'path';
-import * as url from 'url';
-import { createWSSGlobalInstance, onHttpServerUpgrade } from './src/lib/server/webSocketUtils';
+import { handler } from './build/handler.js';
+import express from 'express';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const app = express();
+const server = createServer(app);
+const io = new Server(server);
 
-createWSSGlobalInstance();
+io.on('connection', (socket) => {
+	console.log(`[ws:kit] client connected (${socket.id})`);
+	io!.emit('message', `Hello from SvelteKit ${new Date().toLocaleString()} (${socket.id})`);
 
-const { server } = await import(path.resolve(__dirname, './build/index.js'));
-server.server.on('upgrade', onHttpServerUpgrade);
+	socket.on('disconnect', () => {
+		io!.emit('message', `[ws:kit] client disconnected (${socket.id})`)
+		console.log(`client disconnected (${socket.id})`);
+	});
+});
+
+app.use((req, res, next) => {
+	if (req.path.startsWith('/socket.io/')) {
+		next();
+	} else {
+		handler(req, res);
+	}
+});
+
+server.listen(3005, () => {
+	console.log('Listening on http://0.0.0.0:3005');
+});
