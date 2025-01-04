@@ -32,7 +32,7 @@
 <main>
 	<h1 class="text-lg"># SvelteKit with Socket.IO Integration</h1>
 
-	<button class="button" on:click={() => establishSocketIOConnection()}>
+	<button class="btn btn-primary" on:click={() => establishSocketIOConnection()}>
 		Establish Socket.IO connection
 	</button>
 
