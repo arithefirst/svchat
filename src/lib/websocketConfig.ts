@@ -13,8 +13,8 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
 		io!.emit('message', `Hello from SvelteKit ${new Date().toLocaleString()} (${socket.id})`);
 
 		socket.on('disconnect', () => {
-			io!.emit('message', `[ws:kit] client disconnected (${socket.id})`)
-			console.log(`client disconnected (${socket.id})`);
+			io!.emit('message', `client disconnected (${socket.id})`)
+			console.log(`[ws:kit] client disconnected (${socket.id})`);
 		});
 	});
 }
