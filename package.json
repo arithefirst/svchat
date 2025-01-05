@@ -37,6 +37,7 @@
     "vite": "^5.4.11"
   },
   "dependencies": {
+    "@types/express": "^5.0.0",
     "daisyui": "^4.12.23",
     "drizzle-orm": "^0.33.0",
     "express": "^4.21.2",
