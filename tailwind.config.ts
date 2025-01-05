@@ -6,7 +6,7 @@ export default {
   plugins: [daisyui],
   theme: {
     colors: {
-      'svelte': '#FF3E00'
-    }
-  }
+      svelte: '#FF3E00',
+    },
+  },
 } satisfies Config;
