@@ -42,7 +42,7 @@
 </script>
 
 <main class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-fit">
-  <h1 class="text-lg"># SvelteKit with Socket.IO Integration</h1>
+  <h1 class="text-lg"><span class="text-svelte">SvelteKit</span> with Socket.IO Integration</h1>
   <form class="my-1 flex" on:submit={sendMessage}>
     <input type="text" placeholder="Type here" class="input input-bordered w-1/2 mr-1" bind:value={msg} />
     <button class="btn w-1/2" type="submit">Send</button>
