@@ -1,5 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
+import { db } from '$lib/server/db';
+import { messages } from '$lib/server/db/schema';
 
 let io: SocketIOServer | undefined;
 
@@ -17,6 +19,13 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
     socket.on('message', (msg) => {
       console.log(`[ws:kit] message from ${socket.id}: ${msg}`);
       io!.emit('message', `[${socket.id}] ${msg}`);
+      db.insert(messages).values({
+        // Temporary UUID Placeholders
+        id: '00000000-0000-0000-0000-000000000000',
+        user_id: '00000000-0000-0000-0000-000000000000',
+        channel_id: '00000000-0000-0000-0000-000000000000',
+        message: msg
+      });
     });
 
     // Runs on client disconnect
