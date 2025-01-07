@@ -1,30 +1,22 @@
 <script lang="ts">
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
+  import Message from '../lib/components/message.svelte';
+  import { type TypeMessage } from '../lib';
 
   let socket: ReturnType<typeof io> | null = null;
-  let log: string[] = [];
+  let log: TypeMessage[] = [];
   let msg: string = '';
 
-  function logEvent(str: string) {
-    log = [...log, str];
+  function logEvent(newMsg: TypeMessage) {
+    log = [...log, newMsg];
   }
 
   function establishSocketIOConnection() {
     if (socket) return;
     socket = io();
 
-    socket.on('connect', () => {
-      console.log('[ws] connection open');
-      logEvent('[ws] connection open');
-    });
-
-    socket.on('disconnect', () => {
-      console.log('[ws] connection closed');
-      logEvent('[ws] connection closed');
-    });
-
-    socket.on('message', (data: string) => {
+    socket.on('message', (data: TypeMessage) => {
       console.log('[ws] message received', data);
       logEvent(data);
     });
@@ -52,9 +44,13 @@
     on:click={() => {
       log = [];
     }}>Clear</button>
-  <ul>
-    {#each log as event}
-      <li>{event}</li>
+  <section>
+    {#each log as message}
+      <Message
+        imageSrc={message.imageSrc}
+        user={message.user}
+        message={message.message}
+      />
     {/each}
-  </ul>
+  </section>
 </main>
