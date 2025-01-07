@@ -44,17 +44,13 @@
       <button
         class="btn w-full"
         on:click={() => {
-      log = [];
-    }}>Clear Messages</button>
+          log = [];
+        }}>Clear Messages</button>
     </div>
   </div>
   <div class="col-span-1 overflow-scroll bg-base-200 m-4 rounded-lg">
     {#each log as message}
-      <Message
-        imageSrc={message.imageSrc}
-        user={message.user}
-        message={message.message}
-      />
+      <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
     {/each}
   </div>
 </main>

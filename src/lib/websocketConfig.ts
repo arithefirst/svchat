@@ -1,6 +1,6 @@
 import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
-import { type TypeMessage } from './'
+import { type TypeMessage } from './';
 
 let io: SocketIOServer | undefined;
 
@@ -13,14 +13,13 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
     // Runs on client connect
     console.log(`[ws:kit] client connected (${socket.id})`);
 
-
     // Runs on message receive
     socket.on('message', (msg) => {
       console.log(`[ws:kit] message from ${socket.id}: ${msg}`);
       io!.emit('message', {
         user: socket.id,
         message: msg,
-        imageSrc: 'https://www.arithefirst.com/images/pfp.png'
+        imageSrc: 'https://www.arithefirst.com/images/pfp.png',
       });
     });
 

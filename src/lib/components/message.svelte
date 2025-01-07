@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { type TypeMessage } from '../'
-  const { message, imageSrc, user }: TypeMessage   = $props()
+  import { type TypeMessage } from '../';
+  const { message, imageSrc, user }: TypeMessage = $props();
 </script>
 
 <div class="w-full hover:bg-base-300 bg-base-200 flex py-2">
