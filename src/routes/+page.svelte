@@ -33,18 +33,22 @@
   });
 </script>
 
-<main class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-1/2 h-fit">
-  <h1 class="text-lg"><span class="text-svelte">SvelteKit</span> with Socket.IO Integration</h1>
-  <form class="my-1 flex" on:submit={sendMessage}>
-    <input type="text" placeholder="Type here" class="input input-bordered w-1/2 mr-1" bind:value={msg} />
-    <button class="btn w-1/2" type="submit">Send</button>
-  </form>
-  <button
-    class="btn w-full"
-    on:click={() => {
+<main class="grid grid-cols-2 h-screen w-full">
+  <div class="relative h-full w-full">
+    <div class="h-fit col-span-1 w-10/12 abs-centered">
+      <h1 class="text-lg"><span class="text-svelte">SV</span>Chat</h1>
+      <form class="my-1 flex" on:submit={sendMessage}>
+        <input type="text" placeholder="Type here" class="input input-bordered w-1/2 mr-1" bind:value={msg} />
+        <button class="btn w-1/2" type="submit">Send Message</button>
+      </form>
+      <button
+        class="btn w-full"
+        on:click={() => {
       log = [];
-    }}>Clear</button>
-  <section>
+    }}>Clear Messages</button>
+    </div>
+  </div>
+  <div class="col-span-1 overflow-scroll bg-base-200 m-4 rounded-lg">
     {#each log as message}
       <Message
         imageSrc={message.imageSrc}
@@ -52,5 +56,5 @@
         message={message.message}
       />
     {/each}
-  </section>
+  </div>
 </main>
