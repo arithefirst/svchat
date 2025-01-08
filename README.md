@@ -1,7 +1,7 @@
 # SVChat
 
-A is a simple chat app built with SvelteKit, Drizzle ORM, and PostgreSQL
+A simple chat app built with SvelteKit and Apache Cassandra
 
 ## Techstack
 
-![Techstack](https://go-skill-icons.vercel.app/api/icons?i=daisyui,postgresql,svelte,tailwindcss,ts)
+![Techstack](https://go-skill-icons.vercel.app/api/icons?i=cassandra,daisyui,svelte,tailwindcss,ts)
