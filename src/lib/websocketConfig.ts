@@ -1,6 +1,6 @@
 import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
-import { type TypeMessage } from './';
+import client from './server/db/';
 
 let io: SocketIOServer | undefined;
 

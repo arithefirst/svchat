@@ -11,9 +11,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint .",
-    "db:migrate": "drizzle-kit generate --config  drizzle.config.ts && drizzle-kit push --config drizzle.config.ts",
-    "db:studio": "drizzle-kit studio"
+    "lint": "prettier --check . && eslint ."
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.3",
@@ -21,7 +19,6 @@
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^4.0.0",
     "autoprefixer": "^10.4.20",
-    "drizzle-kit": "^0.22.0",
     "eslint": "^9.7.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-svelte": "^2.36.0",
@@ -38,10 +35,9 @@
   },
   "dependencies": {
     "@types/express": "^5.0.0",
+    "cassandra-driver": "^4.7.2",
     "daisyui": "^4.12.23",
-    "drizzle-orm": "^0.33.0",
     "express": "^4.21.2",
-    "postgres": "^3.4.4",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
     "tsm": "^2.3.0"
