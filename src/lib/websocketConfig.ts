@@ -18,10 +18,10 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
       console.log(`[ws:kit] message from ${socket.id}: ${msg}`);
       // Store the message in the database
       await createChannel(client, '000');
-      await storeMessage(client, '000', msg, uuidv4(), uuidv4());
+      await storeMessage(client, '000', msg.content, msg.id, uuidv4());
       io!.emit('message', {
-        user: socket.id,
-        message: msg,
+        user: msg.id,
+        message: msg.content,
         imageSrc: 'https://www.arithefirst.com/images/pfp.png',
       });
     });
