@@ -36,27 +36,18 @@
   });
 </script>
 
-<main class="grid grid-cols-2 h-screen w-full">
-  <div class="relative h-full w-full">
-    <div class="h-fit col-span-1 w-10/12 abs-centered">
-      <div class="flex">
-        <span><span class="text-svelte">SV</span>Chat</span>
-        <span class="ml-auto">Logged in as <span class="font-bold">{user}</span></span>
-      </div>
-      <form class="my-1 flex" on:submit={sendMessage}>
-        <input type="text" placeholder="Type here" class="input input-bordered w-1/2 mr-1" bind:value={msg} />
-        <button class="btn w-1/2" type="submit">Send Message</button>
-      </form>
-      <button
-        class="btn w-full"
-        on:click={() => {
-          log = [];
-        }}>Clear Messages</button>
+<main class="h-full flex flex-col">
+  <div class="flex-grow flex-auto overflow-y-scroll mx-2 mt-2 mb-1 rounded-lg bg-base-200 border-2 border-primary">
+    <div class="w-full">
+      <h1 class="text-center text-base-content text-2xl"><span class="text-primary">SV</span>Chat</h1>
+      <hr class="w-11/12 border-primary border-1 mx-auto" />
     </div>
-  </div>
-  <div class="col-span-1 overflow-scroll bg-base-200 m-4 rounded-lg">
     {#each log as message}
       <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
     {/each}
   </div>
+  <form class="flex mb-2 mx-2 mt-1" on:submit={sendMessage}>
+    <input type="text" placeholder="Type here" class="input input-secondary w-3/4 mr-1 border-2" bind:value={msg} />
+    <button class="btn w-1/4 btn-primary" type="submit">Send Message</button>
+  </form>
 </main>
