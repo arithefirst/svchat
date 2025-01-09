@@ -1,6 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
-import client from './server/db/';
+import { client, createChannel, storeMessage } from './server/db/';
+import { v4 as uuidv4 } from 'uuid';
 
 let io: SocketIOServer | undefined;
 
@@ -9,13 +10,15 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
   console.log('[ws:kit] setup');
   io = new SocketIOServer(httpServer);
 
-  io.on('connection', (socket) => {
+  io.on('connection', async (socket) => {
     // Runs on client connect
     console.log(`[ws:kit] client connected (${socket.id})`);
-
     // Runs on message receive
-    socket.on('message', (msg) => {
+    socket.on('message', async (msg) => {
       console.log(`[ws:kit] message from ${socket.id}: ${msg}`);
+      // Store the message in the database
+      await createChannel(client, '000');
+      await storeMessage(client, '000', msg, uuidv4(), uuidv4());
       io!.emit('message', {
         user: socket.id,
         message: msg,
