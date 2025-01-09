@@ -1,19 +1,29 @@
 import cassandra from 'cassandra-driver';
 
 async function createChannel(client: cassandra.Client, channelName: string) {
-  await client.execute(`
+  try {
+    await client.execute(`
     CREATE TABLE IF NOT EXISTS channels.channel_${channelName} (
         id UUID PRIMARY KEY,
         message_content TEXT,
         timestamp TIMESTAMP,
         sender UUID
     );`);
+  } catch (e) {
+    // @ts-expect-error I don't like this thing yelling at me
+    console.log(`Error creating new channel: ${e.message}`);
+  }
 }
 
 async function storeMessage(client: cassandra.Client, channelName: string, content: string, sender: string, id: string) {
-  const now = new Date();
-  await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, timestamp, sender)
+  try {
+    const now = new Date();
+    await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, timestamp, sender)
                VALUES (${id}, '${content}', ${now.getTime()}, ${sender})`);
+  } catch (e) {
+    // @ts-expect-error I don't like this thing yelling at me
+    console.log(`Error storing messages: ${e.message}`);
+  }
 }
 
 async function getMessages(client: cassandra.Client, channelName: string, limit: number) {
@@ -28,7 +38,6 @@ async function getMessages(client: cassandra.Client, channelName: string, limit:
     return res.rows;
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
-    // We all know it's gonna work
     console.log(`Error fetching messages: ${e.message}`);
   }
 }
@@ -40,8 +49,19 @@ const client = new cassandra.Client({
 
 // Connect to Cassandra/ScyllaDB and create
 // the necessary tables, keyspaces, etc.
-await client.connect();
-await client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
-await client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
+try {
+  await client.connect()
+} catch (e) {
+  // @ts-expect-error I don't like this thing yelling at me
+  console.log(`Error connecting: ${e.message}`);
+}
+
+try {
+  await client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
+  await client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
+} catch (e) {
+  // @ts-expect-error I don't like this thing yelling at me
+  console.log(`Error generating keyspaces: ${e.message}`);
+}
 
 export { client, createChannel, getMessages, storeMessage };
