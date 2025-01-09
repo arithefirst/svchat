@@ -15,15 +15,18 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
     console.log(`[ws:kit] client connected (${socket.id})`);
     // Runs on message receive
     socket.on('message', async (msg) => {
-      console.log(`[ws:kit] message from ${socket.id}: ${msg}`);
-      // Store the message in the database
-      await createChannel(client, '000');
-      await storeMessage(client, '000', msg.content, msg.id, uuidv4());
-      io!.emit('message', {
-        user: msg.id,
-        message: msg.content,
-        imageSrc: 'https://www.arithefirst.com/images/pfp.png',
-      });
+      // If message not empty
+      if (msg.content !== "") {
+        console.log(`[ws:kit] message from ${socket.id}: ${msg.content}`);
+        // Store the message in the database
+        await createChannel(client, '000');
+        await storeMessage(client, '000', msg.content, msg.id, uuidv4());
+        io!.emit('message', {
+          user: msg.id,
+          message: msg.content,
+          imageSrc: 'https://www.arithefirst.com/images/pfp.png',
+        });
+      }
     });
 
     // Runs on client disconnect
