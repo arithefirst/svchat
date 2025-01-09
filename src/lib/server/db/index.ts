@@ -7,18 +7,13 @@ async function createChannel(client: cassandra.Client, channelName: string) {
         message_content TEXT,
         timestamp TIMESTAMP,
         sender UUID
-    );`)
+    );`);
 }
 
-async function storeMessage(
-  client: cassandra.Client,
-  channelName: string,
-  content: string,
-  sender: string,
-  id: string) {
+async function storeMessage(client: cassandra.Client, channelName: string, content: string, sender: string, id: string) {
   const now = new Date();
   await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, timestamp, sender)
-               VALUES (${id}, '${content}', ${now.getTime()}, ${sender})`)
+               VALUES (${id}, '${content}', ${now.getTime()}, ${sender})`);
 }
 
 const client = new cassandra.Client({
