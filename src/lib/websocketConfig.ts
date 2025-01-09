@@ -16,7 +16,7 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
     // Runs on message receive
     socket.on('message', async (msg) => {
       // If message not empty
-      if (msg.content !== "") {
+      if (msg.content !== '') {
         console.log(`[ws:kit] message from ${socket.id}: ${msg.content}`);
         // Store the message in the database
         await createChannel(client, '000');
