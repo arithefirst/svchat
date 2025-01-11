@@ -53,7 +53,8 @@ try {
   await client.connect()
 } catch (e) {
   // @ts-expect-error I don't like this thing yelling at me
-  console.log(`Error connecting: ${e.message}`);
+  console.log(`Error connecting to DB: ${e.message}`);
+  process.exit(1)
 }
 
 try {
@@ -62,6 +63,7 @@ try {
 } catch (e) {
   // @ts-expect-error I don't like this thing yelling at me
   console.log(`Error generating keyspaces: ${e.message}`);
+  process.exit(1)
 }
 
 export { client, createChannel, getMessages, storeMessage };
