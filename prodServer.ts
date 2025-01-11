@@ -10,9 +10,9 @@ const server = createServer(app);
 const io = new Server(server);
 
 io.on('connection', async (socket) => {
-  // Runs on client connect
+  // Runs on client connection
   console.log(`[ws:kit] client connected (${socket.id})`);
-  // Runs on message receive
+  // Runs on message received
   socket.on('message', async (msg) => {
     // If message not empty
     if (msg.content !== '') {
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
   if (req.path.startsWith('/socket.io/')) {
     next();
   } else {
-    handler(req, res);
+    handler(req, res, next);
   }
 });
 

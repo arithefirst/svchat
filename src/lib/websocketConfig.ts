@@ -11,9 +11,9 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
   io = new SocketIOServer(httpServer);
 
   io.on('connection', async (socket) => {
-    // Runs on client connect
+    // Runs on client connection
     console.log(`[ws:kit] client connected (${socket.id})`);
-    // Runs on message receive
+    // Runs on message received
     socket.on('message', async (msg) => {
       // If message not empty
       if (msg.content !== '') {
