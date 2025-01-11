@@ -50,11 +50,11 @@ const client = new cassandra.Client({
 // Connect to Cassandra/ScyllaDB and create
 // the necessary tables, keyspaces, etc.
 try {
-  await client.connect()
+  await client.connect();
 } catch (e) {
   // @ts-expect-error I don't like this thing yelling at me
   console.log(`Error connecting to DB: ${e.message}`);
-  process.exit(1)
+  process.exit(1);
 }
 
 try {
@@ -63,7 +63,7 @@ try {
 } catch (e) {
   // @ts-expect-error I don't like this thing yelling at me
   console.log(`Error generating keyspaces: ${e.message}`);
-  process.exit(1)
+  process.exit(1);
 }
 
 export { client, createChannel, getMessages, storeMessage };
