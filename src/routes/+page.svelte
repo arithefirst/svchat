@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
   import Message from '../lib/components/message.svelte';
+  import SendIcon from '../lib/icons/SendIcon.svelte';
   import { type TypeMessage } from '../lib';
   import type { PageData } from './$types';
 
@@ -54,7 +55,7 @@
     {@render message(log)}
   </div>
   <form class="flex mb-2 mx-2 mt-1" onsubmit={sendMessage}>
-    <input type="text" placeholder="Type here" class="input border-2 border-base-300 w-3/4 mr-1 border-2" bind:value={msg} />
-    <button class="btn w-1/4 btn-primary" type="submit">Send Message</button>
+    <input type="text" placeholder="Type here" class="input border-base-300 w-5/6 mr-1 border-2" bind:value={msg} />
+    <button aria-label="send message" class="btn w-1/6 btn-primary" type="submit"><SendIcon/></button>
   </form>
 </main>
