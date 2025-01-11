@@ -56,6 +56,6 @@
   </div>
   <form class="flex mb-2 mx-2 mt-1" onsubmit={sendMessage}>
     <input type="text" placeholder="Type here" class="input border-base-300 w-5/6 mr-1 border-2" bind:value={msg} />
-    <button aria-label="send message" class="btn w-1/6 btn-primary" type="submit"><SendIcon/></button>
+    <button aria-label="send message" class="btn w-1/6 btn-primary" type="submit"><SendIcon /></button>
   </form>
 </main>
