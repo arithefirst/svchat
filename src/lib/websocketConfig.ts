@@ -24,7 +24,7 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
         io!.emit('message', {
           user: msg.id,
           message: msg.content,
-          imageSrc: 'https://www.arithefirst.com/images/pfp.png',
+          imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${msg.id}`,
         });
       }
     });
