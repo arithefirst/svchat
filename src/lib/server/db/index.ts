@@ -28,14 +28,17 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
 
 async function getMessages(client: cassandra.Client, channelName: string, limit: number) {
   try {
-    const res = await client.execute(`SELECT * FROM channels.channel_${channelName} LIMIT ${limit}`);
-
+    const res = await client.execute(`SELECT * FROM channels.channel_${channelName}`);
     // We have to sort the rows within the function instead of an ORDER BY
     // because of a limitation within Cassandra requiring a partition key
     // to be specified by EQ or IN when using ORDER BY
     res.rows.sort((a, b) => a.timestamp - b.timestamp);
 
-    return res.rows;
+
+    // For the same reason as above, we have to apply the limit manually
+    // as well, because if we only query 5, but they're not properly sorted,
+    // it will only return the first 5 instead of the last 5
+    return res.rows.slice(-limit);
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error fetching messages: ${e.message}`);
