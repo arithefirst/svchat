@@ -2,9 +2,9 @@
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
-  import Message from '../lib/components/message.svelte';
-  import SendIcon from '../lib/icons/SendIcon.svelte';
-  import { type TypeMessage } from '../lib';
+  import Message from '$lib/components/message.svelte';
+  import SendIcon from '$lib/icons/SendIcon.svelte';
+  import { type TypeMessage } from '$lib';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { type TypeMessage } from '../';
+  import { type TypeMessage } from '$lib';
   const { message, imageSrc, user }: TypeMessage = $props();
 </script>
 

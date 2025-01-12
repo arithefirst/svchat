@@ -1,5 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
+// Don't try to replace with $lib alias. Since this 
+// file gets loaded as a vite plugin, it will crash
 import { client, createChannel, storeMessage } from './server/db/';
 import { v4 as uuidv4 } from 'uuid';
 
