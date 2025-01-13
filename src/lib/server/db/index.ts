@@ -1,14 +1,29 @@
 import cassandra from 'cassandra-driver';
 
+function reverseArray(array: cassandra.types.Row[]) {
+  let left = null;
+  let right = null;
+  const length = array.length;
+  for (left = 0, right = length - 1; left < right; left += 1, right -= 1)
+  {
+    const temporary = array[left];
+    array[left] = array[right];
+    array[right] = temporary;
+  }
+  return array;
+}
+
 async function createChannel(client: cassandra.Client, channelName: string) {
   try {
     await client.execute(`
     CREATE TABLE IF NOT EXISTS channels.channel_${channelName} (
-        id UUID PRIMARY KEY,
+        id UUID,
         message_content TEXT,
+        channel_name TEXT,
         timestamp TIMESTAMP,
-        sender UUID
-    );`);
+        sender UUID,
+        PRIMARY KEY (channel_name, timestamp)
+    ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error creating new channel: ${e.message}`);
@@ -18,8 +33,8 @@ async function createChannel(client: cassandra.Client, channelName: string) {
 async function storeMessage(client: cassandra.Client, channelName: string, content: string, sender: string, id: string) {
   try {
     const now = new Date();
-    await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, timestamp, sender)
-               VALUES (${id}, '${content}', ${now.getTime()}, ${sender})`);
+    await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
+               VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error storing messages: ${e.message}`);
@@ -28,16 +43,8 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
 
 async function getMessages(client: cassandra.Client, channelName: string, limit: number) {
   try {
-    const res = await client.execute(`SELECT * FROM channels.channel_${channelName}`);
-    // We have to sort the rows within the function instead of an ORDER BY
-    // because of a limitation within Cassandra requiring a partition key
-    // to be specified by EQ or IN when using ORDER BY
-    res.rows.sort((a, b) => a.timestamp - b.timestamp);
-
-    // For the same reason as above, we have to apply the limit manually
-    // as well, because if we only query 5, but they're not properly sorted,
-    // it will only return the first 5 instead of the last 5
-    return res.rows.slice(-limit);
+    const res = await client.execute(`SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`);
+    return reverseArray(res.rows)
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error fetching messages: ${e.message}`);

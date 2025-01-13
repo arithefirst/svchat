@@ -1,6 +1,6 @@
 import type { PageLoad } from './$types';
 import type { TypeMessage } from '$lib';
-import { getMessages, client } from '$/lib/server/db';
+import { getMessages, client } from '$lib/server/db';
 
 export const load: PageLoad = async () => {
   const rows = await getMessages(client, '000', 5);
