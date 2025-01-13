@@ -4,8 +4,7 @@ function reverseArray(array: cassandra.types.Row[]) {
   let left = null;
   let right = null;
   const length = array.length;
-  for (left = 0, right = length - 1; left < right; left += 1, right -= 1)
-  {
+  for (left = 0, right = length - 1; left < right; left += 1, right -= 1) {
     const temporary = array[left];
     array[left] = array[right];
     array[right] = temporary;
@@ -34,7 +33,7 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
   try {
     const now = new Date();
     await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
-               VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
+                 VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error storing messages: ${e.message}`);
@@ -43,8 +42,10 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
 
 async function getMessages(client: cassandra.Client, channelName: string, limit: number) {
   try {
-    const res = await client.execute(`SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`);
-    return reverseArray(res.rows)
+    const res = await client.execute(
+      `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
+    );
+    return reverseArray(res.rows);
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error fetching messages: ${e.message}`);
