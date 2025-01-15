@@ -1,7 +1,7 @@
 import type { TypeMessage } from '$lib';
 import { getMessages, client } from '$lib/server/db';
 
-export async function load(): Promise<{messages: TypeMessage[]}> {
+export async function load(): Promise<{ messages: TypeMessage[] }> {
   const rows = await getMessages(client, '000', 50);
   const messages: TypeMessage[] = rows
     ? rows.map((value) => {
@@ -13,7 +13,7 @@ export async function load(): Promise<{messages: TypeMessage[]}> {
       })
     : [];
 
-  console.log(messages)
+  console.log(messages);
   return {
     messages: messages ?? [],
   };
