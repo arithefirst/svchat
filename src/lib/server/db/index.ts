@@ -45,7 +45,7 @@ async function getMessages(client: cassandra.Client, channelName: string, limit:
     const res = await client.execute(
       `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
     );
-    return reverseArray(res.rows);
+    return res.rows;
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error fetching messages: ${e.message}`);

@@ -46,13 +46,13 @@
 {/snippet}
 
 <main class="h-full flex flex-col">
-  <div class="flex-grow flex-auto overflow-y-scroll mx-2 mt-2 mb-1 rounded-lg bg-base-200 border-2 border-base-300">
-    <div class="w-full">
-      <h1 class="text-center text-base-content text-2xl"><span class="text-primary">SV</span>Chat</h1>
-      <hr class="w-11/12 border-primary border-1 mx-auto" />
-    </div>
-    {@render message(data.messages)}
+  <div class="w-full">
+    <h1 class="text-center text-base-content text-2xl"><span class="text-primary">SV</span>Chat</h1>
+    <hr class="w-11/12 border-primary border-1 mx-auto" />
+  </div>
+  <div class="flex-grow flex-col-reverse flex flex-auto overflow-y-scroll overflow-x-hidden mx-2 mt-2 mb-1 rounded-lg bg-base-200 border-2 border-base-300">
     {@render message(log)}
+    {@render message(data.messages)}
   </div>
   <form class="flex mb-2 mx-2 mt-1" onsubmit={sendMessage}>
     <input type="text" placeholder="Type here" class="input border-base-300 w-5/6 mr-1 border-2" bind:value={msg} />
