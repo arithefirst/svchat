@@ -27,18 +27,18 @@ export default {
     themes: [
       {
         light: {
-          primary: '#2083df',
-          secondary: '#a78aef',
-          accent: '#a854e8',
-          neutral: '#081e45',
-          'base-100': '#f6f9fe',
+          "primary": "#5fb979",
+          "secondary": "#9fdfb3",
+          "accent": "#66db89",
+          "neutral": "#1b3222",
+          "base-100": "#f2f8f4",
         },
         dark: {
-          primary: '#2083df',
-          secondary: '#2c1075',
-          accent: '#6b17ab',
-          neutral: '#081e45',
-          'base-100': '#010409',
+          "primary": "#46a05f",
+          "secondary": "#206034",
+          "accent": "#249947",
+          "neutral": "#1b3222",
+          "base-100": "#070d09",
         },
       },
     ],
