@@ -14,7 +14,7 @@
   let msg: string = $state('');
 
   function logEvent(newMsg: TypeMessage) {
-    log = [...log, newMsg];
+    log = [newMsg, ...log];
   }
 
   function establishSocketIOConnection() {
