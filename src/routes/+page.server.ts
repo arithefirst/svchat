@@ -13,7 +13,6 @@ export async function load(): Promise<{ messages: TypeMessage[] }> {
       })
     : [];
 
-  console.log(messages);
   return {
     messages: messages ?? [],
   };
