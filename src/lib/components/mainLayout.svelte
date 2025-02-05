@@ -29,14 +29,7 @@
       </div>
     </div>
   </div>
-  <div class="flex flex-col">
-    <main class="flex flex-1 flex-col gap-4 p-4 lg:gap-6 lg:p-6">
-      <div class="flex items-center">
-        <h1 class="text-lg font-semibold md:text-2xl">bello</h1>
-      </div>
-      <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
-        {@render children()}
-      </div>
-    </main>
+  <div class="p-2">
+    {@render children()}
   </div>
 </div>
