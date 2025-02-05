@@ -1,17 +1,5 @@
 import cassandra from 'cassandra-driver';
 
-function reverseArray(array: cassandra.types.Row[]) {
-  let left = null;
-  let right = null;
-  const length = array.length;
-  for (left = 0, right = length - 1; left < right; left += 1, right -= 1) {
-    const temporary = array[left];
-    array[left] = array[right];
-    array[right] = temporary;
-  }
-  return array;
-}
-
 async function createChannel(client: cassandra.Client, channelName: string) {
   try {
     await client.execute(`
@@ -40,7 +28,7 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
   }
 }
 
-async function getMessages(client: cassandra.Client, channelName: string, limit: number) {
+async function getMessages(client: cassandra.Client, channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
   try {
     const res = await client.execute(
       `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
@@ -49,6 +37,7 @@ async function getMessages(client: cassandra.Client, channelName: string, limit:
   } catch (e) {
     // @ts-expect-error I don't like this thing yelling at me
     console.log(`Error fetching messages: ${e.message}`);
+    return;
   }
 }
 

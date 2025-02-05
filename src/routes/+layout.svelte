@@ -1,6 +1,11 @@
 <script lang="ts">
   import '../app.css';
+  import MainLayout from '$lib/components/mainLayout.svelte';
   let { children } = $props();
+
+  const channels: string[] = [];
 </script>
 
-{@render children()}
+<MainLayout {channels}>
+  {@render children()}
+</MainLayout>

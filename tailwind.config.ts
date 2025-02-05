@@ -1,46 +1,64 @@
+import { fontFamily } from 'tailwindcss/defaultTheme';
 import type { Config } from 'tailwindcss';
-import daisyui from 'daisyui';
 
-export default {
+const config: Config = {
+  darkMode: ['class'],
   content: ['./src/**/*.{html,js,svelte,ts}'],
-  plugins: [daisyui],
+  safelist: ['dark'],
   theme: {
-    fontSize: {
-      sm: '0.750rem',
-      base: '1rem',
-      xl: '1.333rem',
-      '2xl': '1.777rem',
-      '3xl': '2.369rem',
-      '4xl': '3.158rem',
-      '5xl': '4.210rem',
+    container: {
+      center: true,
+      padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
     },
-    fontFamily: {
-      heading: 'IBM Plex Sans',
-      body: 'IBM Plex Sans',
-    },
-    fontWeight: {
-      normal: '400',
-      bold: '700',
-    },
-  },
-  daisyui: {
-    themes: [
-      {
-        light: {
-          "primary": "#5fb979",
-          "secondary": "#9fdfb3",
-          "accent": "#66db89",
-          "neutral": "#1b3222",
-          "base-100": "#f2f8f4",
+    extend: {
+      colors: {
+        border: 'hsl(var(--border) / <alpha-value>)',
+        input: 'hsl(var(--input) / <alpha-value>)',
+        ring: 'hsl(var(--ring) / <alpha-value>)',
+        background: 'hsl(var(--background) / <alpha-value>)',
+        foreground: 'hsl(var(--foreground) / <alpha-value>)',
+        primary: {
+          DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+          foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
         },
-        dark: {
-          "primary": "#46a05f",
-          "secondary": "#206034",
-          "accent": "#249947",
-          "neutral": "#1b3222",
-          "base-100": "#2D2D2D",
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+          foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive) / <alpha-value>)',
+          foreground: 'hsl(var(--destructive-foreground) / <alpha-value>)',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+          foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+          foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover) / <alpha-value>)',
+          foreground: 'hsl(var(--popover-foreground) / <alpha-value>)',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card) / <alpha-value>)',
+          foreground: 'hsl(var(--card-foreground) / <alpha-value>)',
         },
       },
-    ],
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      fontFamily: {
+        sans: [...fontFamily.sans],
+      },
+    },
   },
-} satisfies Config;
+};
+
+export default config;
