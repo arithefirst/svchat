@@ -28,6 +28,17 @@ async function storeMessage(client: cassandra.Client, channelName: string, conte
   }
 }
 
+async function getChannels(client: cassandra.Client): Promise<cassandra.types.Row[] | undefined> {
+  try {
+    const res = await client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels'`);
+    return res.rows;
+  } catch (e) {
+    // @ts-expect-error I don't like this thing yelling at me
+    console.log(`Error fetching channels: ${e.message}`);
+    return;
+  }
+}
+
 async function getMessages(client: cassandra.Client, channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
   try {
     const res = await client.execute(
@@ -65,4 +76,4 @@ try {
   process.exit(1);
 }
 
-export { client, createChannel, getMessages, storeMessage };
+export { client, createChannel, getChannels, getMessages, storeMessage };

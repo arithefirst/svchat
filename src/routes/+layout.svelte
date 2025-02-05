@@ -1,9 +1,11 @@
 <script lang="ts">
   import '../app.css';
+  import type { LayoutProps } from './$types';
   import MainLayout from '$lib/components/mainLayout.svelte';
-  let { children } = $props();
+  let { data, children }: LayoutProps = $props();
 
-  const channels: string[] = [];
+  console.log(data.channels);
+  const channels = data.channels;
 </script>
 
 <MainLayout {channels}>
