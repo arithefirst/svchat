@@ -34,7 +34,9 @@
       <div class="flex items-center">
         <h1 class="text-lg font-semibold md:text-2xl">bello</h1>
       </div>
-      <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed border-black shadow-sm"></div>
+      <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+        {@render children()}
+      </div>
     </main>
   </div>
 </div>
