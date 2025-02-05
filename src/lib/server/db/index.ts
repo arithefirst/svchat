@@ -1,54 +1,66 @@
 import cassandra from 'cassandra-driver';
 
-async function createChannel(client: cassandra.Client, channelName: string) {
-  try {
-    await client.execute(`
-    CREATE TABLE IF NOT EXISTS channels.channel_${channelName} (
-        id UUID,
-        message_content TEXT,
-        channel_name TEXT,
-        timestamp TIMESTAMP,
-        sender UUID,
-        PRIMARY KEY (channel_name, timestamp)
-    ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
-  } catch (e) {
-    // @ts-expect-error I don't like this thing yelling at me
-    console.log(`Error creating new channel: ${e.message}`);
-  }
-}
+class Db {
+  private client: cassandra.Client;
 
-async function storeMessage(client: cassandra.Client, channelName: string, content: string, sender: string, id: string) {
-  try {
-    const now = new Date();
-    await client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
-                 VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
-  } catch (e) {
-    // @ts-expect-error I don't like this thing yelling at me
-    console.log(`Error storing messages: ${e.message}`);
+  constructor(client: cassandra.Client) {
+    this.client = client;
   }
-}
 
-async function getChannels(client: cassandra.Client): Promise<cassandra.types.Row[] | undefined> {
-  try {
-    const res = await client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels'`);
-    return res.rows;
-  } catch (e) {
-    // @ts-expect-error I don't like this thing yelling at me
-    console.log(`Error fetching channels: ${e.message}`);
-    return;
+  // Create Channel Method
+  async createChannel(channelName: string) {
+    try {
+      await this.client.execute(`
+      CREATE TABLE IF NOT EXISTS channels.channel_${channelName} (
+          id UUID,
+          message_content TEXT,
+          channel_name TEXT,
+          timestamp TIMESTAMP,
+          sender UUID,
+          PRIMARY KEY (channel_name, timestamp)
+      ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
+    } catch (e) {
+      // @ts-expect-error I don't like this thing yelling at me
+      console.log(`Error creating new channel: ${e.message}`);
+    }
   }
-}
 
-async function getMessages(client: cassandra.Client, channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
-  try {
-    const res = await client.execute(
-      `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
-    );
-    return res.rows;
-  } catch (e) {
-    // @ts-expect-error I don't like this thing yelling at me
-    console.log(`Error fetching messages: ${e.message}`);
-    return;
+  // Send message method
+  async sendMessage(channelName: string, content: string, sender: string, id: string) {
+    try {
+      const now = new Date();
+      await this.client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
+                   VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
+    } catch (e) {
+      // @ts-expect-error I don't like this thing yelling at me
+      console.log(`Error storing messages: ${e.message}`);
+    }
+  }
+
+  // Get Channels method
+  async getChannels(): Promise<cassandra.types.Row[] | undefined> {
+    try {
+      const res = await this.client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels'`);
+      return res.rows;
+    } catch (e) {
+      // @ts-expect-error I don't like this thing yelling at me
+      console.log(`Error fetching channels: ${e.message}`);
+      return;
+    }
+  }
+
+  // Get messages method
+  async getMessages(channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
+    try {
+      const res = await this.client.execute(
+        `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
+      );
+      return res.rows;
+    } catch (e) {
+      // @ts-expect-error I don't like this thing yelling at me
+      console.log(`Error fetching messages: ${e.message}`);
+      return;
+    }
   }
 }
 
@@ -76,4 +88,6 @@ try {
   process.exit(1);
 }
 
-export { client, createChannel, getChannels, getMessages, storeMessage };
+const db = new Db(client);
+
+export { db };

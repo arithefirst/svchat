@@ -2,7 +2,7 @@ import { Server as SocketIOServer } from 'socket.io';
 import type { HttpServer } from 'vite';
 // Don't try to replace with $lib alias. Since this
 // file gets loaded as a vite plugin, it will crash
-import { client, createChannel, storeMessage } from './server/db/';
+import { db } from './server/db/';
 import { v4 as uuidv4 } from 'uuid';
 
 let io: SocketIOServer | undefined;
@@ -21,8 +21,8 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
       if (msg.content !== '') {
         console.log(`[ws:kit] message from ${socket.id}: ${msg.content}`);
         // Store the message in the database
-        await createChannel(client, '000');
-        await storeMessage(client, '000', msg.content, msg.id, uuidv4());
+        await db.createChannel('000');
+        await db.sendMessage('000', msg.content, msg.id, uuidv4());
         io!.emit('message', {
           user: msg.id,
           message: msg.content,
