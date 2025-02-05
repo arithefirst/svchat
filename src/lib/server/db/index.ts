@@ -20,8 +20,7 @@ class Db {
           PRIMARY KEY (channel_name, timestamp)
       ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
     } catch (e) {
-      // @ts-expect-error I don't like this thing yelling at me
-      console.log(`Error creating new channel: ${e.message}`);
+      console.log(`Error creating new channel: ${e as Error}`);
     }
   }
 
@@ -32,8 +31,7 @@ class Db {
       await this.client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
                    VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
     } catch (e) {
-      // @ts-expect-error I don't like this thing yelling at me
-      console.log(`Error storing messages: ${e.message}`);
+      console.log(`Error storing messages: ${e as Error}`);
     }
   }
 
@@ -43,8 +41,7 @@ class Db {
       const res = await this.client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels'`);
       return res.rows;
     } catch (e) {
-      // @ts-expect-error I don't like this thing yelling at me
-      console.log(`Error fetching channels: ${e.message}`);
+      console.log(`Error fetching channels: ${e as Error}`);
       return;
     }
   }
@@ -57,8 +54,7 @@ class Db {
       );
       return res.rows;
     } catch (e) {
-      // @ts-expect-error I don't like this thing yelling at me
-      console.log(`Error fetching messages: ${e.message}`);
+      console.log(`Error fetching messages: ${(e as Error).message}`);
       return;
     }
   }
@@ -74,8 +70,7 @@ const client = new cassandra.Client({
 try {
   await client.connect();
 } catch (e) {
-  // @ts-expect-error I don't like this thing yelling at me
-  console.log(`Error connecting to DB: ${e.message}`);
+  console.log(`Error connecting to DB: ${e as Error}`);
   process.exit(1);
 }
 
@@ -83,8 +78,7 @@ try {
   await client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
   await client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
 } catch (e) {
-  // @ts-expect-error I don't like this thing yelling at me
-  console.log(`Error generating keyspaces: ${e.message}`);
+  console.log(`Error generating keyspaces: ${e as Error}`);
   process.exit(1);
 }
 
