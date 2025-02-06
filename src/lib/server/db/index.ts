@@ -1,5 +1,10 @@
 import cassandra from 'cassandra-driver';
 
+interface Messages {
+  messages: cassandra.types.Row[] | null;
+  error: Error | null;
+}
+
 class Db {
   private client: cassandra.Client;
 
@@ -47,15 +52,21 @@ class Db {
   }
 
   // Get messages method
-  async getMessages(channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
+  async getMessages(channelName: string, limit: number): Promise<Messages> {
     try {
       const res = await this.client.execute(
         `SELECT * FROM channels.${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
       );
-      return res.rows;
+      return {
+        messages: res.rows,
+        error: null,
+      };
     } catch (e) {
       console.log(`Error fetching messages: ${(e as Error).message}`);
-      return;
+      return {
+        messages: null,
+        error: e as Error,
+      };
     }
   }
 }
@@ -85,4 +96,4 @@ try {
 const db = new Db(client);
 await db.createChannel('general');
 
-export { db };
+export { db, type Messages };
