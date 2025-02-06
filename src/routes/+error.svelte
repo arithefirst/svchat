@@ -14,7 +14,7 @@
       <BrokenHeart class="size-1/2 abs-center" />
     </Card.Content>
     <Card.Footer class="h-fit">
-      <Button href="/" variant="secondary" class="mx-auto">Go Home</Button>
+      <Button href="/channel/general" variant="secondary" class="mx-auto">Go Home</Button>
     </Card.Footer>
   </Card.Root>
 </main>
