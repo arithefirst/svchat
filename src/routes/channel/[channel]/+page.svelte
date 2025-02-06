@@ -46,6 +46,12 @@
     msg = '';
   }
 
+  // Clear the log whenever the channel changes
+  $effect(() => {
+    console.info(`Channel changed to ${channel}`);
+    log = [];
+  });
+
   onMount(() => {
     establishSocketIOConnection();
     user = uuidv4();
