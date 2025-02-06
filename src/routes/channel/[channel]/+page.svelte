@@ -47,6 +47,6 @@
       msg = '';
     }}>
     <Input type="text" placeholder="Type Here" bind:value={msg} />
-    <Button class="h-9 w-14"><Send class="size-full" /></Button>
+    <Button class="h-9 w-14" type="submit"><Send class="size-full" /></Button>
   </form>
 </div>
