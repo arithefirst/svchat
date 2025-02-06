@@ -11,7 +11,7 @@ class Db {
   async createChannel(channelName: string) {
     try {
       await this.client.execute(`
-      CREATE TABLE IF NOT EXISTS channels.channel_${channelName} (
+      CREATE TABLE IF NOT EXISTS channels.${channelName} (
           id UUID,
           message_content TEXT,
           channel_name TEXT,
@@ -28,7 +28,7 @@ class Db {
   async sendMessage(channelName: string, content: string, sender: string, id: string) {
     try {
       const now = new Date();
-      await this.client.execute(`INSERT INTO channels.channel_${channelName} (id, message_content, channel_name, timestamp, sender)
+      await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, timestamp, sender)
                    VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
     } catch (e) {
       console.log(`Error storing messages: ${e as Error}`);
@@ -50,7 +50,7 @@ class Db {
   async getMessages(channelName: string, limit: number): Promise<cassandra.types.Row[] | undefined> {
     try {
       const res = await this.client.execute(
-        `SELECT * FROM channels.channel_${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
+        `SELECT * FROM channels.${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
       );
       return res.rows;
     } catch (e) {
@@ -83,5 +83,6 @@ try {
 }
 
 const db = new Db(client);
+await db.createChannel('general');
 
 export { db };

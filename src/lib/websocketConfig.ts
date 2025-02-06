@@ -21,8 +21,7 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
       if (msg.content !== '') {
         console.log(`[ws:kit] message from ${socket.id}: ${msg.content}`);
         // Store the message in the database
-        await db.createChannel('000');
-        await db.sendMessage('000', msg.content, msg.id, uuidv4());
+        await db.sendMessage('general', msg.content, msg.id, uuidv4());
         io!.emit('message', {
           user: msg.id,
           message: msg.content,
