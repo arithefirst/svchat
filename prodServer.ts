@@ -2,7 +2,7 @@ import { handler } from './build/handler.js';
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { client, createChannel, storeMessage } from './src/lib/server/db';
+import { db } from './src/lib/server/db';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
@@ -11,15 +11,14 @@ const io = new Server(server);
 
 io.on('connection', async (socket) => {
   // Runs on client connection
-  console.log(`[ws:kit] client connected (${socket.id})`);
+  console.log(`\x1b[35m[ws:kit]\x1b[0m client connected (${socket.id})`);
   // Runs on message received
   socket.on('message', async (msg) => {
     // If message not empty
     if (msg.content !== '') {
-      console.log(`[ws:kit] message from ${socket.id}: ${msg.content}`);
+      console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
       // Store the message in the database
-      await createChannel(client, '000');
-      await storeMessage(client, '000', msg.content, msg.id, uuidv4());
+      await db.sendMessage('000', msg.content, msg.id, uuidv4());
       io!.emit('message', {
         user: msg.id,
         message: msg.content,
