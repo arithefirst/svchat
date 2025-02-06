@@ -33,8 +33,13 @@ class Db {
   async sendMessage(channelName: string, content: string, sender: string, id: string) {
     try {
       const now = new Date();
-      await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, timestamp, sender)
-                   VALUES (${id}, '${content}', '${channelName}', ${now.getTime()}, ${sender})`);
+      await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, timestamp, sender) VALUES (?, ?, ?, ?, ?)`, {
+        id,
+        message_content: content,
+        channel_name: channelName,
+        timestamp: now.getTime(),
+        sender,
+      });
     } catch (e) {
       console.log(`Error storing messages: ${e as Error}`);
     }
@@ -54,9 +59,9 @@ class Db {
   // Get messages method
   async getMessages(channelName: string, limit: number): Promise<Messages> {
     try {
-      const res = await this.client.execute(
-        `SELECT * FROM channels.${channelName} WHERE channel_name = '${channelName}' ORDER BY timestamp DESC LIMIT ${limit}`,
-      );
+      const res = await this.client.execute(`SELECT * FROM channels.${channelName} WHERE channel_name = ? ORDER BY timestamp DESC LIMIT ${limit}`, {
+        channel_name: channelName,
+      });
       return {
         messages: res.rows,
         error: null,
