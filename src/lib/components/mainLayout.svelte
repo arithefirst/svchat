@@ -31,7 +31,7 @@
       </div>
     </div>
   </div>
-  <div class="p-2">
+  <div class="p-2 max-h-screen">
     {@render children()}
   </div>
 </div>
