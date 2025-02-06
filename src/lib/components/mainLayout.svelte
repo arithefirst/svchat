@@ -1,5 +1,6 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
+  import ModeSwitcher from './modeSwitcher.svelte';
   import Channel from './channel.svelte';
   import type { Snippet } from 'svelte';
 
@@ -19,6 +20,7 @@
           <MessagesSquare class="h-6 w-6" />
           <span class="">SVChat</span>
         </a>
+        <ModeSwitcher />
       </div>
       <div class="flex-1">
         <nav class="grid items-start px-2 text-sm font-medium lg:px-4">

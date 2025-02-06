@@ -47,7 +47,7 @@
   {/each}
 {/snippet}
 <div class="flex flex-1 flex-col items-center justify-center rounded-lg shadow-sm gap-1 h-full">
-  <div class="flex-grow flex-col-reverse flex flex-auto overflow-y-scroll overflow-x-hidden rounded-lg border-2 w-full">
+  <div class="flex-grow flex-col-reverse flex flex-auto overflow-y-scroll overflow-x-hidden rounded-lg border w-full">
     {@render message(log)}
     {@render message(data.messages)}
   </div>
