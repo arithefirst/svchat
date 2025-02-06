@@ -13,6 +13,7 @@ export async function load({ params }): Promise<{ messages: TypeMessage[] }> {
             message: value.message_content,
             user: value.sender.toString(),
             imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${value.sender.toString()}`,
+            channel: value.channel,
           };
         })
       : [];

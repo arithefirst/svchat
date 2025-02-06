@@ -2,36 +2,47 @@
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
-  import { type TypeMessage } from '$lib';
+  import type { TypeMessage, TypeFullMessage } from '$lib';
   import type { PageData } from './$types';
   import { Input } from '$lib/components/ui/input/index';
   import { Button } from '$lib/components/ui/button/index';
   import Send from 'lucide-svelte/icons/send';
   import Message from '$lib/components/message.svelte';
+  import { page } from '$app/state';
 
   let { data }: { data: PageData } = $props();
   let user: string | undefined;
   let socket: ReturnType<typeof io> | null = null;
   let log: TypeMessage[] = $state([]);
   let msg: string = $state('');
+  const channel = $derived(page.params.channel);
 
   function logEvent(newMsg: TypeMessage) {
-    log = [newMsg, ...log];
+    log = [
+      {
+        message: newMsg.message,
+        imageSrc: newMsg.imageSrc,
+        user: newMsg.user,
+      },
+      ...log,
+    ];
   }
 
   function establishSocketIOConnection() {
     if (socket) return;
     socket = io();
 
-    socket.on('message', (data: TypeMessage) => {
+    socket.on('message', (data: TypeFullMessage) => {
       console.log('[ws] message received', data);
-      logEvent(data);
+      if (data.channel == channel) {
+        logEvent(data);
+      }
     });
   }
 
   function sendMessage() {
     if (!socket) return;
-    socket.emit('message', { id: user, content: msg });
+    socket.emit('message', { id: user, content: msg, channel: channel });
     msg = '';
   }
 

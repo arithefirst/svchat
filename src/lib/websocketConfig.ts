@@ -27,11 +27,12 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
       if (msg.content !== '') {
         console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
         // Store the message in the database
-        await db.sendMessage('general', msg.content, msg.id, uuidv4());
+        await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4());
         io!.emit('message', {
           user: msg.id,
           message: msg.content,
           imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${msg.id}`,
+          channel: msg.channel,
         });
       }
     });
