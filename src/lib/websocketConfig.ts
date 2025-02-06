@@ -10,6 +10,12 @@ let io: SocketIOServer | undefined;
 export function startupSocketIOServer(httpServer: HttpServer | null) {
   if (io) return;
   console.log('\x1b[35m[ws:kit]\x1b[0m setup');
+
+  if (!httpServer) {
+    console.error('Error: httpServer is null. Cannot start Socket.IO server.');
+    return;
+  }
+
   io = new SocketIOServer(httpServer);
 
   io.on('connection', async (socket) => {
