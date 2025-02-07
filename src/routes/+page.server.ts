@@ -1,9 +1,9 @@
-import { redirect, fail } from '@sveltejs/kit';
-import { zod } from 'sveltekit-superforms/adapters';
-import { setError, superValidate, message } from 'sveltekit-superforms';
-import { newChannelSchema } from '$lib/types/schema';
-import type { Actions } from './$types';
 import { db } from '$lib/server/db';
+import { newChannelSchema } from '$lib/types/schema';
+import { fail, redirect } from '@sveltejs/kit';
+import { message, setError, superValidate } from 'sveltekit-superforms';
+import { zod } from 'sveltekit-superforms/adapters';
+import type { Actions } from './$types';
 
 export function load(): void {
   redirect(308, '/channel/general');

@@ -1,6 +1,6 @@
+import { db } from '$lib/server/db';
 import type { TypeMessage } from '$lib/types';
 import { error } from '@sveltejs/kit';
-import { db } from '$lib/server/db';
 
 export async function load({ params }): Promise<{ messages: TypeMessage[] }> {
   let messages: TypeMessage[];

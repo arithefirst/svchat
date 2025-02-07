@@ -2,10 +2,10 @@
   import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
   import * as Dialog from '$lib/components/ui/dialog/index.js';
   import { Input } from '$lib/components/ui/input/index.js';
-  import type { SuperValidated, Infer } from 'sveltekit-superforms';
-  import { superForm } from 'sveltekit-superforms';
-  import type { NewChannelSchema } from '$lib/types/schema';
   import { Label } from '$lib/components/ui/label/index';
+  import type { NewChannelSchema } from '$lib/types/schema';
+  import type { Infer, SuperValidated } from 'sveltekit-superforms';
+  import { superForm } from 'sveltekit-superforms';
 
   let open: boolean = $state(false);
   let { data }: { data: SuperValidated<Infer<NewChannelSchema>> } = $props();

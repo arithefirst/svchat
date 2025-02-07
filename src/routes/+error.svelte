@@ -1,8 +1,8 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { Button } from '$lib/components/ui/button';
-  import BrokenHeart from 'lucide-svelte/icons/heart-crack';
   import * as Card from '$lib/components/ui/card';
+  import BrokenHeart from 'lucide-svelte/icons/heart-crack';
 </script>
 
 <main class="relative size-full">

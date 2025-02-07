@@ -1,8 +1,8 @@
 <script lang="ts">
-  import '../app.css';
-  import type { LayoutProps } from './$types';
   import MainLayout from '$lib/components/mainLayout.svelte';
   import { ModeWatcher } from 'mode-watcher';
+  import '../app.css';
+  import type { LayoutProps } from './$types';
   let { data, children }: LayoutProps = $props();
 </script>
 

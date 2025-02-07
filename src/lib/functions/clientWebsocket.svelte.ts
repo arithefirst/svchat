@@ -1,4 +1,4 @@
-import type { TypeMessage, TypeFullMessage } from '$lib/types';
+import type { TypeFullMessage, TypeMessage } from '$lib/types';
 import type { Socket } from 'socket.io-client';
 
 class Websocket {

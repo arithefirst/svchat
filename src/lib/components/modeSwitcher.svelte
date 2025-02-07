@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Sun from 'lucide-svelte/icons/sun';
-  import Moon from 'lucide-svelte/icons/moon-star';
-  import { toggleMode } from 'mode-watcher';
   import { Button } from '$lib/components/ui/button/index';
+  import Moon from 'lucide-svelte/icons/moon-star';
+  import Sun from 'lucide-svelte/icons/sun';
+  import { toggleMode } from 'mode-watcher';
 </script>
 
 <Button on:click={toggleMode} variant="secondary" size="icon" class="ml-auto">

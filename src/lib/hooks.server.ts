@@ -1,7 +1,7 @@
 import { building } from '$app/environment';
+import { startupSocketIOServer } from '$lib/functions/websocketConfig';
 import type { Handle } from '@sveltejs/kit';
 import { Server as SocketIOServer } from 'socket.io';
-import { startupSocketIOServer } from '$lib/functions/websocketConfig';
 
 let io: SocketIOServer | undefined;
 export const handle = (async ({ event, resolve }) => {

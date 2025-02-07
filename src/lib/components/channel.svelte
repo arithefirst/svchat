@@ -1,6 +1,6 @@
 <script lang="ts">
-  import MessageSquare from 'lucide-svelte/icons/message-square';
   import { page } from '$app/state';
+  import MessageSquare from 'lucide-svelte/icons/message-square';
 
   interface Props {
     channelName: string;

@@ -1,10 +1,10 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
+  import type { Snippet } from 'svelte';
   import type { SuperValidated } from 'sveltekit-superforms';
+  import Channel from './channel.svelte';
   import ChannelDialog from './channelDialog.svelte';
   import ModeSwitcher from './modeSwitcher.svelte';
-  import Channel from './channel.svelte';
-  import type { Snippet } from 'svelte';
 
   interface Props {
     data: SuperValidated<
