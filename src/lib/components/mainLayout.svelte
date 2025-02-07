@@ -5,6 +5,8 @@
   import ModeSwitcher from './modeSwitcher.svelte';
   import Channel from './channel.svelte';
   import type { Snippet } from 'svelte';
+  import { Button } from '$lib/components/ui/button';
+  import PanelLeft from 'lucide-svelte/icons/panel-left';
 
   interface Props {
     data: SuperValidated<
@@ -26,6 +28,12 @@
   const { data, channels, children }: Props = $props();
 </script>
 
+<Button
+  class="fixed top-4 md:hidden block aspect-square p-0 right-4"
+  variant="secondary"
+  onclick={() => {
+    open = !open;
+  }}><PanelLeft class="w-1/2 h-1/2 mx-auto" /></Button>
 <div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
   <div class={'bg-muted/40 border-r md:w-[220px] lg:w-[280px] w-3/4 h-full md:relative absolute ' + mobileSidebarTransform}>
     <div class="flex h-full max-h-screen flex-col gap-2">
