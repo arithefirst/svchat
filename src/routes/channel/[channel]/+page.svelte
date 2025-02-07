@@ -30,6 +30,10 @@
   });
 </script>
 
+<svelte:head>
+  <title>SVChat | {channel}</title>
+</svelte:head>
+
 {#snippet message(messages: TypeMessage[])}
   {#each messages as message}
     <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
