@@ -1,17 +1,26 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
+  import type { SuperValidated } from 'sveltekit-superforms';
   import ChannelDialog from './channelDialog.svelte';
-  import { Button } from '$lib/components/ui/button/index';
   import ModeSwitcher from './modeSwitcher.svelte';
   import Channel from './channel.svelte';
   import type { Snippet } from 'svelte';
 
   interface Props {
+    data: SuperValidated<
+      {
+        channelName: string;
+      },
+      any,
+      {
+        channelName: string;
+      }
+    >;
     channels: string[];
     children: Snippet;
   }
 
-  const { channels, children }: Props = $props();
+  const { data, channels, children }: Props = $props();
 </script>
 
 <div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -32,7 +41,7 @@
         </nav>
       </div>
       <div class="mt-auto p-4">
-        <ChannelDialog />
+        <ChannelDialog {data} />
       </div>
     </div>
   </div>

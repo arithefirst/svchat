@@ -4,10 +4,9 @@
   import MainLayout from '$lib/components/mainLayout.svelte';
   import { ModeWatcher } from 'mode-watcher';
   let { data, children }: LayoutProps = $props();
-  const channels = data.channels;
 </script>
 
 <ModeWatcher />
-<MainLayout {channels}>
+<MainLayout data={data.form} channels={data.channels}>
   {@render children()}
 </MainLayout>

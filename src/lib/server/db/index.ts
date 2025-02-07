@@ -62,6 +62,19 @@ class Db {
     }
   }
 
+  async checkChannel(channel: string): Promise<boolean> {
+    try {
+      const res = await this.client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels' AND table_name = ?`, [
+        channel.toLowerCase(),
+      ]);
+
+      return res.rowLength !== 0;
+    } catch (e) {
+      console.log(`Error checking channel existance: ${e as Error}`);
+      return false;
+    }
+  }
+
   // Get Channels method
   async getChannels(): Promise<cassandra.types.Row[] | undefined> {
     try {
