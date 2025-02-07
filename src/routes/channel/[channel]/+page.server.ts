@@ -1,4 +1,4 @@
-import type { TypeMessage } from '$lib';
+import type { TypeMessage } from '$lib/types';
 import { error } from '@sveltejs/kit';
 import { db } from '$lib/server/db';
 

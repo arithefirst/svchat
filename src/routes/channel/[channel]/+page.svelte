@@ -2,14 +2,14 @@
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
-  import type { TypeMessage, TypeFullMessage } from '$lib';
+  import type { TypeMessage } from '$lib/types';
   import type { PageData } from './$types';
   import { Input } from '$lib/components/ui/input/index';
   import { Button } from '$lib/components/ui/button/index';
   import Send from 'lucide-svelte/icons/send';
   import Message from '$lib/components/message.svelte';
   import { page } from '$app/state';
-  import Websocket from '$lib/clientWebsocket.svelte';
+  import Websocket from '$lib/functions/clientWebsocket.svelte';
 
   const { data }: { data: PageData } = $props();
 
