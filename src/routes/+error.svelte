@@ -6,12 +6,12 @@
 </script>
 
 <main class="relative size-full">
-  <Card.Root class="md:w-1/4 w-1/2 h-1/2 abs-center flex flex-col">
+  <Card.Root class="abs-center flex h-1/2 w-1/2 flex-col md:w-1/4">
     <Card.Header class="h-fit">
       <Card.Title class="text-center">{page.status} - {page.error?.message}</Card.Title>
     </Card.Header>
     <Card.Content class="relative grow">
-      <BrokenHeart class="size-1/2 abs-center" />
+      <BrokenHeart class="abs-center size-1/2" />
     </Card.Content>
     <Card.Footer class="h-fit">
       <Button href="/channel/general" variant="secondary" class="mx-auto">Go Home</Button>

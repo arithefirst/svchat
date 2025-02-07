@@ -39,13 +39,13 @@
     <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
   {/each}
 {/snippet}
-<div class="flex flex-1 flex-col items-center justify-center rounded-lg shadow-sm gap-1 h-full">
-  <div class="flex-grow flex-col-reverse flex flex-auto overflow-y-scroll overflow-x-hidden rounded-lg border w-full">
+<div class="flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
+  <div class="flex w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {@render message(socket?.messages!)}
     {@render message(data.messages)}
   </div>
   <form
-    class="flex gap-1 w-full"
+    class="flex w-full gap-1"
     onsubmit={() => {
       socket?.sendMessage(user!, msg);
       msg = '';

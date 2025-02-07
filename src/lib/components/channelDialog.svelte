@@ -33,7 +33,7 @@
         bind:value={$form.channelName}
         aria-invalid={$errors.channelName ? 'true' : undefined}
         {...$constraints.channelName} />
-      {#if $errors.channelName}<Label for="channelName" class="text-red-500 m-0 p-0">{$errors.channelName}</Label>{/if}
+      {#if $errors.channelName}<Label for="channelName" class="m-0 p-0 text-red-500">{$errors.channelName}</Label>{/if}
       <Dialog.Footer>
         <Button type="submit">Create</Button>
       </Dialog.Footer>
