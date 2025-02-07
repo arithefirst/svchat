@@ -31,7 +31,7 @@
 </script>
 
 <svelte:head>
-  <title>SVChat | {channel}</title>
+  <title>SVChat | #{channel}</title>
 </svelte:head>
 
 {#snippet message(messages: TypeMessage[])}
