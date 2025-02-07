@@ -10,7 +10,7 @@ export function load(): void {
 }
 
 export const actions = {
-  default: async ({ request }) => {
+  newchannel: async ({ request }) => {
     const form = await superValidate(request, zod(newChannelSchema));
     const channel = form.data.channelName;
 

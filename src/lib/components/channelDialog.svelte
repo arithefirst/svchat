@@ -24,7 +24,7 @@
     <Dialog.Header>
       <Dialog.Title>Create Channel</Dialog.Title>
     </Dialog.Header>
-    <form class="grid gap-4 py-4" use:enhance method="POST" action="/">
+    <form class="grid gap-4 py-4" use:enhance method="POST" action="/?/newchannel">
       <Input
         id="channelName"
         name="channelName"
