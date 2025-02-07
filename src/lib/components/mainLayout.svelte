@@ -1,5 +1,6 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
+  import { Button } from '$lib/components/ui/button/index';
   import ModeSwitcher from './modeSwitcher.svelte';
   import Channel from './channel.svelte';
   import type { Snippet } from 'svelte';
@@ -28,6 +29,9 @@
             <Channel {channelName} />
           {/each}
         </nav>
+      </div>
+      <div class="mt-auto p-4">
+        <Button class="w-full">Create Channel</Button>
       </div>
     </div>
   </div>
