@@ -18,13 +18,19 @@ io.on('connection', async (socket) => {
     if (msg.content !== '') {
       console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
       // Store the message in the database
-      await db.sendMessage('000', msg.content, msg.id, uuidv4());
+      await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4());
       io!.emit('message', {
         user: msg.id,
         message: msg.content,
-        imageSrc: 'https://www.arithefirst.com/images/pfp.png',
+        imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${msg.id}`,
+        channel: msg.channel,
       });
     }
+  });
+
+  // Runs on client disconnect
+  socket.on('disconnect', () => {
+    console.log(`\x1b[35m[ws:kit]\x1b[0m client disconnected (${socket.id})`);
   });
 });
 
