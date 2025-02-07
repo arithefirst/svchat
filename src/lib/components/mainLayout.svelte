@@ -47,7 +47,7 @@
         </div>
       </div>
     </div>
-    <div class="max-h-screen p-2" style={`max-width: calc(100vw - ${sidebarWidth}px)`}>
+    <div class="max-h-screen p-2" style={`max-width: calc(100vw - 1px - ${sidebarWidth}px)`}>
       {@render children()}
     </div>
   </div>
