@@ -5,6 +5,14 @@ interface Messages {
   error: Error | null;
 }
 
+function sanitizeChannelName(channelName: string) {
+  return channelName
+    .toLowerCase()
+    .replaceAll(' ', '-')
+    .replaceAll(/[^a-z-]+/g, '')
+    .replaceAll('-', '_');
+}
+
 class Db {
   private client: cassandra.Client = new cassandra.Client({
     contactPoints: ['localhost'],
@@ -32,6 +40,7 @@ class Db {
   // Create Channel Method
   async createChannel(channelName: string) {
     try {
+      channelName = sanitizeChannelName(channelName);
       await this.client.execute(`
       CREATE TABLE IF NOT EXISTS channels.${channelName} (
           id UUID,
@@ -50,6 +59,7 @@ class Db {
   async sendMessage(channelName: string, content: string, sender: string, id: string) {
     try {
       const now = new Date();
+      channelName = sanitizeChannelName(channelName);
       await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, timestamp, sender) VALUES (?, ?, ?, ?, ?)`, {
         id,
         message_content: content,
@@ -89,6 +99,7 @@ class Db {
   // Get messages method
   async getMessages(channelName: string, limit: number): Promise<Messages> {
     try {
+      channelName = sanitizeChannelName(channelName);
       const res = await this.client.execute(`SELECT * FROM channels.${channelName} WHERE channel_name = ? ORDER BY timestamp DESC LIMIT ${limit}`, {
         channel_name: channelName,
       });
