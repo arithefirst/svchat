@@ -2,7 +2,7 @@
   import { page } from '$app/state';
   import Message from '$lib/components/message.svelte';
   import { Button } from '$lib/components/ui/button/index';
-  import { Input } from '$lib/components/ui/input/index';
+  import Textarea from '$lib/components/ui/textarea/textarea.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
   import type { TypeMessage } from '$lib/types';
   import Send from 'lucide-svelte/icons/send';
@@ -10,6 +10,7 @@
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
   import type { PageData } from './$types';
+  import { autoResize } from '$lib/functions/autoresize.svelte';
 
   const { data }: { data: PageData } = $props();
 
@@ -50,7 +51,7 @@
       socket?.sendMessage(user!, msg);
       msg = '';
     }}>
-    <Input type="text" placeholder="Type Here" bind:value={msg} />
-    <Button class="h-9 w-14" type="submit"><Send class="size-full" /></Button>
+    <Textarea placeholder="Type Here" bind:value={msg} />
+    <Button class="h-full w-14" type="submit"><Send class="size-full" /></Button>
   </form>
 </div>
