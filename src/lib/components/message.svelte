@@ -9,8 +9,14 @@
       <img src={imageSrc} alt="Profile image for {user}" />
     </div>
   </div>
-  <div class="flex-col">
-    <p class="font-bold">{user}</p>
-    <p class="flex-wrap">{message}</p>
+  <div class="w-full">
+    <p class="inline-size-full break-words font-bold">{user}</p>
+    <p class="inline-size-full break-words">{message}</p>
   </div>
 </div>
+
+<style>
+  .inline-size-full {
+    inline-size: calc(100% - 64px);
+  }
+</style>
