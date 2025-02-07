@@ -6,10 +6,27 @@ interface Messages {
 }
 
 class Db {
-  private client: cassandra.Client;
+  private client: cassandra.Client = new cassandra.Client({
+    contactPoints: ['localhost'],
+    localDataCenter: 'datacenter1',
+  });
 
-  constructor(client: cassandra.Client) {
-    this.client = client;
+  // Initalize and connect
+  async init() {
+    try {
+      await this.client.connect();
+    } catch (e) {
+      console.log(`Error connecting to DB: ${e as Error}`);
+      process.exit(1);
+    }
+
+    try {
+      await this.client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
+      await this.client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
+    } catch (e) {
+      console.log(`Error generating keyspaces: ${e as Error}`);
+      process.exit(1);
+    }
   }
 
   // Create Channel Method
@@ -76,29 +93,8 @@ class Db {
   }
 }
 
-const client = new cassandra.Client({
-  contactPoints: ['localhost'],
-  localDataCenter: 'datacenter1',
-});
-
-// Connect to Cassandra/ScyllaDB and create
-// the necessary tables, keyspaces, etc.
-try {
-  await client.connect();
-} catch (e) {
-  console.log(`Error connecting to DB: ${e as Error}`);
-  process.exit(1);
-}
-
-try {
-  await client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
-  await client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
-} catch (e) {
-  console.log(`Error generating keyspaces: ${e as Error}`);
-  process.exit(1);
-}
-
-const db = new Db(client);
+const db = new Db();
+await db.init();
 await db.createChannel('general');
 
 export { db, type Messages };
