@@ -7,11 +7,18 @@
   import type { NewChannelSchema } from '$lib/types/schema';
   import { Label } from '$lib/components/ui/label/index';
 
+  let open: boolean = $state(false);
   let { data }: { data: SuperValidated<Infer<NewChannelSchema>> } = $props();
-  const { form, errors, constraints, enhance } = superForm(data);
+  const { form, errors, constraints, enhance } = superForm(data, {
+    onResult: ({ result }) => {
+      if (result.type === 'success') {
+        open = false;
+      }
+    },
+  });
 </script>
 
-<Dialog.Root>
+<Dialog.Root bind:open>
   <Dialog.Trigger class={buttonVariants({ variant: 'secondary' }) + ' w-full'}>Create Channel</Dialog.Trigger>
   <Dialog.Content class="sm:max-w-[425px]">
     <Dialog.Header>
