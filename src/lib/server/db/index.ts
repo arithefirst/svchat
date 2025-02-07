@@ -9,7 +9,7 @@ function sanitizeChannelName(channelName: string) {
   return channelName
     .toLowerCase()
     .replaceAll(' ', '-')
-    .replaceAll(/[^a-z-]+/g, '')
+    .replaceAll(/[^a-z-0-9]+/g, '')
     .replaceAll('-', '_');
 }
 
