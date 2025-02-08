@@ -11,7 +11,7 @@
   </div>
   <div class="w-full">
     <p class="inline-size-full break-words font-bold">{user}</p>
-    <pre class="inline-size-full text-wrap break-words">{message}</pre>
+    <pre class="inline-size-full text-wrap break-words font-sans">{message}</pre>
   </div>
 </div>
 
