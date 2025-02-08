@@ -1,7 +1,6 @@
 import { db } from '$lib/server/db';
 import type { TypeMessage } from '$lib/types';
 import { error } from '@sveltejs/kit';
-import type { Actions } from '@sveltejs/kit';
 
 export async function load({ params }): Promise<{ messages: TypeMessage[] }> {
   let messages: TypeMessage[];
@@ -26,7 +25,3 @@ export async function load({ params }): Promise<{ messages: TypeMessage[] }> {
     messages: messages ?? [],
   };
 }
-
-export const actions = {
-  sendMessage: async ({ request }) => {},
-} satisfies Actions;
