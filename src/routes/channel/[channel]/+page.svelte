@@ -18,11 +18,20 @@
   let msg: string = $state('');
   const channel: string = $derived(page.params.channel);
   let textareaRef: HTMLElement | undefined = $state();
+  let submitRef: HTMLButtonElement | undefined = $state();
 
-  // Connect on page load
   onMount(() => {
+    // Connect on page load
     socket = new Websocket(io());
     socket.connect();
+
+    // Submit on textarea enter
+    textareaRef?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        submitRef?.click();
+      }
+    });
   });
 
   // Update channel on page refresh
@@ -61,5 +70,6 @@
       placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
        disabled:cursor-not-allowed disabled:opacity-50"></textarea>
     <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
+    <button type="submit" bind:this={submitRef} class="hidden">submit</button>
   </form>
 </div>
