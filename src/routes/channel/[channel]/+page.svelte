@@ -51,7 +51,7 @@
 {/snippet}
 <div class="flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
   <div class="flex w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
-    {@render message(socket?.messages!)}
+    {@render message(socket?.messages ?? [])}
     {@render message(data.messages)}
   </div>
   <form

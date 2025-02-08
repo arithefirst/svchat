@@ -7,15 +7,9 @@
   import ModeSwitcher from './modeSwitcher.svelte';
 
   interface Props {
-    data: SuperValidated<
-      {
-        channelName: string;
-      },
-      any,
-      {
-        channelName: string;
-      }
-    >;
+    data: SuperValidated<{
+      channelName: string;
+    }>;
     channels: string[];
     children: Snippet;
   }
