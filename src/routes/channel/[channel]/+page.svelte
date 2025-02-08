@@ -18,7 +18,7 @@
   let msg: string = $state('');
   const channel: string = $derived(page.params.channel);
   let textareaRef: HTMLElement | undefined = $state();
-  let submitRef: HTMLButtonElement | undefined = $state();
+  let formref: HTMLFormElement | undefined = $state();
 
   onMount(() => {
     // Connect on page load
@@ -29,7 +29,7 @@
     textareaRef?.addEventListener('keypress', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        submitRef?.click();
+        formref?.requestSubmit();
       }
     });
   });
@@ -55,6 +55,7 @@
     {@render message(data.messages)}
   </div>
   <form
+    bind:this={formref}
     class="flex w-full gap-1"
     onsubmit={() => {
       socket?.sendMessage(user!, msg);
@@ -70,6 +71,5 @@
       shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
        focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"></textarea>
     <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
-    <button type="submit" bind:this={submitRef} class="hidden">submit</button>
   </form>
 </div>
