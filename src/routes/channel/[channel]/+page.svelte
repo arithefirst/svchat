@@ -2,7 +2,7 @@
   import { page } from '$app/state';
   import Message from '$lib/components/message.svelte';
   import { Button } from '$lib/components/ui/button/index';
-  import Textarea from '$lib/components/ui/textarea/textarea.svelte';
+  import { autoResize } from '$lib/functions/autoresize.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
   import type { TypeMessage } from '$lib/types';
   import Send from 'lucide-svelte/icons/send';
@@ -10,14 +10,14 @@
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
   import type { PageData } from './$types';
-  import { autoResize } from '$lib/functions/autoresize.svelte';
 
   const { data }: { data: PageData } = $props();
 
   let user: string = uuidv4();
   let socket: Websocket | undefined = $state();
   let msg: string = $state('');
-  const channel = $derived(page.params.channel);
+  const channel: string = $derived(page.params.channel);
+  let textareaRef: HTMLElement | undefined = $state();
 
   // Connect on page load
   onMount(() => {
@@ -49,9 +49,17 @@
     class="flex w-full gap-1"
     onsubmit={() => {
       socket?.sendMessage(user!, msg);
+      if (textareaRef) textareaRef.style.height = '40px';
       msg = '';
     }}>
-    <Textarea placeholder="Type Here" bind:value={msg} />
-    <Button class="h-full w-14" type="submit"><Send class="size-full" /></Button>
+    <textarea
+      placeholder="Type Here"
+      bind:value={msg}
+      bind:this={textareaRef}
+      use:autoResize
+      class="flex min-h-10 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm
+      placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring
+       disabled:cursor-not-allowed disabled:opacity-50"></textarea>
+    <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
   </form>
 </div>
