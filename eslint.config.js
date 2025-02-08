@@ -31,4 +31,7 @@ export default ts.config(
       },
     },
   },
+  {
+    ignores: ['src/lib/components/ui/**'],
+  },
 );
