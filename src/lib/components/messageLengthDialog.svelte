@@ -9,7 +9,6 @@
 
   let { messageLength, showDialog = $bindable() }: Props = $props();
   const lengthString = $derived(messageLength ? ` (${messageLength})` : '');
-  $inspect(lengthString);
 </script>
 
 <Dialog.Root bind:open={showDialog}>
