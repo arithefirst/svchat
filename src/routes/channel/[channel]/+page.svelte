@@ -1,5 +1,6 @@
 <script lang="ts">
   import { page } from '$app/state';
+  import EmptyChannel from '$lib/components/emptyChannel.svelte';
   import Message from '$lib/components/message.svelte';
   import MessageLengthDialog from '$lib/components/messageLengthDialog.svelte';
   import { Button } from '$lib/components/ui/button/index';
@@ -11,7 +12,6 @@
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
   import type { PageData } from './$types';
-  import { blur } from 'svelte/transition';
 
   const { data }: { data: PageData } = $props();
 
@@ -73,10 +73,7 @@
         {@render message(data.messages)}
       </div>
     {:else}
-      <div class="abs-center text-center text-muted-foreground" in:blur={{ delay: 100 }} out:blur>
-        <h1 class="text-4xl">No messages yet!</h1>
-        <h2 class="mt-2 text-sm">Send a message to get the conversation started.</h2>
-      </div>
+      <EmptyChannel />
     {/if}
   </div>
   <form bind:this={formref} class="flex w-full gap-1" onsubmit={submit}>
