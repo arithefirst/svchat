@@ -11,6 +11,7 @@
   import { onMount } from 'svelte';
   import { v4 as uuidv4 } from 'uuid';
   import type { PageData } from './$types';
+  import { blur } from 'svelte/transition';
 
   const { data }: { data: PageData } = $props();
 
@@ -65,9 +66,18 @@
 <MessageLengthDialog messageLength={msg.length} bind:showDialog />
 
 <div class="flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
-  <div class="flex w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
-    {@render message(socket?.messages ?? [])}
-    {@render message(data.messages)}
+  <div class="relative size-full flex-grow rounded-lg border">
+    {#if data.messages.length != 0 || socket?.messages.length != 0}
+      <div class="flex size-full flex-auto flex-col-reverse overflow-x-hidden overflow-y-scroll">
+        {@render message(socket?.messages ?? [])}
+        {@render message(data.messages)}
+      </div>
+    {:else}
+      <div class="abs-center text-center text-muted-foreground" in:blur={{ delay: 100 }} out:blur>
+        <h1 class="text-4xl">No messages yet!</h1>
+        <h2 class="mt-2 text-sm">Send a message to get the conversation started.</h2>
+      </div>
+    {/if}
   </div>
   <form bind:this={formref} class="flex w-full gap-1" onsubmit={submit}>
     <textarea
