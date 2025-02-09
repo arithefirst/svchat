@@ -39,7 +39,9 @@ class Websocket {
 
   // Send a message
   sendMessage(user: string, msg: string) {
-    if (this.socket) this.socket.emit('message', { id: user, content: msg, channel: this.channel });
+    if (this.socket && msg.length <= 2000) {
+      this.socket.emit('message', { id: user, content: msg, channel: this.channel });
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state';
   import Message from '$lib/components/message.svelte';
+  import MessageLengthDialog from '$lib/components/messageLengthDialog.svelte';
   import { Button } from '$lib/components/ui/button/index';
   import { autoResize } from '$lib/functions/autoresize.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
@@ -16,9 +17,20 @@
   let user: string = uuidv4();
   let socket: Websocket | undefined = $state();
   let msg: string = $state('');
+  let showDialog: boolean = $state(false);
   const channel: string = $derived(page.params.channel);
-  let textareaRef: HTMLElement | undefined = $state();
+  let textareaRef: HTMLTextAreaElement | undefined = $state();
   let formref: HTMLFormElement | undefined = $state();
+
+  function submit() {
+    if (msg.length <= 2000) {
+      socket?.sendMessage(user!, msg);
+      if (textareaRef) textareaRef.style.height = '40px';
+      msg = '';
+    } else {
+      showDialog = true;
+    }
+  }
 
   onMount(() => {
     // Connect on page load
@@ -49,19 +61,15 @@
     <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
   {/each}
 {/snippet}
+
+<MessageLengthDialog messageLength={msg.length} bind:showDialog />
+
 <div class="flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
   <div class="flex w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {@render message(socket?.messages ?? [])}
     {@render message(data.messages)}
   </div>
-  <form
-    bind:this={formref}
-    class="flex w-full gap-1"
-    onsubmit={() => {
-      socket?.sendMessage(user!, msg);
-      if (textareaRef) textareaRef.style.height = '40px';
-      msg = '';
-    }}>
+  <form bind:this={formref} class="flex w-full gap-1" onsubmit={submit}>
     <textarea
       placeholder="Type Here"
       bind:value={msg}
@@ -69,7 +77,7 @@
       use:autoResize
       class="flex h-10 min-h-10 w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm
       shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
-       focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"></textarea>
+      focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"></textarea>
     <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
   </form>
 </div>
