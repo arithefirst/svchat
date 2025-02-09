@@ -3,8 +3,8 @@
   const { message, imageSrc, user }: TypeMessage = $props();
 </script>
 
-<div class="flex w-full py-2 hover:bg-zinc-200 dark:hover:bg-stone-900">
-  <div class="avatar mx-2 rounded-sm">
+<div class="flex w-full p-2 hover:bg-zinc-200 dark:hover:bg-stone-900">
+  <div class="avatar mr-2 rounded-sm">
     <div class="h-12 w-12 overflow-hidden rounded-lg border bg-white">
       <img src={imageSrc} alt="Profile image for {user}" />
     </div>
