@@ -57,7 +57,7 @@ export const actions = {
         });
       }
     } catch (e) {
-      return setError(form, 'verify', (e as APIError).body.message as string);
+      return setError(form, 'verify', (e as APIError).message as string);
     }
 
     return message(form, 'Successfuly signed in.');
