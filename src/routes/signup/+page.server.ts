@@ -37,6 +37,7 @@ export const actions = {
           name,
           email,
           password,
+          username: name,
         },
         asResponse: true,
       });
