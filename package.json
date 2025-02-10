@@ -52,6 +52,7 @@
     "cassandra-driver": "^4.7.2",
     "express": "^4.21.2",
     "lucide-svelte": "^0.474.0",
+    "markdown-it-highlightjs": "^4.2.0",
     "mode-watcher": "^0.5.1",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

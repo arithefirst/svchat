@@ -1,4 +1,5 @@
 import markdownit from 'markdown-it';
+import highlightjs from 'markdown-it-highlightjs';
 
 export default function renderMarkdown(input: string): string {
   const md = markdownit({
@@ -6,7 +7,10 @@ export default function renderMarkdown(input: string): string {
     linkify: true,
     typographer: true,
     breaks: true,
-  }).disable(['image', 'table']);
+  });
+
+  md.disable(['image', 'table']);
+  md.use(highlightjs);
 
   return md.render(input);
 }

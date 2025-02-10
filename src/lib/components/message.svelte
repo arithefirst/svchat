@@ -14,7 +14,7 @@
   </div>
   <div class="w-full">
     <p class="inline-size-full break-words font-bold">{user}</p>
-    <Prose class="inline-size-full text-wrap break-words font-sans">{@html renderMarkdown(escapeHTML(message))}</Prose>
+    <Prose class="inline-size-full text-wrap break-words font-sans">{@html renderMarkdown(message)}</Prose>
   </div>
 </div>
 

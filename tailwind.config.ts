@@ -53,11 +53,24 @@ const config: Config = {
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
+        'background-color': '#22272E',
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
         sans: [...fontFamily.sans],
       },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            pre: {
+              'background-color': '#22272E',
+              code: {
+                'background-color': '#22272E',
+              },
+            },
+          },
+        },
+      }),
     },
   },
   plugins: [typography],
