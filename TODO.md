@@ -9,5 +9,5 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Profile photos
 - [ ] Reactive channels list
 - [ ] Show characters before message gets cut off in textarea
-- [ ] User Auth
-- [ ] Usernames / Displaynames
+- [x] User Auth
+- [ ] Usernames / Displaynames in chat
