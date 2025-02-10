@@ -10,6 +10,7 @@ export const signupSchema = z
     username: z
       .string()
       .min(3, 'Username must be at least 3 characters.')
+      .max(15, 'Username must be no more than 15 characters.')
       .regex(/^(?![A-Z])/gm, 'Username cannot contain uppercase letters')
       .regex(/^(?=[a-z0-9-_]+$)/gm, 'Username cannot contain special characters'),
     password: z
