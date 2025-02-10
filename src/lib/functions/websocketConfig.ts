@@ -4,6 +4,7 @@ import type { HttpServer } from 'vite';
 // file gets loaded as a vite plugin, it will crash
 import { v4 as uuidv4 } from 'uuid';
 import { db } from '../server/db';
+import { authdb } from '../server/db/sqlite';
 
 let io: SocketIOServer | undefined;
 
@@ -28,10 +29,11 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
         console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
         // Store the message in the database
         await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4());
+        const sender = authdb.getUser(msg.id);
         io!.emit('message', {
-          user: msg.id,
+          user: sender.username,
           message: msg.content,
-          imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${msg.id}`,
+          imageSrc: sender.image,
           channel: msg.channel,
         });
       }

@@ -28,4 +28,4 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
 # Sqlite
-src/lib/server/db/users.db
+src/lib/server/db/users.db*

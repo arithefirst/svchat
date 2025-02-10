@@ -3,6 +3,7 @@ import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 import { db } from './src/lib/server/db';
+import { authdb } from './src/lib/server/db/sqlite';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
@@ -19,10 +20,11 @@ io.on('connection', async (socket) => {
       console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
       // Store the message in the database
       await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4());
+      const sender = authdb.getUser(msg.id);
       io!.emit('message', {
-        user: msg.id,
+        user: sender.username,
         message: msg.content,
-        imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${msg.id}`,
+        imageSrc: sender.image,
         channel: msg.channel,
       });
     }

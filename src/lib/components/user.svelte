@@ -1,8 +1,8 @@
 <script lang="ts">
-  import type { PageData } from '../../routes/$types';
+  import type { PageData } from '../../routes/(main)/$types';
   const { data }: { data: PageData } = $props();
 
-  const imageSrc = data.session?.user.image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${data.session?.user.name}`;
+  const imageSrc = data.session?.user.image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${data.session?.user.id}`;
 </script>
 
 {#if data.session}

@@ -1,9 +1,10 @@
 import { db } from '$lib/server/db';
+import { authdb } from '$lib/server/db/sqlite.js';
 import type { TypeMessage } from '$lib/types';
 import { error, redirect } from '@sveltejs/kit';
 import { auth } from '$lib/server/db/auth';
 
-export async function load({ params, request }): Promise<{ messages: TypeMessage[] }> {
+export async function load({ params, request }): Promise<{ messages: TypeMessage[]; currentUser: string }> {
   const session = await auth.api.getSession({
     headers: request.headers,
   });
@@ -18,10 +19,11 @@ export async function load({ params, request }): Promise<{ messages: TypeMessage
   if (rows.messages !== null) {
     messages = rows
       ? rows.messages.map((value) => {
+          const sender = authdb.getUser(value.sender);
           return {
             message: value.message_content,
-            user: value.sender.toString(),
-            imageSrc: `https://api.dicebear.com/9.x/identicon/svg?seed=${value.sender.toString()}`,
+            user: sender.username,
+            imageSrc: sender.image,
             channel: value.channel,
           };
         })
@@ -32,5 +34,6 @@ export async function load({ params, request }): Promise<{ messages: TypeMessage
 
   return {
     messages: messages ?? [],
+    currentUser: session.user.id!,
   };
 }

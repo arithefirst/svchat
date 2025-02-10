@@ -46,7 +46,7 @@ class Db {
           message_content TEXT,
           channel_name TEXT,
           timestamp TIMESTAMP,
-          sender UUID,
+          sender TEXT,
           PRIMARY KEY (channel_name, timestamp)
       ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
     } catch (e) {
@@ -67,7 +67,7 @@ class Db {
         sender,
       });
     } catch (e) {
-      console.log(`Error storing messages: ${e as Error}`);
+      console.log(`Error storing message: ${e as Error}`);
     }
   }
 

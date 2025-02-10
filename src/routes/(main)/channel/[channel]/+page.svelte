@@ -10,12 +10,10 @@
   import Send from 'lucide-svelte/icons/send';
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
-  import { v4 as uuidv4 } from 'uuid';
   import type { PageData } from './$types';
 
   const { data }: { data: PageData } = $props();
 
-  let user: string = uuidv4();
   let socket: Websocket | undefined = $state();
   let msg: string = $state('');
   let showDialog: boolean = $state(false);
@@ -25,7 +23,7 @@
 
   function submit() {
     if (msg.length <= 2000) {
-      socket?.sendMessage(user!, msg);
+      socket?.sendMessage(data.currentUser, msg);
       if (textareaRef) textareaRef.style.height = '40px';
       msg = '';
     } else {
