@@ -1,21 +1,20 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
   import type { Snippet } from 'svelte';
-  import type { SuperValidated } from 'sveltekit-superforms';
+  import type { PageData } from '../../routes/$types';
   import Channel from './channel.svelte';
   import ChannelDialog from './channelDialog.svelte';
   import ModeSwitcher from './modeSwitcher.svelte';
+  import User from './user.svelte';
 
   interface Props {
-    data: SuperValidated<{
-      channelName: string;
-    }>;
-    channels: string[];
+    data: PageData;
     children: Snippet;
   }
 
   let sidebarWidth = $state(0);
-  const { data, channels, children }: Props = $props();
+  const { data, children }: Props = $props();
+  const channels = data.channels;
 </script>
 
 <div class="w-screen">
@@ -37,7 +36,8 @@
           </nav>
         </div>
         <div class="mt-auto p-4">
-          <ChannelDialog {data} />
+          <User {data} />
+          <ChannelDialog data={data.form} />
         </div>
       </div>
     </div>

@@ -7,6 +7,6 @@
 </script>
 
 <ModeWatcher />
-<MainLayout data={data.form} channels={data.channels}>
+<MainLayout {data}>
   {@render children()}
 </MainLayout>
