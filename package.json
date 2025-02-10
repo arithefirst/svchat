@@ -4,15 +4,16 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "vite dev",
     "build": "vite build",
-    "preview": "vite preview",
-    "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "migrate": "npx @better-auth/cli migrate --config './src/lib/server/db/auth'",
+    "checkformat": "prettier --check .",
+    "dev": "vite dev",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "lint": "eslint .",
+    "migrate": "npx @better-auth/cli migrate --config './src/lib/server/db/auth'",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
