@@ -1,9 +1,9 @@
+import { dev } from '$app/environment';
+import { auth } from '$lib/server/db/auth';
 import { loginSchema } from '$lib/types/schema';
-import { message, setError, superValidate, fail } from 'sveltekit-superforms';
+import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from './$types';
-import { auth } from '$lib/server/db/auth';
-import { APIError } from 'better-auth/api';
 
 export const load = async () => {
   const form = await superValidate(zod(loginSchema));
@@ -11,7 +11,7 @@ export const load = async () => {
 };
 
 export const actions = {
-  login: async ({ request }) => {
+  login: async ({ request, cookies }) => {
     const form = await superValidate(request, zod(loginSchema));
     const email = form.data.email;
     const password = form.data.password;
@@ -20,21 +20,31 @@ export const actions = {
       return fail(400, { form });
     }
 
-    try {
-      await auth.api.signInEmail({
-        body: {
-          email,
-          password,
-        },
+    const signin = await auth.api.signInEmail({
+      body: {
+        email,
+        password,
+      },
+      asResponse: true,
+    });
+
+    const setCookieHeader = signin.headers.get('set-cookie');
+    if (setCookieHeader) {
+      const parsedCookie = setCookieHeader.split(';')[0];
+      const [name, encodedValue] = parsedCookie.split('=');
+      // need to decode it first
+      const decodedValue = decodeURIComponent(encodedValue);
+      cookies.set(name, decodedValue, {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'lax',
+        maxAge: 604800,
+        secure: !dev,
       });
-    } catch (e) {
-      if (e instanceof APIError) {
-        if (e.message === 'API Error: UNAUTHORIZED Invalid email or password') {
-          return setError(form, 'password', 'Invalid email or password', {
-            status: 401,
-          });
-        }
-      }
+    } else {
+      return setError(form, 'password', 'Invalid email or password', {
+        status: 401,
+      });
     }
 
     return message(form, 'Successfuly signed in.');
