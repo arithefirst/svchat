@@ -1,6 +1,5 @@
 <script lang="ts">
   import { type TypeMessage } from '$lib/types';
-  import escapeHTML from '$lib/functions/escapeHTML';
   import Prose from '$lib/components/prose.svelte';
   import renderMarkdown from '$lib/functions/renderMarkdown';
   const { message, imageSrc, user }: TypeMessage = $props();
