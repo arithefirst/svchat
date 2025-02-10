@@ -50,7 +50,7 @@
         </div>
         <Button type="submit" class="w-full">Log In</Button>
       </form>
-      <p>
+      <p class="mt-1 text-center text-green-500">
         {#if $message}{$message}{/if}
       </p>
       <div class="mt-4 text-center text-sm">
