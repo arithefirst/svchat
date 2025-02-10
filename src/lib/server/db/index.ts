@@ -29,7 +29,6 @@ class Db {
     }
 
     try {
-      await this.client.execute(`CREATE KEYSPACE IF NOT EXISTS users WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
       await this.client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
     } catch (e) {
       console.log(`Error generating keyspaces: ${e as Error}`);
