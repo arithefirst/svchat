@@ -1,12 +1,21 @@
 import { db } from '$lib/server/db';
+import { auth } from '$lib/server/db/auth';
 import { newChannelSchema } from '$lib/types/schema';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from './$types';
 
-export function load(): void {
-  redirect(308, '/channel/general');
+export async function load({ request }): Promise<void> {
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (session) {
+    redirect(301, '/channel/general');
+  } else {
+    redirect(401, '/signup');
+  }
 }
 
 export const actions = {

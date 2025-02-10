@@ -1,8 +1,17 @@
 import { db } from '$lib/server/db';
 import type { TypeMessage } from '$lib/types';
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
+import { auth } from '$lib/server/db/auth';
 
-export async function load({ params }): Promise<{ messages: TypeMessage[] }> {
+export async function load({ params, request }): Promise<{ messages: TypeMessage[] }> {
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (!session) {
+    redirect(307, '/signup');
+  }
+
   let messages: TypeMessage[];
   const rows = await db.getMessages(params.channel, 50);
 

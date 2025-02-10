@@ -1,14 +1,23 @@
 import { dev } from '$app/environment';
 import { auth } from '$lib/server/db/auth';
 import { signupSchema } from '$lib/types/schema';
+import { redirect } from '@sveltejs/kit';
 import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from './$types';
 
-export const load = async () => {
+export async function load({ request }) {
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+
+  if (session) {
+    redirect(307, '/channel/general');
+  }
+
   const form = await superValidate(zod(signupSchema));
   return { form };
-};
+}
 
 export const actions = {
   signup: async ({ request, cookies }) => {
