@@ -12,9 +12,8 @@
         <img src={imageSrc} alt="Profile image for {data.session?.user.name}" />
       </div>
     </div>
-    <div class="w-full">
+    <div class="flex w-full items-center align-middle">
       <p class="font-bold">{data.session?.user.name}</p>
-      <p>{data.session?.user.email}</p>
     </div>
   </div>
 {/if}
