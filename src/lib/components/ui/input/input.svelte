@@ -38,4 +38,5 @@
   on:paste
   on:input
   on:wheel|passive
-  {...$$restProps} />
+  {...$$restProps}
+/>

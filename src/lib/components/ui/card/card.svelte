@@ -16,6 +16,7 @@
   on:focusin
   on:focusout
   on:mouseenter
-  on:mouseleave>
+  on:mouseleave
+>
   <slot />
 </div>

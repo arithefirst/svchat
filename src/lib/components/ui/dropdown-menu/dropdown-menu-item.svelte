@@ -25,6 +25,7 @@
   on:pointerdown
   on:pointerleave
   on:pointermove
-  {...$$restProps}>
+  {...$$restProps}
+>
   <slot />
 </DropdownMenuPrimitive.Item>
