@@ -63,10 +63,10 @@
 
 <MessageLengthDialog messageLength={msg.length} bind:showDialog />
 
-<div class="flex h-full flex-1 flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
-  <div class="relative size-full flex-grow rounded-lg border">
+<div class="flex h-full flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
+  <div class="relative flex size-full h-full w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {#if data.messages.length != 0 || socket?.messages.length != 0}
-      <div class="flex size-full flex-auto flex-col-reverse overflow-x-hidden overflow-y-scroll">
+      <div class="">
         {@render message(socket?.messages ?? [])}
         {@render message(data.messages)}
       </div>
