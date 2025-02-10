@@ -1,5 +1,6 @@
 <script lang="ts">
   import { type TypeMessage } from '$lib/types';
+  import escapeHTML from '$lib/functions/escapeHTML';
   const { message, imageSrc, user }: TypeMessage = $props();
 </script>
 
@@ -11,7 +12,7 @@
   </div>
   <div class="w-full">
     <p class="inline-size-full break-words font-bold">{user}</p>
-    <pre class="inline-size-full text-wrap break-words font-sans">{message}</pre>
+    <pre class="inline-size-full text-wrap break-words font-sans">{@html escapeHTML(message)}</pre>
   </div>
 </div>
 
