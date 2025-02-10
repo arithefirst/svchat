@@ -13,7 +13,7 @@
   <title>SVChat | Log In</title>
 </svelte:head>
 
-<main class="abs-center">
+<main class="abs-center w-96">
   <Card.Root class="mx-auto">
     <Card.Header>
       <Card.Title class="text-2xl">Log In</Card.Title>
