@@ -9,4 +9,4 @@
   const { children, class: className = '' }: Props = $props();
 </script>
 
-<div class={className + ' prose prose-stone dark:prose-invert prose-blue'}>{@render children()}</div>
+<div class={className + ' prose prose-stone prose-blue dark:prose-invert'}>{@render children()}</div>
