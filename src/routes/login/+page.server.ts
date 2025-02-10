@@ -59,7 +59,7 @@ export const actions = {
           status: 401,
         });
       } else {
-        return setError(form, 'password', (e as APIError).body.code as string);
+        return setError(form, 'password', (e as APIError).body.message as string);
       }
     }
 
