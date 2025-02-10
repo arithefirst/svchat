@@ -1,7 +1,7 @@
 <script lang="ts">
   import MessagesSquare from 'lucide-svelte/icons/messages-square';
   import type { Snippet } from 'svelte';
-  import type { PageData } from '../../routes/$types';
+  import type { PageData } from '../../routes/(main)/$types';
   import Channel from './channel.svelte';
   import ChannelDialog from './channelDialog.svelte';
   import ModeSwitcher from './modeSwitcher.svelte';
