@@ -14,7 +14,7 @@ export async function load({ request }): Promise<void> {
   if (session) {
     redirect(301, '/channel/general');
   } else {
-    redirect(401, '/signup');
+    redirect(307, '/signup');
   }
 }
 
