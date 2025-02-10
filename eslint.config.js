@@ -34,4 +34,9 @@ export default ts.config(
   {
     ignores: ['src/lib/components/ui/**'],
   },
+  {
+    rules: {
+      'svelte/no-at-html-tags': 'warn',
+    },
+  },
 );
