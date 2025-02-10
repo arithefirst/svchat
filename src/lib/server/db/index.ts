@@ -73,6 +73,7 @@ class Db {
 
   async checkChannel(channel: string): Promise<boolean> {
     try {
+      channel = sanitizeChannelName(channel);
       const res = await this.client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels' AND table_name = ?`, [
         channel.toLowerCase(),
       ]);
