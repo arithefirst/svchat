@@ -84,7 +84,8 @@
       use:autoResize
       class="flex h-10 min-h-10 w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm
       shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
-      focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"></textarea>
+      focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
+    ></textarea>
     <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
   </form>
 </div>
