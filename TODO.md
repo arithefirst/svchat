@@ -3,6 +3,8 @@
 A list of all tasks that need to be completed in the app<br>
 A more complex version of this list is available [here](https://trello.com/b/kJw6Aapn/svchat).
 
+- [ ] Containerization with docker and docker-compose
+- [ ] Documentation
 - [ ] Emoji picker
 - [ ] Images/Attatchments support
 - [ ] Markdown Support
