@@ -28,13 +28,7 @@ export const signupSchema = z
 
 export const loginSchema = z.object({
   email: z.string().nonempty('An email is required').email('Please enter a valid email.'),
-  password: z
-    .string()
-    .min(8, 'Password must be at least 8 characters.')
-    .regex(/(?=.*[A-Z])/gm, 'Password must contain at uppercase letter.')
-    .regex(/(?=.*[a-z])/gm, 'Password must contain at lowercase letter.')
-    .regex(/(?=.*\d)/gm, 'Password must contain at least one number.')
-    .regex(/(?=.*\W)/gm, 'Password must contain at least one special character'),
+  password: z.string().nonempty('Password must not be empty.'),
 });
 
 export type NewChannelSchema = typeof newChannelSchema;
