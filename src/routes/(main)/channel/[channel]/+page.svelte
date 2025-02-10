@@ -66,7 +66,7 @@
 <div class="flex h-full flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
   <div class="relative flex size-full h-full w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {#if data.messages.length != 0 || socket?.messages.length != 0}
-      <div class="">
+      <div class="flex flex-col-reverse">
         {@render message(socket?.messages ?? [])}
         {@render message(data.messages)}
       </div>
