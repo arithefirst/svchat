@@ -2,8 +2,8 @@ import { handler } from './build/handler.js';
 import express from 'express';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { db } from './src/lib/server/db';
-import { authdb } from './src/lib/server/db/sqlite';
+import { db } from './src/lib/server/db/index.js';
+import { authdb } from './src/lib/server/db/sqlite.js';
 import { v4 as uuidv4 } from 'uuid';
 
 const app = express();
