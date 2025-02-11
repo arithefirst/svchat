@@ -71,6 +71,7 @@ class Db {
     }
   }
 
+  // Check channel method
   async checkChannel(channel: string): Promise<boolean> {
     try {
       channel = sanitizeChannelName(channel);
