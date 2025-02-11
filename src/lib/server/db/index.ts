@@ -118,7 +118,10 @@ class Db {
 }
 
 const db = new Db();
-await db.init();
-await db.createChannel('general');
+
+if (process.env.BUILDING !== 'true') {
+  await db.init();
+  await db.createChannel('general');
+}
 
 export { db, type Messages };
