@@ -19,7 +19,7 @@
 </script>
 
 <Dialog.Root bind:open>
-  <Dialog.Trigger class={buttonVariants({ variant: 'secondary' }) + ' w-full'}>Create Channel</Dialog.Trigger>
+  <Dialog.Trigger class="{buttonVariants({ variant: 'secondary' })} w-full">Create Channel</Dialog.Trigger>
   <Dialog.Content class="sm:max-w-[425px]">
     <Dialog.Header>
       <Dialog.Title>Create Channel</Dialog.Title>
