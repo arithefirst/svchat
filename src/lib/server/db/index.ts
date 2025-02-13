@@ -5,6 +5,10 @@ interface Messages {
   error: Error | null;
 }
 
+function createDelay(ms: number) {
+  return new Promise((res) => setTimeout(res, ms));
+}
+
 function sanitizeChannelName(channelName: string) {
   return channelName
     .toLowerCase()
@@ -21,17 +25,20 @@ class Db {
 
   // Initalize and connect
   async init() {
-    try {
-      await this.client.connect();
-    } catch (e) {
-      console.log(`Error connecting to DB: ${e as Error}`);
-      process.exit(1);
+    while (true) {
+      try {
+        await this.client.connect();
+        break;
+      } catch {
+        console.error(`Error connecting to DB. Retrying.....}`);
+        await createDelay(1000);
+      }
     }
 
     try {
       await this.client.execute(`CREATE KEYSPACE IF NOT EXISTS channels WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1};`);
     } catch (e) {
-      console.log(`Error generating keyspaces: ${e as Error}`);
+      console.error(`Error generating keyspace: ${e as Error}`);
       process.exit(1);
     }
   }
@@ -50,7 +57,7 @@ class Db {
           PRIMARY KEY (channel_name, timestamp)
       ) WITH CLUSTERING ORDER BY (timestamp DESC);`);
     } catch (e) {
-      console.log(`Error creating new channel: ${e as Error}`);
+      console.error(`Error creating new channel: ${e as Error}`);
     }
   }
 
@@ -67,7 +74,7 @@ class Db {
         sender,
       });
     } catch (e) {
-      console.log(`Error storing message: ${e as Error}`);
+      console.error(`Error storing message: ${e as Error}`);
     }
   }
 
@@ -81,7 +88,7 @@ class Db {
 
       return res.rowLength !== 0;
     } catch (e) {
-      console.log(`Error checking channel existance: ${e as Error}`);
+      console.error(`Error checking channel existance: ${e as Error}`);
       return false;
     }
   }
@@ -92,7 +99,7 @@ class Db {
       const res = await this.client.execute(`SELECT table_name FROM system_schema.tables WHERE keyspace_name = 'channels'`);
       return res.rows;
     } catch (e) {
-      console.log(`Error fetching channels: ${e as Error}`);
+      console.error(`Error fetching channels: ${e as Error}`);
       return;
     }
   }
@@ -109,7 +116,7 @@ class Db {
         error: null,
       };
     } catch (e) {
-      console.log(`Error fetching messages: ${(e as Error).message}`);
+      console.error(`Error fetching messages: ${(e as Error).message}`);
       return {
         messages: null,
         error: e as Error,
