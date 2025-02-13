@@ -54,13 +54,8 @@ export const actions = {
         });
       }
     } catch (e) {
-      if ((e as APIError).body.code === 'INVALID_EMAIL_OR_PASSWORD') {
-        return setError(form, 'password', 'Invalid email or password', {
-          status: 401,
-        });
-      } else {
-        return setError(form, 'password', (e as APIError).message as string);
-      }
+      const errorMessage = (e as APIError).body.message as string;
+      return setError(form, 'password', errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
     }
 
     return message(form, 'Successfuly signed in.');
