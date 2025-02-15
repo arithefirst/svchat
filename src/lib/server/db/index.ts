@@ -30,7 +30,7 @@ class Db {
         await this.client.connect();
         break;
       } catch {
-        console.error(`Error connecting to DB. Retrying.....}`);
+        console.error(`Error communicating with DB. Retrying...`);
         await createDelay(1000);
       }
     }
