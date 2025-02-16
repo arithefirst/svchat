@@ -10,9 +10,7 @@ let io: SocketIOServer | undefined;
 export const handle = (async ({ event, resolve }) => {
   // Initialize WebSocket server if not building
   if (!building) {
-    // @ts-expect-error hides incorrect error
     startupSocketIOServer(event.locals.httpServer);
-    // @ts-expect-error hides incorrect error
     event.locals.io = io;
   }
 
