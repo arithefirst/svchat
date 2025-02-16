@@ -1,9 +1,10 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
-import { fail, message, superValidate } from 'sveltekit-superforms';
+import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { auth } from '$lib/server/db/auth';
 import { changeUsernameSchema, changePasswordSchema } from '$lib/types/schema.js';
+import type { APIError } from 'better-auth/api';
 
 export async function load({ request }) {
   const session = await auth.api.getSession({
@@ -24,8 +25,26 @@ export const actions = {
   updatePassword: async ({ request }) => {
     const newpassForm = await superValidate(request, zod(changePasswordSchema));
 
-    if (!newpassForm.valid) {
-      return fail(400, { newpassForm });
+    try {
+      if (!newpassForm.valid) {
+        return fail(400, { newpassForm });
+      }
+
+      await auth.api.changePassword({
+        headers: request.headers,
+        body: {
+          newPassword: newpassForm.data.newPassword,
+          currentPassword: newpassForm.data.currentPassword,
+          revokeOtherSessions: false,
+        },
+      });
+    } catch (e) {
+      const errorMessage = (e as APIError).body.message as string;
+      if ((e as APIError).body.code === 'INVALID_PASSWORD') {
+        return setError(newpassForm, 'currentPassword', errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
+      } else {
+        return setError(newpassForm, 'newPassword', errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
+      }
     }
 
     return message(newpassForm, 'Password updated.');
