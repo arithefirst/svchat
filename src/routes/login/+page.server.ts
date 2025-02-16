@@ -1,11 +1,11 @@
 import { dev } from '$app/environment';
 import { auth } from '$lib/server/db/auth';
-import { loginSchema } from '$lib/types/schema';
+import { loginSchema } from '$lib/types/login';
 import { redirect } from '@sveltejs/kit';
+import type { APIError } from 'better-auth/api';
 import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions } from './$types';
-import type { APIError } from 'better-auth/api';
 
 export async function load({ request }) {
   const session = await auth.api.getSession({

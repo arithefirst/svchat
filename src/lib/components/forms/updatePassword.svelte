@@ -2,7 +2,7 @@
   import { Button } from '$lib/components/ui/button/index';
   import { Input } from '$lib/components/ui/input/index';
   import { Label } from '$lib/components/ui/label/index';
-  import type { ChangePasswordSchema } from '$lib/types/schema';
+  import type { ChangePasswordSchema } from '$lib/types/account';
   import type { Infer, SuperValidated } from 'sveltekit-superforms';
   import { superForm } from 'sveltekit-superforms';
 

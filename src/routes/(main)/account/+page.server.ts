@@ -3,7 +3,7 @@ import type { Actions } from '@sveltejs/kit';
 import { fail, message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { auth } from '$lib/server/db/auth';
-import { changeUsernameSchema, changePasswordSchema } from '$lib/types/schema.js';
+import { changeUsernameSchema, changePasswordSchema } from '$lib/types/account';
 import type { APIError } from 'better-auth/api';
 
 export async function load({ request }) {

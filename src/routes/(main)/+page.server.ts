@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import { auth } from '$lib/server/db/auth';
-import { newChannelSchema } from '$lib/types/schema';
+import { newChannelSchema } from '$lib/types/misc';
 import { fail, redirect } from '@sveltejs/kit';
 import { message, setError, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
