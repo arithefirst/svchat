@@ -3,6 +3,11 @@ import { username } from 'better-auth/plugins';
 import Database from 'better-sqlite3';
 
 export const auth = betterAuth({
+  user: {
+    deleteUser: {
+      enabled: true,
+    },
+  },
   database: new Database('./src/lib/server/db/users.db'),
   emailAndPassword: {
     enabled: true,

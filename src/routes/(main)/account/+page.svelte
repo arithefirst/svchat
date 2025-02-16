@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { Input } from '$lib/components/ui/input/index';
   import { Button } from '$lib/components/ui/button/index';
   import * as Dialog from '$lib/components/ui/dialog';
 
@@ -37,7 +36,7 @@
       <Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
       <Dialog.Description>
         This action cannot be undone. This will permanently delete your account and remove your data from our database.
-        <form class="mt-2 flex gap-2">
+        <form class="mt-2 flex gap-2" method="POST" action="?/deleteAccount">
           <Button class="w-1/2" onclick={() => (open = !open)}>I changed my mind!</Button>
           <Button variant="destructive" class="w-1/2" type="submit">Delete Account</Button>
         </form>

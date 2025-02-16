@@ -37,9 +37,16 @@ export const actions = {
       return fail(400, { newuserForm });
     }
 
-    return message(newuserForm, 'Password updated.');
+    return message(newuserForm, 'Username updated.');
   },
   updateProfilePhoto: async () => {},
-  deleteAccount: async () => {},
+  deleteAccount: async ({ request }) => {
+    auth.api.deleteUser({
+      headers: request.headers,
+      body: {},
+    });
+
+    redirect(303, '/goodbye');
+  },
   signOut: async () => {},
 } satisfies Actions;
