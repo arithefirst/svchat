@@ -20,7 +20,7 @@
     </div>
     <Tooltip.Root>
       <Tooltip.Trigger>
-        <Button class="aspect-square p-0.5" href="/account"><Cog /></Button>
+        <Button size="icon" href="/account"><Cog /></Button>
       </Tooltip.Trigger>
       <Tooltip.Content>
         <p>Account Settings</p>
