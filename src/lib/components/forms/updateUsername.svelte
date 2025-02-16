@@ -38,6 +38,8 @@
       {#if $errors.password}<span class="text-sm text-red-500">{$errors.password[0]}</span>{/if}
     </div>
     <Button type="submit">Update Username</Button>
-    {#if $message}{$message}{/if}
+    <p class="mt-1 text-center text-sm text-green-500">
+      {#if $message}{$message}{/if}
+    </p>
   </fieldset>
 </form>
