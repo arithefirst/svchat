@@ -18,6 +18,10 @@ export const signupSchema = z
       .regex(/(?=.*\W)/gm, 'Password must contain at least one special character'),
     verify: z.string().nonempty('Passwords do not match.'),
   })
+  .refine((schema) => schema.password !== 'Password123!', {
+    message: "You can't use the example password, silly",
+    path: ['password'],
+  })
   .refine((schema) => schema.verify === schema.password, {
     message: "Passwords don't match",
     path: ['verify'],

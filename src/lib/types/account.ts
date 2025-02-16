@@ -11,6 +11,10 @@ export const changePasswordSchema = z
       .regex(/(?=.*\d)/gm, 'New password must contain at least one number.')
       .regex(/(?=.*\W)/gm, 'New password must contain at least one special character'),
   })
+  .refine((schema) => schema.newPassword !== 'Password123!', {
+    message: "You can't use the example password, silly",
+    path: ['newPassword'],
+  })
   .refine((schema) => schema.currentPassword !== schema.newPassword, {
     message: 'New password cannot be the same as old password.',
     path: ['newPassword'],
