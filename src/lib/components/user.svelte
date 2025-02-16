@@ -1,4 +1,7 @@
 <script lang="ts">
+  import { Button } from '$lib/components/ui/button/index';
+  import * as Tooltip from '$lib/components/ui/tooltip';
+  import Cog from 'lucide-svelte/icons/cog';
   import type { PageData } from '../../routes/(main)/$types';
   const { data }: { data: PageData } = $props();
 
@@ -6,7 +9,7 @@
 </script>
 
 {#if data.session}
-  <div class="mb-1 flex w-full p-2">
+  <div class="mb-1 flex w-full items-center p-2">
     <div class="avatar mr-2 rounded-sm">
       <div class="h-12 w-12 overflow-hidden rounded-lg border bg-white">
         <img src={imageSrc} alt="Profile image for {data.session?.user.name}" />
@@ -15,5 +18,13 @@
     <div class="flex w-full items-center align-middle">
       <p class="font-bold">{data.session?.user.name}</p>
     </div>
+    <Tooltip.Root>
+      <Tooltip.Trigger>
+        <Button class="aspect-square p-0.5" href="/account"><Cog /></Button>
+      </Tooltip.Trigger>
+      <Tooltip.Content>
+        <p>Account Settings</p>
+      </Tooltip.Content>
+    </Tooltip.Root>
   </div>
 {/if}
