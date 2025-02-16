@@ -3,7 +3,7 @@
   import type { Snippet } from 'svelte';
   import type { PageData } from '../../routes/(main)/$types';
   import Channel from './channel.svelte';
-  import ChannelDialog from './channelDialog.svelte';
+  import ChannelDialog from './forms/channelDialog.svelte';
   import ModeSwitcher from './modeSwitcher.svelte';
   import User from './user.svelte';
 
