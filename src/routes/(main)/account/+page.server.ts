@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from '@sveltejs/kit';
-import { fail, message, setError, superValidate } from 'sveltekit-superforms';
+import { fail, message, superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import { auth } from '$lib/server/db/auth';
 import { changeUsernameSchema, changePasswordSchema } from '$lib/types/schema.js';
@@ -48,5 +48,11 @@ export const actions = {
 
     redirect(303, '/goodbye');
   },
-  signOut: async () => {},
+  signOut: async ({ request }) => {
+    auth.api.signOut({
+      headers: request.headers,
+    });
+
+    redirect(303, '/login');
+  },
 } satisfies Actions;

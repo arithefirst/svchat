@@ -21,7 +21,7 @@
     <div class="grid w-full items-start gap-3">
       <fieldset class="grid w-full gap-3 rounded-lg border p-4">
         <legend class="-ml-1 px-1 text-sm font-medium"> Account Actions </legend>
-        <form>
+        <form method="POST" action="?/signOut">
           <Button type="submit" class="w-full">Sign Out</Button>
         </form>
         <Button variant="destructive" class="w-full" onclick={() => (open = !open)}>Delete Account</Button>
