@@ -19,6 +19,7 @@ export default defineConfig({
     allowedHosts: true,
   },
   build: {
+    minify: 'esbuild',
     chunkSizeWarningLimit: 500,
   },
 });
