@@ -11,6 +11,10 @@
   let open: boolean = $state(false);
 </script>
 
+<svelte:head>
+  <title>SVChat | Account Settings</title>
+</svelte:head>
+
 <main class="abs-center w-2/3">
   <div class="relative grid w-full grid-cols-1 gap-3 md:grid-cols-2">
     <UpdatePassword data={data.newpassForm} />
