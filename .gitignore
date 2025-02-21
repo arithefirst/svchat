@@ -29,3 +29,6 @@ vite.config.ts.timestamp-*
 
 # Sqlite
 src/lib/server/db/users.db*
+
+# Storage
+minio-storage
