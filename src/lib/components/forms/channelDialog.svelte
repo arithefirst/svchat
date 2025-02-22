@@ -11,7 +11,7 @@
 
   let open: boolean = $state(false);
   let { data }: { data: SuperValidated<Infer<NewChannelSchema>> } = $props();
-  const { form, errors, constraints, enhance } = superForm(data, {
+  const { form, errors, enhance } = superForm(data, {
     validators: zodClient(newChannelSchema),
     onResult: ({ result }) => {
       if (result.type === 'success') {
