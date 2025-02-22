@@ -13,6 +13,10 @@
     onResult: ({ result }) => {
       if (result.type === 'success') {
         open = false;
+        // TODO (reactive channels)
+        // Send an event to the channel list to tell it to re-index all of the channels
+        // we *could* just reload, but then there would be a flash of un-rendered content
+        // and I would like to avoid that if possible
       }
     },
   });
