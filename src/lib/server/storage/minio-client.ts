@@ -48,9 +48,9 @@ class MinioClient {
   async uploadProfile(stream: Readable, mime: string) {
     try {
       const bucket = 'profile-photos';
-      if (await !this.client.bucketExists(bucket)) {
-        await this.client.makeBucket(bucket, 'us-east-1');
-        console.log('Bucket "' + bucket + '" created in "us-east-1".');
+      if (!(await this.client.bucketExists(bucket))) {
+        console.log(`Creating bucket '${bucket}', as it is required but does not exist.`);
+        this.client.makeBucket(bucket);
       }
 
       const objectId = `${v4()}${this.getFileExtension(mime)}`;

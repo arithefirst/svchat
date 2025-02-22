@@ -24,9 +24,9 @@ export const POST = async ({ request }) => {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
 
-    console.log('Uploading profile photo');
     const uploadResponse = await fsClient?.uploadProfile(stream, file.type);
     authdb.setUserImage(session.user.id, `/api/images/${uploadResponse?.objectId}`);
+    console.log(`\x1b[35m[S3]\x1b[0m Uploaded ${file.name} as ${uploadResponse?.objectId}`);
 
     return json(uploadResponse);
   } catch (e) {
