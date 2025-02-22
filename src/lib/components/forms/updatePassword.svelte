@@ -2,12 +2,15 @@
   import { Button } from '$lib/components/ui/button/index';
   import { Input } from '$lib/components/ui/input/index';
   import { Label } from '$lib/components/ui/label/index';
-  import type { ChangePasswordSchema } from '$lib/types/account';
+  import { type ChangePasswordSchema, changePasswordSchema } from '$lib/types/account';
   import type { Infer, SuperValidated } from 'sveltekit-superforms';
   import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
 
   let { data }: { data: SuperValidated<Infer<ChangePasswordSchema>> } = $props();
-  const { form, errors, message, enhance } = superForm(data);
+  const { form, errors, message, enhance } = superForm(data, {
+    validators: zodClient(changePasswordSchema),
+  });
 </script>
 
 <!-- Update Password -->

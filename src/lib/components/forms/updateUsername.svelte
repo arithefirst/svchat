@@ -2,12 +2,15 @@
   import { Button } from '$lib/components/ui/button/index';
   import { Input } from '$lib/components/ui/input/index';
   import { Label } from '$lib/components/ui/label/index';
-  import type { ChangeUsernameSchema } from '$lib/types/account';
+  import { type ChangeUsernameSchema, changeUsernameSchema } from '$lib/types/account';
   import type { Infer, SuperValidated } from 'sveltekit-superforms';
   import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
 
   let { data }: { data: SuperValidated<Infer<ChangeUsernameSchema>> } = $props();
-  const { form, errors, message, enhance } = superForm(data);
+  const { form, errors, message, enhance } = superForm(data, {
+    validators: zodClient(changeUsernameSchema),
+  });
 </script>
 
 <form class="grid w-full items-start gap-3" method="POST" action="?/updateUsername" use:enhance>
@@ -18,7 +21,7 @@
       <Input
         id="username"
         name="username"
-        type="password"
+        type="text"
         placeholder="New Username"
         bind:value={$form.username}
         aria-invalid={$errors.username ? 'true' : undefined}
