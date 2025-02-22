@@ -23,7 +23,7 @@ export const POST = async ({ request }) => {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
 
-    const uploadResponse = await fsClient?.uploadProfile(stream);
+    const uploadResponse = await fsClient?.uploadProfile(stream, file.type);
 
     return json(uploadResponse);
   } catch (e) {

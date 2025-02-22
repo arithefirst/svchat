@@ -23,7 +23,18 @@ class MinioClient {
     });
   }
 
-  async uploadProfile(stream: Readable) {
+  private getFileExtension(mimetype: string): string {
+    switch (mimetype) {
+      case 'image/jpeg':
+        return '.jpg';
+      case 'image/png':
+        return '.png';
+      default:
+        throw new Error('Unsupported file type');
+    }
+  }
+
+  async uploadProfile(stream: Readable, mime: string) {
     try {
       const bucket = 'profile-photos';
       if (await !this.client.bucketExists(bucket)) {
@@ -31,7 +42,7 @@ class MinioClient {
         console.log('Bucket "' + bucket + '" created in "us-east-1".');
       }
 
-      const objectId = v4();
+      const objectId = `${v4()}${this.getFileExtension(mime)}`;
       const upload = await this.client.putObject(bucket, objectId, stream);
       return {
         bucket,
