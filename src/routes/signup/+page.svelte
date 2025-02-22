@@ -4,9 +4,13 @@
   import { Input } from '$lib/components/ui/input/index.js';
   import { Label } from '$lib/components/ui/label/index.js';
   import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import { signupSchema } from '$lib/types/signup.js';
 
   let { data } = $props();
-  const { form, errors, message, enhance } = superForm(data.form);
+  const { form, errors, message, enhance } = superForm(data.form, {
+    validators: zodClient(signupSchema),
+  });
 </script>
 
 <svelte:head>
