@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "migrate": "npx @better-auth/cli migrate --config './src/lib/server/db/auth'",
+    "minio": "minio server minio-storage",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "production": "tsm ./prodServer.ts"
