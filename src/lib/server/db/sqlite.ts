@@ -13,6 +13,14 @@ class AuthDb {
     this.client.pragma('journal_mode = WAL');
   }
 
+  setUserImage(userId: string, image: string) {
+    try {
+      this.client.prepare('UPDATE user SET image = ? WHERE id = ?').run(image, userId);
+    } catch (e) {
+      console.error(`Error setting user image: ${(e as Error).message}`);
+    }
+  }
+
   getUser(userId: string): Profile {
     const row = this.client.prepare('SELECT username, image FROM user WHERE id = ?').get(userId);
     return {

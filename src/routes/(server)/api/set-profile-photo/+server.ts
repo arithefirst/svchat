@@ -1,5 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { auth } from '$lib/server/db/auth';
+import { authdb } from '$lib/server/db/sqlite';
 import { fsClient } from '$lib/server/storage/minio-client';
 import { Readable } from 'stream';
 
@@ -23,11 +24,13 @@ export const POST = async ({ request }) => {
     const buffer = await file.arrayBuffer();
     const stream = Readable.from(Buffer.from(buffer));
 
+    console.log('Uploading profile photo');
     const uploadResponse = await fsClient?.uploadProfile(stream, file.type);
+    authdb.setUserImage(session.user.id, `/api/images/${uploadResponse?.objectId}`);
 
     return json(uploadResponse);
   } catch (e) {
     console.error(e);
-    return error(500, 'Error uploading file');
+    return error(500, (e as Error).message);
   }
 };

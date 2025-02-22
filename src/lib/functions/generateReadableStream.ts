@@ -3,7 +3,7 @@ export async function generateStream(file: File): Promise<boolean> {
     const formData = new FormData();
     formData.append('file', file);
 
-    await fetch(`/api/upload/`, {
+    await fetch(`/api/set-profile-photo/`, {
       method: 'POST',
       body: formData,
     });

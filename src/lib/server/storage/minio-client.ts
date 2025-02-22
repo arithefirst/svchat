@@ -34,6 +34,17 @@ class MinioClient {
     }
   }
 
+  async fetchProfilePhoto(objectId: string) {
+    try {
+      const bucket = 'profile-photos';
+      const object = await this.client.getObject(bucket, objectId);
+      return object;
+    } catch (e) {
+      console.error(`Error fetching file: ${(e as Error).message}`);
+      throw e;
+    }
+  }
+
   async uploadProfile(stream: Readable, mime: string) {
     try {
       const bucket = 'profile-photos';
