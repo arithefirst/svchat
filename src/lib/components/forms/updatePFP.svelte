@@ -7,10 +7,8 @@
   async function submit(e: SubmitEvent) {
     e.preventDefault();
     if (files.length === 0) return;
-    const success = await generateStream(files[0]);
-    if (success) {
-      // success feedback
-    }
+    const res = await generateStream(files[0]);
+    console.log(res);
   }
 </script>
 
