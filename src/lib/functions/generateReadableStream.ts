@@ -1,8 +1,11 @@
 export async function generateStream(file: File): Promise<boolean> {
   try {
+    const formData = new FormData();
+    formData.append('file', file);
+
     await fetch(`/api/upload/`, {
       method: 'POST',
-      body: file,
+      body: formData,
     });
 
     return true;

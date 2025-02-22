@@ -4,9 +4,13 @@
 
   let files: FileList;
 
-  function submit() {
+  async function submit(e: SubmitEvent) {
+    e.preventDefault();
     if (files.length === 0) return;
-    generateStream(files[0]);
+    const success = await generateStream(files[0]);
+    if (success) {
+      // success feedback
+    }
   }
 </script>
 

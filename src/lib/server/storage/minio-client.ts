@@ -31,10 +31,16 @@ class MinioClient {
         console.log('Bucket "' + bucket + '" created in "us-east-1".');
       }
 
-      const upload = await this.client.putObject(bucket, v4(), stream);
-      console.log(upload);
+      const objectId = v4();
+      const upload = await this.client.putObject(bucket, objectId, stream);
+      return {
+        bucket,
+        objectId,
+        etag: upload.etag,
+      };
     } catch (e) {
       console.error(`Error uploading file: ${(e as Error).message}`);
+      throw e;
     }
   }
 }
