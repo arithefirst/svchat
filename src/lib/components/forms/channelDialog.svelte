@@ -6,10 +6,13 @@
   import type { NewChannelSchema } from '$lib/types/misc';
   import type { Infer, SuperValidated } from 'sveltekit-superforms';
   import { superForm } from 'sveltekit-superforms';
+  import { zodClient } from 'sveltekit-superforms/adapters';
+  import { newChannelSchema } from '$lib/types/misc';
 
   let open: boolean = $state(false);
   let { data }: { data: SuperValidated<Infer<NewChannelSchema>> } = $props();
   const { form, errors, constraints, enhance } = superForm(data, {
+    validators: zodClient(newChannelSchema),
     onResult: ({ result }) => {
       if (result.type === 'success') {
         open = false;
@@ -36,7 +39,6 @@
         type="text"
         bind:value={$form.channelName}
         aria-invalid={$errors.channelName ? 'true' : undefined}
-        {...$constraints.channelName}
       />
       {#if $errors.channelName}<Label for="channelName" class="m-0 p-0 text-red-500">{$errors.channelName}</Label>{/if}
       <Dialog.Footer>
