@@ -7,8 +7,7 @@
   async function submit(e: SubmitEvent) {
     e.preventDefault();
     if (files.length === 0) return;
-    const res = await generateStream(files[0]);
-    console.log(res);
+    await generateStream(files[0]).then(() => window.location.reload());
   }
 </script>
 
