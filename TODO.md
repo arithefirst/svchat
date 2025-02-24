@@ -11,6 +11,12 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Installation documentation
 - [ ] Message context menus
 - [x] Markdown Support
+- [ ] More Secure database passwords
+  - [ ] Minio
+  - [ ] Cassandra
+  - Ideas:
+    - User-controllable
+    - Randomly generated on each run
 - [x] Profile photos
 - [ ] Reactive channels list
 - [ ] Show characters before message gets cut off in textarea
