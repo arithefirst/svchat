@@ -21,10 +21,20 @@
   let textareaRef: HTMLTextAreaElement | undefined = $state();
   let formref: HTMLFormElement | undefined = $state();
 
+  function askNotificationPermission() {
+    // Check if the browser supports notifications
+    if (!('Notification' in window)) {
+      alert('This browser does not support notifications.');
+      return;
+    }
+
+    Notification.requestPermission();
+  }
+
   function submit(event: Event) {
     event.preventDefault();
     if (msg.length <= 2000) {
-      socket?.sendMessage(data.currentUser, msg);
+      socket?.sendMessage(data.currentUserID, msg);
       if (textareaRef) textareaRef.style.height = '40px';
       msg = '';
     } else {
@@ -34,8 +44,11 @@
 
   onMount(() => {
     // Connect on page load
-    socket = new Websocket(io());
+    socket = new Websocket(io(), data.currentUserName);
     socket.connect();
+
+    // Ask for notification permissions
+    askNotificationPermission();
 
     // Submit on textarea enter
     textareaRef?.addEventListener('keypress', (e) => {

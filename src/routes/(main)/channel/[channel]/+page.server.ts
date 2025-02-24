@@ -4,7 +4,13 @@ import type { TypeMessage } from '$lib/types';
 import { error, redirect } from '@sveltejs/kit';
 import { auth } from '$lib/server/db/auth';
 
-export async function load({ params, request }): Promise<{ messages: TypeMessage[]; currentUser: string }> {
+interface ChannelLoad {
+  messages: TypeMessage[];
+  currentUserID: string;
+  currentUserName: string;
+}
+
+export async function load({ params, request }): Promise<ChannelLoad> {
   const session = await auth.api.getSession({
     headers: request.headers,
   });
@@ -34,6 +40,7 @@ export async function load({ params, request }): Promise<{ messages: TypeMessage
 
   return {
     messages: messages ?? [],
-    currentUser: session.user.id!,
+    currentUserID: session.user.id!,
+    currentUserName: session.user.username!,
   };
 }

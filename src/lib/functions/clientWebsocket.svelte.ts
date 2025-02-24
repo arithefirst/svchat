@@ -3,11 +3,13 @@ import type { Socket } from 'socket.io-client';
 
 class Websocket {
   private socket: Socket;
+  private me: string;
   public messages: TypeMessage[] = $state([]);
   private channel: string = '';
 
-  constructor(socket: Socket) {
+  constructor(socket: Socket, user: string) {
     this.socket = socket;
+    this.me = user;
   }
 
   connect() {
@@ -26,7 +28,7 @@ class Websocket {
   }
 
   // Add message to local messages array
-  loadMessage(newMsg: TypeMessage) {
+  private loadMessage(newMsg: TypeMessage) {
     this.messages = [
       {
         message: newMsg.message,
@@ -35,6 +37,16 @@ class Websocket {
       },
       ...this.messages,
     ];
+
+    // Sends a notif if the window is unfocused and
+    // the sender is not the current user
+    if (this.me !== newMsg.user && !document.hasFocus()) {
+      new Notification(`Message in #${this.channel}`, {
+        body: `${newMsg.user}: ${newMsg.message}`,
+        icon: newMsg.imageSrc,
+        tag: `message-in-channel-${this.channel}`,
+      });
+    }
   }
 
   // Send a message

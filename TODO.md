@@ -11,7 +11,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Images/Attatchments support
 - [x] Installation documentation
 - [ ] LaTeX support
-- [ ] Notifications
+- [x] Notifications
 - [x] Make the damn textbox stop unfocusing on every message submit
 - [ ] Message context menus
 - [ ] Message Timestamps
