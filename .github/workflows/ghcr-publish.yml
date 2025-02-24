@@ -1,0 +1,17 @@
+name: Push to GHCR
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        run: sudo docker build '.' -t 'ghcr.io/arithefirst/svchat:latest'
+
+      - name: Login to GHCR
+        run: echo ${{ secrets.GH_PAT }} | sudo docker login --username arithefirst --password-stdin ghcr.io
+
+      - name: Push Docker image
+        run: sudo docker push 'ghcr.io/arithefirst/svchat'
