@@ -1,6 +1,7 @@
 services:
   chat-server:
     container_name: svchat-server
+    image: ghcr.io/arithefirst/svchat
     build:
       context: .
     environment:

@@ -38,5 +38,8 @@ COPY --from=deps /app/node_modules node_modules/
 
 ENV NODE_ENV=production
 
+# Link to GitHub Repo
+LABEL org.opencontainers.image.source https://github.com/arithefirst/svchat
+
 EXPOSE 3000
 CMD ["npm", "run", "production"]
