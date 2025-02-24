@@ -20,8 +20,8 @@ services:
       - 9042:9042
     environment:
       # TODO Change default passwords
-      - CASSANDRA_USER=admin
-      - CASSANDRA_PASSWORD=admin
+      - CASSANDRA_USER: admin
+      - CASSANDRA_PASSWORD: admin
     volumes:
       - svchat-cassandra:/var/lib/cassandra
 
@@ -34,8 +34,8 @@ services:
       - 9001:9001
     environment:
       # TODO Change default passwords
-      - MINIO_ROOT_USER=minioadmin
-      - MINIO_ROOT_PASSWORD=minioadmin
+      - MINIO_ROOT_USER: minioadmin
+      - MINIO_ROOT_PASSWORD: minioadmin
     volumes:
       - svchat-s3:/data
 

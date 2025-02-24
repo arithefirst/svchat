@@ -9,7 +9,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Editing messages
 - [ ] Emoji picker
 - [ ] Images/Attatchments support
-- [ ] Installation documentation
+- [x] Installation documentation
 - [ ] LaTeX support
 - [ ] Notifications
 - [x] Make the damn textbox stop unfocusing on every message submit
