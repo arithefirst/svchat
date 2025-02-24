@@ -6,10 +6,15 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [x] Account / Profile management
 - [ ] Channel context menus
 - [x] Containerization with docker and docker-compose
+- [ ] Editing messages
 - [ ] Emoji picker
 - [ ] Images/Attatchments support
 - [ ] Installation documentation
+- [ ] LaTeX support
+- [ ] Notifications
+- [ ] Make the damn textbox stop unfocusing on every message submit
 - [ ] Message context menus
+- [ ] Message Timestamps
 - [x] Markdown Support
 - [ ] More Secure database passwords
   - [ ] Minio
@@ -19,6 +24,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
     - Randomly generated on each run
 - [x] Profile photos
 - [ ] Reactive channels list
+- [ ] Replies
 - [ ] Show characters before message gets cut off in textarea
 - [x] User Auth
 - [x] Usernames / Displaynames in chat
