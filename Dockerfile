@@ -38,8 +38,10 @@ COPY --from=deps /app/node_modules node_modules/
 
 ENV NODE_ENV=production
 
-# Link to GitHub Repo
+# Link to GitHub Repo & Other Metadata
 LABEL org.opencontainers.image.source https://github.com/arithefirst/svchat
+LABEL org.opencontainers.image.licenses GPL-3.0-only
+LABEL org.opencontainers.image.description A simple chat app built with SvelteKit and Apache Cassandra 
 
 EXPOSE 3000
 CMD ["npm", "run", "production"]
