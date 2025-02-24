@@ -21,7 +21,8 @@
   let textareaRef: HTMLTextAreaElement | undefined = $state();
   let formref: HTMLFormElement | undefined = $state();
 
-  function submit() {
+  function submit(event: Event) {
+    event.preventDefault();
     if (msg.length <= 2000) {
       socket?.sendMessage(data.currentUser, msg);
       if (textareaRef) textareaRef.style.height = '40px';

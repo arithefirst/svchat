@@ -12,7 +12,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Installation documentation
 - [ ] LaTeX support
 - [ ] Notifications
-- [ ] Make the damn textbox stop unfocusing on every message submit
+- [x] Make the damn textbox stop unfocusing on every message submit
 - [ ] Message context menus
 - [ ] Message Timestamps
 - [x] Markdown Support
