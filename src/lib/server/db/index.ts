@@ -1,4 +1,5 @@
 import cassandra from 'cassandra-driver';
+import 'dotenv/config';
 
 interface Messages {
   messages: cassandra.types.Row[] | null;
@@ -22,11 +23,15 @@ class Db {
   private client: cassandra.Client = new cassandra.Client({
     contactPoints: [this.clientUrl],
     localDataCenter: 'datacenter1',
-    authProvider: new cassandra.auth.PlainTextAuthProvider('admin', 'admin'),
+    authProvider: new cassandra.auth.PlainTextAuthProvider(process.env.CASSANDRA_USER!, process.env.CASSANDRA_PASSWORD!),
   });
 
   // Initalize and connect
   async init() {
+    if (!process.env.CASSANDRA_USER || !process.env.CASSANDRA_PASSWORD) {
+      console.error('Missing Cassandra username or password. Exiting.');
+      process.exit(1);
+    }
     while (true) {
       try {
         await this.client.connect();

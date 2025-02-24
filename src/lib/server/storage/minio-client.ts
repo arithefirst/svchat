@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import * as Minio from 'minio';
 import { Readable } from 'stream';
 import { v4 } from 'uuid';
@@ -70,6 +71,11 @@ class MinioClient {
 let fsClient: MinioClient | undefined;
 
 if (process.env.BUILDING !== 'true') {
+  if (!process.env.MINIO_ROOT_USER || !process.env.MINIO_ROOT_PASSWORD) {
+    console.error('Missing Minio username or password. Exiting.');
+    process.exit(1);
+  }
+
   fsClient = new MinioClient({
     // Endpoint is 'minio' in compose, 'localhost' everywhere else
     endPoint: process.env.NODE_ENV === 'docker_production' ? 'minio' : 'localhost',

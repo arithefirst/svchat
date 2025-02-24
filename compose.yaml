@@ -3,8 +3,12 @@ services:
     container_name: svchat-server
     image: ghcr.io/arithefirst/svchat
     environment:
-      NODE_ENV: docker_production
-      ORIGIN: http://localhost:3000
+      - NODE_ENV=docker_production
+      - ORIGIN=http://localhost:3000
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
     ports:
       - 3000:3000
     depends_on:
@@ -19,9 +23,9 @@ services:
     ports:
       - 9042:9042
     environment:
-      # TODO Change default passwords
-      - CASSANDRA_USER: admin
-      - CASSANDRA_PASSWORD: admin
+      # CHANGEME
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
     volumes:
       - svchat-cassandra:/var/lib/cassandra
 
@@ -33,9 +37,9 @@ services:
       - 9000:9000
       - 9001:9001
     environment:
-      # TODO Change default passwords
-      - MINIO_ROOT_USER: minioadmin
-      - MINIO_ROOT_PASSWORD: minioadmin
+      # CHANGEME
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
     volumes:
       - svchat-s3:/data
 
