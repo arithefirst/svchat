@@ -2,8 +2,6 @@ services:
   chat-server:
     container_name: svchat-server
     image: ghcr.io/arithefirst/svchat
-    build:
-      context: .
     environment:
       NODE_ENV: docker_production
       ORIGIN: http://localhost:3000
