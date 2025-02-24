@@ -77,8 +77,8 @@ To deploy with Docker, you will need to have both `docker` and `docker-compose` 
    ORIGIN=http://localhost:3000
    ```
 
-   > [!WARNING]
-   > The above DB and S3 credentials are just for example, and it is highly reccomended that you change them for security purposes.
+> [!WARNING]
+> The above DB and S3 credentials are just for example, and it is highly reccomended that you change them for security purposes.
 
 7. **Build**
 
