@@ -46,5 +46,5 @@ app.use((req, res, next) => {
 });
 
 server.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
+  console.log(`Listening on ${process.env.ORIGIN}`);
 });
