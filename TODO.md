@@ -6,9 +6,9 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [x] Account / Profile management
 - [ ] Channel context menus
 - [x] Containerization with docker and docker-compose
-- [ ] Documentation
 - [ ] Emoji picker
 - [ ] Images/Attatchments support
+- [ ] Installation documentation
 - [ ] Message context menus
 - [x] Markdown Support
 - [x] Profile photos
