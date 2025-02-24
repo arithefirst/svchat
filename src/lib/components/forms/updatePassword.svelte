@@ -15,7 +15,7 @@
 
 <!-- Update Password -->
 <form class="grid w-full items-start gap-3" use:enhance method="POST" action="?/updatePassword">
-  <fieldset class="grid w-full gap-3 rounded-lg border p-4">
+  <fieldset class="flex size-full flex-col justify-center gap-3 rounded-lg border p-4">
     <legend class="-ml-1 px-1 text-sm font-medium"> Update Password </legend>
     <div class="grid gap-3">
       <Label for="currentPassword">Current Password</Label>

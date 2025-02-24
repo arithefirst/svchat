@@ -27,7 +27,6 @@ export const changeUsernameSchema = z.object({
     .max(15, 'Username must be no more than 15 characters.')
     .regex(/^(?![A-Z])/gm, 'Username cannot contain uppercase letters')
     .regex(/^(?=[a-z0-9-_]+$)/gm, 'Username cannot contain special characters'),
-  password: z.string().nonempty('Password must not be empty.'),
 });
 
 export type ChangePasswordSchema = typeof changePasswordSchema;

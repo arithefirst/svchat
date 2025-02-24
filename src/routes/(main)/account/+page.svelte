@@ -1,12 +1,13 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button/index';
   import * as Dialog from '$lib/components/ui/dialog';
+  import type { PageData } from './$types';
 
-  let { data } = $props();
+  let { data }: { data: PageData } = $props();
 
   import UpdatePassword from '$lib/components/forms/updatePassword.svelte';
-  import UpdateUsername from '$lib/components/forms/updateUsername.svelte';
   import UpdatePfp from '$lib/components/forms/updatePFP.svelte';
+  import UpdateUsername from '$lib/components/forms/updateUsername.svelte';
 
   let open: boolean = $state(false);
 </script>
@@ -23,7 +24,7 @@
 
     <!-- Account Actions -->
     <div class="grid w-full items-start gap-3">
-      <fieldset class="grid w-full gap-3 rounded-lg border p-4">
+      <fieldset class="flex size-full flex-col justify-center gap-3 rounded-lg border p-4">
         <legend class="-ml-1 px-1 text-sm font-medium"> Account Actions </legend>
         <form method="POST" action="?/signOut">
           <Button type="submit" class="w-full">Sign Out</Button>

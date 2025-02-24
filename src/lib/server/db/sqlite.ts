@@ -13,12 +13,13 @@ class AuthDb {
     this.client.pragma('journal_mode = WAL');
   }
 
+  setUserName(userId: string, newUsername: string) {
+    this.client.prepare('UPDATE user SET username = ? WHERE id = ?').run(newUsername, userId);
+    console.log('wam bam');
+  }
+
   setUserImage(userId: string, image: string) {
-    try {
-      this.client.prepare('UPDATE user SET image = ? WHERE id = ?').run(image, userId);
-    } catch (e) {
-      console.error(`Error setting user image: ${(e as Error).message}`);
-    }
+    this.client.prepare('UPDATE user SET image = ? WHERE id = ?').run(image, userId);
   }
 
   getUser(userId: string): Profile {

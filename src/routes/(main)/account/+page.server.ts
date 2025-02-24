@@ -5,6 +5,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { auth } from '$lib/server/db/auth';
 import { changeUsernameSchema, changePasswordSchema } from '$lib/types/account';
 import type { APIError } from 'better-auth/api';
+import { authdb } from '$lib/server/db/sqlite.js';
 
 export async function load({ request }) {
   const session = await auth.api.getSession({
@@ -50,10 +51,31 @@ export const actions = {
     return message(newpassForm, 'Password updated.');
   },
   updateUsername: async ({ request }) => {
+    const session = await auth.api.getSession({
+      headers: request.headers,
+    });
     const newuserForm = await superValidate(request, zod(changeUsernameSchema));
 
-    if (!newuserForm.valid) {
-      return fail(400, { newuserForm });
+    try {
+      if (!newuserForm.valid) {
+        return fail(400, { newuserForm });
+      }
+
+      if (session?.user.id) {
+        if (authdb.getUser(session.user.id).username !== newuserForm.data.username) {
+          authdb.setUserName(session.user.id, newuserForm.data.username);
+        } else {
+          throw new Error('New username cannot be the same as old username.');
+        }
+      } else {
+        throw new Error('No user ID found.');
+      }
+    } catch (e) {
+      const errorMessage = (e as Error).message;
+      if (errorMessage === 'UNIQUE constraint failed: user.username') {
+        return setError(newuserForm, 'username', 'Username taken.');
+      }
+      return setError(newuserForm, 'username', errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
     }
 
     return message(newuserForm, 'Username updated.');

@@ -13,8 +13,8 @@
   });
 </script>
 
-<form class="grid w-full items-start gap-3" method="POST" action="?/updateUsername" use:enhance>
-  <fieldset class="grid w-full gap-3 rounded-lg border p-4">
+<form class="grid size-full items-start gap-3" method="POST" action="?/updateUsername" use:enhance>
+  <fieldset class="flex size-full flex-col justify-center gap-3 rounded-lg border p-4">
     <legend class="-ml-1 px-1 text-sm font-medium"> Update Username </legend>
     <div class="grid gap-3">
       <Label for="username">New Username</Label>
@@ -27,18 +27,6 @@
         aria-invalid={$errors.username ? 'true' : undefined}
       />
       {#if $errors.username}<span class="text-sm text-red-500">{$errors.username[0]}</span>{/if}
-    </div>
-    <div class="grid gap-3">
-      <Label for="password">Password</Label>
-      <Input
-        id="password"
-        name="password"
-        type="password"
-        placeholder="Password"
-        bind:value={$form.password}
-        aria-invalid={$errors.password ? 'true' : undefined}
-      />
-      {#if $errors.password}<span class="text-sm text-red-500">{$errors.password[0]}</span>{/if}
     </div>
     <Button type="submit">Update Username</Button>
     <p class="mt-1 text-center text-sm text-green-500">

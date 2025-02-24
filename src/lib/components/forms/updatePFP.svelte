@@ -14,7 +14,7 @@
 </script>
 
 <form class="grid w-full items-start gap-3" onsubmit={submit}>
-  <fieldset class="grid w-full gap-3 rounded-lg border p-4">
+  <fieldset class="flex size-full flex-col justify-center gap-3 rounded-lg border p-4">
     <legend class="-ml-1 px-1 text-sm font-medium"> Upload Profile Image </legend>
     <input
       class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0
