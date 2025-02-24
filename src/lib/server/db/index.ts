@@ -18,9 +18,11 @@ function sanitizeChannelName(channelName: string) {
 }
 
 class Db {
+  private clientUrl: string = process.env.NODE_ENV === 'docker_production' ? 'cassandra' : 'localhost';
   private client: cassandra.Client = new cassandra.Client({
-    contactPoints: ['localhost'],
+    contactPoints: [this.clientUrl],
     localDataCenter: 'datacenter1',
+    authProvider: new cassandra.auth.PlainTextAuthProvider('admin', 'admin'),
   });
 
   // Initalize and connect

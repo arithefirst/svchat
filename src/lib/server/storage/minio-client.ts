@@ -71,7 +71,8 @@ let fsClient: MinioClient | undefined;
 
 if (process.env.BUILDING !== 'true') {
   fsClient = new MinioClient({
-    endPoint: 'localhost',
+    // Endpoint is 'minio' in compose, 'localhost' everywhere else
+    endPoint: process.env.NODE_ENV === 'docker_production' ? 'minio' : 'localhost',
     port: 9000,
     accessKey: 'minioadmin',
     secretKey: 'minioadmin',

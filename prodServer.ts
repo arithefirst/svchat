@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+const port = 3000;
 
 io.on('connection', async (socket) => {
   // Runs on client connection
@@ -44,6 +45,6 @@ app.use((req, res, next) => {
   }
 });
 
-server.listen(3005, () => {
-  console.log('Listening on http://0.0.0.0:3005');
+server.listen(port, () => {
+  console.log(`Listening on http://localhost:${port}`);
 });

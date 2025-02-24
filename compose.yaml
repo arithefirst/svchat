@@ -1,0 +1,49 @@
+services:
+  chat-server:
+    container_name: svchat-server
+    build:
+      context: .
+    environment:
+      NODE_ENV: docker_production
+      ORIGIN: http://localhost:3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - cassandra
+    volumes:
+      - svchat-users:/app/src/lib/server/db
+
+  cassandra:
+    container_name: svchat-db
+    image: cassandra
+    restart: always
+    ports:
+      - 9042:9042
+    environment:
+      # TODO Change default passwords
+      - CASSANDRA_USER=admin
+      - CASSANDRA_PASSWORD=admin
+    volumes:
+      - svchat-cassandra:/var/lib/cassandra
+
+  minio:
+    container_name: svchat-s3
+    image: docker.io/bitnami/minio
+    restart: always
+    ports:
+      - 9000:9000
+      - 9001:9001
+    environment:
+      # TODO Change default passwords
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    volumes:
+      - svchat-s3:/data
+
+volumes:
+  svchat-cassandra:
+    driver: local
+  svchat-s3:
+    driver: local
+  svchat-users:
+    driver: local
