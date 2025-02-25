@@ -36,7 +36,7 @@ export function startupSocketIOServer(httpServer: HttpServer | null) {
           message: msg.content,
           imageSrc: sender.image,
           channel: msg.channel,
-          timestamp: timestamp.getTime(),
+          timestamp: timestamp,
         });
       }
     });

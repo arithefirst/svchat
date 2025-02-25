@@ -31,7 +31,7 @@ export async function load({ params, request }): Promise<ChannelLoad> {
             user: sender.username,
             imageSrc: sender.image,
             channel: value.channel,
-            timestamp: db.tsEpoch(value.timestamp),
+            timestamp: new Date(value.timestamp),
           };
         })
       : [];

@@ -29,12 +29,13 @@ class Websocket {
 
   // Add message to local messages array
   private loadMessage(newMsg: TypeMessage) {
+    console.log(newMsg.timestamp);
     this.messages = [
       {
         message: newMsg.message,
         imageSrc: newMsg.imageSrc,
         user: newMsg.user,
-        timestamp: newMsg.timestamp,
+        timestamp: new Date(newMsg.timestamp),
       },
       ...this.messages,
     ];

@@ -16,7 +16,7 @@
       <span class="font-bold">{user}</span>
       <span>·</span>
       <span class="text-muted-foreground"
-        >{new Date(timestamp).toLocaleDateString('en-US', {
+        >{timestamp.toLocaleDateString('en-US', {
           year: 'numeric',
           month: 'short',
           day: 'numeric',

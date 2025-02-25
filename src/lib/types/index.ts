@@ -2,7 +2,7 @@ export interface TypeMessage {
   message: string;
   imageSrc: string;
   user: string;
-  timestamp: number;
+  timestamp: Date;
 }
 
 export interface TypeFullMessage {
@@ -10,5 +10,5 @@ export interface TypeFullMessage {
   message: string;
   imageSrc: string;
   user: string;
-  timestamp: number;
+  timestamp: Date;
 }

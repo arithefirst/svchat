@@ -6,12 +6,6 @@ interface Messages {
   error: Error | null;
 }
 
-interface CassandraTimestamp {
-  low: number;
-  high: number;
-  unsigned: boolean;
-}
-
 function createDelay(ms: number) {
   return new Promise((res) => setTimeout(res, ms));
 }
@@ -134,13 +128,6 @@ class Db {
         error: e as Error,
       };
     }
-  }
-
-  // Timestamp to Epoch method
-  tsEpoch(ts: CassandraTimestamp) {
-    const low = ts.low >>> 0;
-    const high = ts.high >>> 0;
-    return high * 2 ** 32 + low;
   }
 }
 
