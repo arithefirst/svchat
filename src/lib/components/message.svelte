@@ -16,7 +16,6 @@
   }
 
   let { message, imageSrc, user, timestamp, uid, open = $bindable(), closeDialogs, i }: TypeMessage & Props = $props();
-  let epoch: number = Math.floor(timestamp.getTime() / 1000);
 
   function copy(itemName: string, content: string | number) {
     navigator.clipboard
@@ -58,18 +57,36 @@
     </div>
   </ContextMenu.Trigger>
   <ContextMenu.Content>
+    <!-- Copy Username -->
     <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('username', user)}
       ><SquareUserRound size={16} />Copy Username</ContextMenu.Item
     >
+    <!-- Copy User ID -->
     <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('user ID', uid)}
       ><IDCard size={16} />Copy User ID</ContextMenu.Item
     >
     <ContextMenu.Separator />
+    <!-- Copy Text -->
     <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('message', message)}
       ><Clipboard size={16} />Copy Text</ContextMenu.Item
     >
-    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('timestamp', epoch)}
-      ><CalendarClock size={16} />Copy Timestamp</ContextMenu.Item
+    <!-- Copy Timestamp -->
+    <ContextMenu.Item
+      class="flex cursor-pointer items-center gap-1.5"
+      onclick={() =>
+        copy(
+          'timestamp',
+          timestamp.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: '2-digit',
+            hour12: true,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            timeZoneName: 'short',
+          }),
+        )}><CalendarClock size={16} />Copy Timestamp</ContextMenu.Item
     >
   </ContextMenu.Content>
 </ContextMenu.Root>
