@@ -12,7 +12,11 @@ export const GET = async ({ params }) => {
 
     const readableStream = new ReadableStream({
       start(controller) {
-        stream.on('data', (chunk) => controller.enqueue(chunk));
+        stream.on('data', (chunk) => {
+          if (controller.desiredSize !== null && controller.desiredSize > 0) {
+            controller.enqueue(chunk);
+          }
+        });
         stream.on('end', () => controller.close());
         stream.on('error', (err) => controller.error(err));
       },
