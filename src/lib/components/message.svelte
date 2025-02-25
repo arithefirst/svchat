@@ -1,8 +1,13 @@
 <script lang="ts">
-  import { type TypeMessage } from '$lib/types';
   import Prose from '$lib/components/prose.svelte';
-  import renderMarkdown from '$lib/functions/renderMarkdown';
   import * as ContextMenu from '$lib/components/ui/context-menu';
+  import renderMarkdown from '$lib/functions/renderMarkdown';
+  import { type TypeMessage } from '$lib/types';
+
+  import Clipboard from 'lucide-svelte/icons/clipboard';
+  import SquareUserRound from 'lucide-svelte/icons/square-user-round';
+  import IDCard from 'lucide-svelte/icons/id-card';
+  import CalendarClock from 'lucide-svelte/icons/calendar-clock';
 
   interface Props {
     open: boolean;
@@ -53,11 +58,19 @@
     </div>
   </ContextMenu.Trigger>
   <ContextMenu.Content>
-    <ContextMenu.Item class="cursor-pointer" onclick={() => copy('username', user)}>Copy Username</ContextMenu.Item>
-    <ContextMenu.Item class="cursor-pointer" onclick={() => copy('user ID', uid)}>Copy User ID</ContextMenu.Item>
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('username', user)}
+      ><SquareUserRound size={16} />Copy Username</ContextMenu.Item
+    >
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('user ID', uid)}
+      ><IDCard size={16} />Copy User ID</ContextMenu.Item
+    >
     <ContextMenu.Separator />
-    <ContextMenu.Item class="cursor-pointer" onclick={() => copy('message', message)}>Copy message content</ContextMenu.Item>
-    <ContextMenu.Item class="cursor-pointer" onclick={() => copy('timestamp', epoch)}>Copy message epoch</ContextMenu.Item>
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('message', message)}
+      ><Clipboard size={16} />Copy Text</ContextMenu.Item
+    >
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('timestamp', epoch)}
+      ><CalendarClock size={16} />Copy Timestamp</ContextMenu.Item
+    >
   </ContextMenu.Content>
 </ContextMenu.Root>
 
