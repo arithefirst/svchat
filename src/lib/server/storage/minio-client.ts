@@ -50,7 +50,7 @@ class MinioClient {
     try {
       const bucket = 'profile-photos';
       if (!(await this.client.bucketExists(bucket))) {
-        console.log(`Creating bucket '${bucket}', as it is required but does not exist.`);
+        console.log(`\x1b[35m[S3]\x1b[0m Creating bucket '${bucket}', as it is required but does not exist.`);
         this.client.makeBucket(bucket);
       }
 

@@ -15,11 +15,12 @@ class AuthDb {
 
   setUserName(userId: string, newUsername: string) {
     this.client.prepare('UPDATE user SET username = ? WHERE id = ?').run(newUsername, userId);
-    console.log('wam bam');
+    console.log(`\x1b[35m[AUTHDB]\x1b[0m changed username for ${userId} to ${newUsername}`);
   }
 
   setUserImage(userId: string, image: string) {
     this.client.prepare('UPDATE user SET image = ? WHERE id = ?').run(image, userId);
+    console.log(`\x1b[35m[AUTHDB]\x1b[0m changed pfp for ${userId} to ${image}`);
   }
 
   getUser(userId: string): Profile {
