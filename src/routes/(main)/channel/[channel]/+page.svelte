@@ -6,7 +6,6 @@
   import { buttonVariants } from '$lib/components/ui/button';
   import { autoResize } from '$lib/functions/autoresize.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
-  import type { TypeMessage } from '$lib/types';
   import Send from 'lucide-svelte/icons/send';
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
@@ -79,29 +78,25 @@
   <title>SVChat | #{channel}</title>
 </svelte:head>
 
-{#snippet message(messages: TypeMessage[])}
-  {#each messages as message, i}
-    <Message
-      bind:open={contextMenus[i]}
-      imageSrc={message.imageSrc}
-      user={message.user}
-      message={message.message}
-      timestamp={message.timestamp}
-      uid={message.uid}
-      {closeDialogs}
-      {i}
-    />
-  {/each}
-{/snippet}
-
 <MessageLengthDialog messageLength={msg.length} bind:showDialog />
 
 <div class="flex h-full flex-col items-center justify-center gap-1 rounded-lg shadow-sm">
   <div class="relative flex size-full h-full w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {#if data.messages.length != 0 || socket?.messages.length != 0}
       <div class="flex flex-col-reverse">
-        {@render message(socket?.messages ?? [])}
-        {@render message(data.messages)}
+        <!-- Concatenate the two arrays together -->
+        {#each [...(socket?.messages ?? []), ...data.messages] as message, i}
+          <Message
+            bind:open={contextMenus[i]}
+            imageSrc={message.imageSrc}
+            user={message.user}
+            message={message.message}
+            timestamp={message.timestamp}
+            uid={message.uid}
+            {closeDialogs}
+            {i}
+          />
+        {/each}
       </div>
     {:else}
       <EmptyChannel />
