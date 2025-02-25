@@ -2,6 +2,7 @@ export interface TypeMessage {
   message: string;
   imageSrc: string;
   user: string;
+  uid: string;
   timestamp: Date;
 }
 
@@ -10,5 +11,6 @@ export interface TypeFullMessage {
   message: string;
   imageSrc: string;
   user: string;
+  uid: string;
   timestamp: Date;
 }

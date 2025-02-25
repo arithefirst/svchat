@@ -70,8 +70,8 @@
 </svelte:head>
 
 {#snippet message(messages: TypeMessage[])}
-  {#each messages as message}
-    <Message imageSrc={message.imageSrc} user={message.user} message={message.message} timestamp={message.timestamp} />
+  {#each messages as message, i}
+    <Message imageSrc={message.imageSrc} user={message.user} message={message.message} timestamp={message.timestamp} uid={message.uid} />
   {/each}
 {/snippet}
 

@@ -25,6 +25,7 @@ io.on('connection', async (socket) => {
       const sender = authdb.getUser(msg.id);
       io!.emit('message', {
         user: sender.username,
+        uid: msg.id,
         message: msg.content,
         imageSrc: sender.image,
         channel: msg.channel,

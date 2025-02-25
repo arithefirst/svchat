@@ -29,6 +29,7 @@ export async function load({ params, request }): Promise<ChannelLoad> {
           return {
             message: value.message_content,
             user: sender.username,
+            uid: value.sender,
             imageSrc: sender.image,
             channel: value.channel,
             timestamp: new Date(value.timestamp),
