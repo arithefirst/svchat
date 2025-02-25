@@ -34,6 +34,7 @@ class Websocket {
         message: newMsg.message,
         imageSrc: newMsg.imageSrc,
         user: newMsg.user,
+        timestamp: newMsg.timestamp,
       },
       ...this.messages,
     ];

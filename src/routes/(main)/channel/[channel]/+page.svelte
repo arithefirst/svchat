@@ -71,7 +71,7 @@
 
 {#snippet message(messages: TypeMessage[])}
   {#each messages as message}
-    <Message imageSrc={message.imageSrc} user={message.user} message={message.message} />
+    <Message imageSrc={message.imageSrc} user={message.user} message={message.message} timestamp={message.timestamp} />
   {/each}
 {/snippet}
 

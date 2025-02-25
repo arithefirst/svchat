@@ -6,6 +6,12 @@ interface Messages {
   error: Error | null;
 }
 
+interface CassandraTimestamp {
+  low: number;
+  high: number;
+  unsigned: boolean;
+}
+
 function createDelay(ms: number) {
   return new Promise((res) => setTimeout(res, ms));
 }
@@ -69,16 +75,15 @@ class Db {
   }
 
   // Send message method
-  async sendMessage(channelName: string, content: string, sender: string, id: string) {
+  async sendMessage(channelName: string, content: string, sender: string, id: string, timestamp: Date) {
     try {
-      const now = new Date();
       channelName = sanitizeChannelName(channelName);
-      await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, timestamp, sender) VALUES (?, ?, ?, ?, ?)`, {
+      await this.client.execute(`INSERT INTO channels.${channelName} (id, message_content, channel_name, sender, timestamp) VALUES (?, ?, ?, ?, ?)`, {
         id,
         message_content: content,
         channel_name: channelName,
-        timestamp: now.getTime(),
         sender,
+        timestamp,
       });
     } catch (e) {
       console.error(`Error storing message: ${e as Error}`);
@@ -129,6 +134,13 @@ class Db {
         error: e as Error,
       };
     }
+  }
+
+  // Timestamp to Epoch method
+  tsEpoch(ts: CassandraTimestamp) {
+    const low = ts.low >>> 0;
+    const high = ts.high >>> 0;
+    return high * 2 ** 32 + low;
   }
 }
 

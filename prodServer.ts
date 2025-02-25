@@ -20,13 +20,15 @@ io.on('connection', async (socket) => {
     if (msg.content !== '') {
       console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
       // Store the message in the database
-      await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4());
+      const timestamp = new Date();
+      await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4(), timestamp);
       const sender = authdb.getUser(msg.id);
       io!.emit('message', {
         user: sender.username,
         message: msg.content,
         imageSrc: sender.image,
         channel: msg.channel,
+        timestamp: timestamp.getTime(),
       });
     }
   });
