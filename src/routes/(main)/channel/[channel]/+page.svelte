@@ -3,7 +3,7 @@
   import EmptyChannel from '$lib/components/emptyChannel.svelte';
   import Message from '$lib/components/message.svelte';
   import MessageLengthDialog from '$lib/components/messageLengthDialog.svelte';
-  import { Button } from '$lib/components/ui/button/index';
+  import { buttonVariants } from '$lib/components/ui/button';
   import { autoResize } from '$lib/functions/autoresize.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
   import type { TypeMessage } from '$lib/types';
@@ -11,6 +11,7 @@
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
+  import * as Tooltip from '$lib/components/ui/tooltip';
 
   const { data }: { data: PageData } = $props();
 
@@ -116,6 +117,13 @@
       shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
       focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
     ></textarea>
-    <Button class="h-full min-h-10 w-14" type="submit"><Send class="size-full" /></Button>
+    <Tooltip.Root>
+      <Tooltip.Trigger class="h-full min-h-10 w-14 {buttonVariants({ variant: 'default' })}" type="submit">
+        <Send class="size-full" />
+      </Tooltip.Trigger>
+      <Tooltip.Content>
+        <p>Send</p>
+      </Tooltip.Content>
+    </Tooltip.Root>
   </form>
 </div>
