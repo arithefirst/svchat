@@ -4,7 +4,13 @@
   import renderMarkdown from '$lib/functions/renderMarkdown';
   import * as ContextMenu from '$lib/components/ui/context-menu';
 
-  const { message, imageSrc, user, timestamp, uid }: TypeMessage = $props();
+  interface Props {
+    open: boolean;
+    closeDialogs: (i: number) => void;
+    i: number;
+  }
+
+  let { message, imageSrc, user, timestamp, uid, open = $bindable(), closeDialogs, i }: TypeMessage & Props = $props();
   let epoch: number = Math.floor(timestamp.getTime() / 1000);
 
   function copy(itemName: string, content: string | number) {
@@ -21,8 +27,8 @@
   }
 </script>
 
-<ContextMenu.Root>
-  <ContextMenu.Trigger class="flex w-full p-2 hover:bg-zinc-200 dark:hover:bg-stone-900">
+<ContextMenu.Root bind:open>
+  <ContextMenu.Trigger class="flex w-full p-2 hover:bg-zinc-200 dark:hover:bg-stone-900" oncontextmenu={() => closeDialogs(i)}>
     <div class="avatar mr-2 rounded-sm">
       <div class="h-12 w-12 overflow-hidden rounded-lg border bg-white">
         <img src={imageSrc} alt="Profile image for {user}" />

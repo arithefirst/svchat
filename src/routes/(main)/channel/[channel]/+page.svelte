@@ -20,15 +20,24 @@
   const channel: string = $derived(page.params.channel);
   let textareaRef: HTMLTextAreaElement | undefined = $state();
   let formref: HTMLFormElement | undefined = $state();
+  let contextMenus: boolean[] = $state([]);
 
   function askNotificationPermission() {
     // Check if the browser supports notifications
     if (!('Notification' in window)) {
-      alert('This browser does not support notifications.');
+      alert('This browser does not support notifications. Sorry :(');
       return;
     }
 
     Notification.requestPermission();
+  }
+
+  function closeDialogs(i: number) {
+    for (let x = 0; x < contextMenus.length; x++) {
+      if (x !== i) {
+        contextMenus[x] = false;
+      }
+    }
   }
 
   function submit(event: Event) {
@@ -71,7 +80,16 @@
 
 {#snippet message(messages: TypeMessage[])}
   {#each messages as message, i}
-    <Message imageSrc={message.imageSrc} user={message.user} message={message.message} timestamp={message.timestamp} uid={message.uid} />
+    <Message
+      bind:open={contextMenus[i]}
+      imageSrc={message.imageSrc}
+      user={message.user}
+      message={message.message}
+      timestamp={message.timestamp}
+      uid={message.uid}
+      {closeDialogs}
+      {i}
+    />
   {/each}
 {/snippet}
 
