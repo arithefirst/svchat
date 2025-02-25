@@ -25,8 +25,10 @@ class AuthDb {
   getUser(userId: string): Profile {
     const row = this.client.prepare('SELECT username, image FROM user WHERE id = ?').get(userId);
     return {
-      username: (row as Profile).username,
-      image: (row as Profile).image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${userId}`,
+      // If user is deleted, UID gets truncated to 7 to that the displayed name for the
+      // deleted user won't go above 15 characters long.
+      username: (row as Profile)?.username ?? `DELETED-${userId.slice(0, 7)}`,
+      image: (row as Profile)?.image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${userId}`,
     };
   }
 }
