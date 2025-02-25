@@ -13,7 +13,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] LaTeX support
 - [x] Notifications
 - [x] Make the damn textbox stop unfocusing on every message submit
-- [ ] Message context menus
+- [x] Message context menus
 - [x] Message Timestamps
 - [x] Markdown Support
 - [x] More Secure database passwords
