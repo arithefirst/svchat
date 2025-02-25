@@ -23,6 +23,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [ ] Reactive channels list
 - [ ] Replies
 - [ ] Show characters before message gets cut off in textarea
+- [ ] Typing indicator
 - [x] User Auth
 - [x] Usernames / Displaynames in chat
 
