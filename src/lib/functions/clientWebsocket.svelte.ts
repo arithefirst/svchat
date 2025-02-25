@@ -14,7 +14,7 @@ class Websocket {
 
   connect() {
     this.socket.on('message', (data: TypeFullMessage) => {
-      console.log('[ws] message received', data);
+      console.log('[WS] message received', data);
       if (data.channel == this.channel) {
         this.loadMessage(data);
       }
@@ -29,7 +29,6 @@ class Websocket {
 
   // Add message to local messages array
   private loadMessage(newMsg: TypeMessage) {
-    console.log(newMsg.timestamp);
     this.messages = [
       {
         message: newMsg.message,

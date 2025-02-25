@@ -13,12 +13,12 @@ const port = 3000;
 
 io.on('connection', async (socket) => {
   // Runs on client connection
-  console.log(`\x1b[35m[ws:kit]\x1b[0m client connected (${socket.id})`);
+  console.log(`\x1b[35m[WS]\x1b[0m client connected (${socket.id})`);
   // Runs on message received
   socket.on('message', async (msg) => {
     // If message not empty
     if (msg.content !== '') {
-      console.log(`\x1b[35m[ws:kit]\x1b[0m message from ${socket.id}: ${msg.content}`);
+      console.log(`\x1b[35m[WS]\x1b[0m message from ${socket.id}: ${msg.content}`);
       // Store the message in the database
       const timestamp = new Date();
       await db.sendMessage(msg.channel, msg.content, msg.id, uuidv4(), timestamp);
@@ -35,7 +35,7 @@ io.on('connection', async (socket) => {
 
   // Runs on client disconnect
   socket.on('disconnect', () => {
-    console.log(`\x1b[35m[ws:kit]\x1b[0m client disconnected (${socket.id})`);
+    console.log(`\x1b[35m[WS]\x1b[0m client disconnected (${socket.id})`);
   });
 });
 
