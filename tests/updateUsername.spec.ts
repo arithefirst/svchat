@@ -1,6 +1,11 @@
 import { test, expect, type Page, type Locator } from '@playwright/test';
 import { login } from './utils';
 
+async function expectError(message: string, page: Page) {
+  const errorMessageLocator = page.locator(`.text-sm.text-red-500:has-text("${message}")`);
+  await expect(errorMessageLocator).toBeVisible();
+}
+
 test.describe('Username Update Form', () => {
   let page: Page;
   let usernameInput: Locator;
@@ -23,7 +28,6 @@ test.describe('Username Update Form', () => {
 
   // Test that the username will change
   test('should successfully update the username', async () => {
-    await page.waitForLoadState('domcontentloaded');
     await usernameInput.fill(newUsername);
     await submitButton.click();
 
@@ -38,16 +42,34 @@ test.describe('Username Update Form', () => {
 
   // Test invalidator
   test('should show validation error for invalid username', async () => {
-    await page.waitForLoadState('domcontentloaded');
     await usernameInput.fill('a');
     await submitButton.click();
 
     // Check for error message
-    const errorMessageLocator = page.locator('span.text-sm.text-red-500:has-text("Username must be at least 3 characters.")');
-    await expect(errorMessageLocator).toBeVisible();
+    await expectError('Username must be at least 3 characters.', page);
 
     // Ensure the username wasn't updated
     const currentUsername: string = (await currentUsernameElement.textContent()) || '';
     expect(currentUsername).not.toBe('a');
+  });
+
+  // Test that new and old username can't be the same
+  test('should not allow same username', async () => {
+    const currentUsername = await currentUsernameElement.textContent();
+    expect(currentUsername).toBeTruthy();
+
+    await usernameInput.fill(currentUsername!);
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('New username cannot be the same as old username.', page);
+  });
+
+  // Test non-duplicate usernames
+  test('should not allow duplicate usernames', async () => {
+    await usernameInput.fill('existing_user');
+    await submitButton.click();
+
+    await expectError('Username taken.', page);
   });
 });

@@ -26,7 +26,7 @@ test.describe('Password Update Form', () => {
     submitButton = page.getByRole('button', { name: 'Update Password' });
   });
 
-  // Test passwords can't be the same
+  // Test that passwords can't be the same
   test('show not allow same password', async () => {
     await currentPasswordInput.fill(currentPassword);
     await newPasswordInput.fill(currentPassword);
