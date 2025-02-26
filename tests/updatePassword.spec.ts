@@ -65,8 +65,8 @@ test.describe('Password Update Form', () => {
     await expectError('Password must not be empty.', page);
   });
 
-  // Test update functionalityz
-  test('should successfully update usser password', async () => {
+  // Test update functionality
+  test('should successfully update user password', async () => {
     await currentPasswordInput.fill(currentPassword);
     await newPasswordInput.fill('newPassword123!');
     await submitButton.click();
