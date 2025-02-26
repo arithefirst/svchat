@@ -13,11 +13,10 @@ export default defineConfig({
     // since they need user accounts to run
 
     {
-      name: 'tests',
+      name: 'main',
       use: { ...devices['Desktop Chrome'] },
       dependencies: ['signup'],
       testMatch: /(.+\.)?(test|spec)\.[jt]s/,
-      fullyParallel: true,
     },
   ],
   reporter: 'list',
@@ -26,6 +25,7 @@ export default defineConfig({
     port: 5173,
     reuseExistingServer: true,
   },
+  workers: 1,
   use: {
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',

@@ -10,13 +10,15 @@ test.describe('Username Update Form', () => {
 
   test.beforeEach(async ({ browser }) => {
     page = await browser.newPage();
+
+    // Login and navigate
+    await login(page);
+    await page.goto('/account', { timeout: 30000, waitUntil: 'domcontentloaded' });
+
     // Initialize locators
     usernameInput = page.locator('input#username');
     submitButton = page.getByRole('button', { name: 'Update Username' });
     currentUsernameElement = page.locator('#currentuser-username');
-
-    await login(page);
-    page.goto('/account');
   });
 
   // Test that the username will change
