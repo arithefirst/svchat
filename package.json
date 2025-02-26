@@ -15,7 +15,9 @@
     "minio": "minio server minio-storage",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
-    "production": "tsm ./prodServer.ts"
+    "production": "tsm ./prodServer.ts",
+    "test": "playwright test",
+    "test:head": "playwright test --headed"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
@@ -37,6 +39,7 @@
     "typescript-eslint": "^8.20.0"
   },
   "dependencies": {
+    "@playwright/test": "^1.50.1",
     "@sveltejs/adapter-node": "^5.2.12",
     "@tailwindcss/typography": "^0.5.16",
     "@types/better-sqlite3": "^7.6.12",

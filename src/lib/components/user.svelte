@@ -16,7 +16,7 @@
       </div>
     </div>
     <div class="flex w-full items-center align-middle">
-      <p class="font-bold">{data.user.username}</p>
+      <p class="font-bold" id="currentuser-username">{data.user.username}</p>
     </div>
     <Tooltip.Root>
       <Tooltip.Trigger>
