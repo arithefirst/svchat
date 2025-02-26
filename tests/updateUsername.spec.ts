@@ -1,7 +1,6 @@
 import { test, expect, type Page, type Locator } from '@playwright/test';
 import { login } from './utils';
 
-test.describe.configure({ mode: 'parallel' });
 test.describe('Username Update Form', () => {
   let page: Page;
   let usernameInput: Locator;
@@ -17,11 +16,12 @@ test.describe('Username Update Form', () => {
     currentUsernameElement = page.locator('#currentuser-username');
 
     await login(page);
-    page.goto('http://localhost:5173/account');
+    page.goto('/account');
   });
 
   // Test that the username will change
   test('should successfully update the username', async () => {
+    await page.waitForLoadState('domcontentloaded');
     await usernameInput.fill(newUsername);
     await submitButton.click();
 
@@ -36,6 +36,7 @@ test.describe('Username Update Form', () => {
 
   // Test invalidator
   test('should show validation error for invalid username', async () => {
+    await page.waitForLoadState('domcontentloaded');
     await usernameInput.fill('a');
     await submitButton.click();
 
