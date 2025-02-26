@@ -4,8 +4,8 @@ export default defineConfig({
   testDir: 'tests',
   projects: [
     {
-      name: 'signup',
-      testMatch: /signup\.setup\.ts/,
+      name: 'setup',
+      testMatch: /setup\.ts/,
       use: { ...devices['Desktop Chrome'] },
     },
 
@@ -13,9 +13,9 @@ export default defineConfig({
     // since they need user accounts to run
 
     {
-      name: 'main',
+      name: 'test',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['signup'],
+      dependencies: ['setup'],
       testMatch: /(.+\.)?(test|spec)\.[jt]s/,
     },
   ],

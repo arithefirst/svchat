@@ -61,6 +61,6 @@ export const actions = {
       return setError(form, 'verify', errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1));
     }
 
-    return message(form, 'Successfuly signed in.');
+    return message(form, 'Successfuly signed up.');
   },
 } satisfies Actions;
