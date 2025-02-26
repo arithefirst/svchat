@@ -12,7 +12,7 @@
   <div class="mb-1 flex w-full items-center p-2">
     <div class="avatar mr-2 rounded-sm">
       <div class="h-12 w-12 overflow-hidden rounded-lg border bg-white">
-        <img src={imageSrc} alt="Profile image for {data.user.username}" />
+        <img src={imageSrc} alt="Profile image for {data.user.username}" id="userimage" />
       </div>
     </div>
     <div class="flex w-full items-center align-middle">
