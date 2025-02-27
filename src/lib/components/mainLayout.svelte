@@ -18,7 +18,7 @@
 </script>
 
 <div class="w-screen">
-  <div class="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
+  <div class="grid h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
     <div class="hidden border-r bg-muted/40 md:block" bind:clientWidth={sidebarWidth}>
       <div class="flex h-full max-h-screen flex-col gap-2">
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
@@ -28,14 +28,14 @@
           </a>
           <ModeSwitcher />
         </div>
-        <div class="flex-1">
+        <div class="h-full flex-1 overflow-scroll">
           <nav class="grid items-start px-2 text-sm font-medium lg:px-4">
             {#each channels as channelName}
               <Channel {channelName} />
             {/each}
           </nav>
         </div>
-        <div class="mt-auto p-4">
+        <div class="mt-auto border-t p-4">
           <User {data} />
           <ChannelDialog data={data.form} />
         </div>
