@@ -1,0 +1,56 @@
+name: Tests
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      # Database
+      cassandra:
+        image: cassandra:latest
+        env:
+          CASSANDRA_USERNAME: admin
+          CASSANDRA_PASSWORD: admin
+        ports:
+          - 9042:9042
+        options: >-
+          --health-cmd "cqlsh -u admin -p admin -e 'SELECT now() FROM system.local'"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 24
+      # S3
+      minio:
+        image: docker.io/bitnami/minio
+        env:
+          MINIO_ROOT_USER: minioadmin
+          MINIO_ROOT_PASSWORD: minioadmin
+        ports:
+          - 9000:9000
+
+    # Tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Playwright tests
+        env:
+          NODE_ENV: docker_production
+          CASSANDRA_USER: admin
+          CASSANDRA_PASSWORD: admin
+          MINIO_ROOT_USER: minioadmin
+          MINIO_ROOT_PASSWORD: minioadmin
+        run: npm run test
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

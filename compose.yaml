@@ -4,7 +4,6 @@ services:
     image: ghcr.io/arithefirst/svchat
     environment:
       - NODE_ENV=docker_production
-      - ORIGIN=http://localhost:3000
       - CASSANDRA_USER=admin
       - CASSANDRA_PASSWORD=admin
       - MINIO_ROOT_USER=minioadmin

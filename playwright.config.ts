@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: 'tests',
   projects: [
     {
       name: 'setup',
@@ -13,21 +12,24 @@ export default defineConfig({
     // since they need user accounts to run
 
     {
-      name: 'test',
-      use: { ...devices['Desktop Chrome'] },
       dependencies: ['setup'],
+      name: 'test',
       testMatch: /(.+\.)?(test|spec)\.[jt]s/,
+      use: { ...devices['Desktop Chrome'] },
     },
   ],
   reporter: 'list',
-  webServer: {
-    command: 'npm run dev',
-    port: 5173,
-    reuseExistingServer: true,
-  },
-  workers: 1,
+  retries: process.env.CI ? 3 : 0,
+  testDir: 'tests',
   use: {
     baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
+  webServer: {
+    command: 'npm run dev',
+    port: 5173,
+    reuseExistingServer: true,
+    timeout: process.env.CI ? 120000 : 60000,
+  },
+  workers: 1,
 });

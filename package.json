@@ -17,7 +17,8 @@
     "prepare": "svelte-kit sync || echo ''",
     "production": "tsm ./prodServer.ts",
     "test": "playwright test",
-    "test:head": "playwright test --headed"
+    "test:head": "playwright test --headed",
+    "test:ui": "playwright test --ui"
   },
   "devDependencies": {
     "@eslint/compat": "^1.2.5",
