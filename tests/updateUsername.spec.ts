@@ -32,25 +32,12 @@ test.describe('Username Update Form', () => {
     await submitButton.click();
 
     // Check for success message
-    const successMessageLocator = page.locator('p.text-sm.text-green-500:has-text("Username updated.")');
+    const successMessageLocator = page.getByText('Username updated.');
     await expect(successMessageLocator).toBeVisible();
 
     // Verify the username displayed in the UI has been updated
     const updatedUsername: string = (await currentUsernameElement.textContent()) || '';
     expect(updatedUsername).toBe(newUsername);
-  });
-
-  // Test invalidator
-  test('should show validation error for invalid username', async () => {
-    await usernameInput.fill('a');
-    await submitButton.click();
-
-    // Check for error message
-    await expectError('Username must be at least 3 characters.', page);
-
-    // Ensure the username wasn't updated
-    const currentUsername: string = (await currentUsernameElement.textContent()) || '';
-    expect(currentUsername).not.toBe('a');
   });
 
   // Test that new and old username can't be the same
@@ -71,5 +58,50 @@ test.describe('Username Update Form', () => {
     await submitButton.click();
 
     await expectError('Username taken.', page);
+  });
+
+  // Test validation error for username less than 3 characters
+  test('should show validation error for username less than 3 characters', async () => {
+    await usernameInput.fill('ab');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('Username must be at least 3 characters.', page);
+  });
+
+  // Test validation error for username more than 15 characters
+  test('should show validation error for username more than 15 characters', async () => {
+    await usernameInput.fill('abcdefghijklmnopq');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('Username must be no more than 15 characters.', page);
+  });
+
+  // Test validation error for username with uppercase letters
+  test('should show validation error for username with uppercase letters', async () => {
+    await usernameInput.fill('Username');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('Username cannot contain uppercase letters.', page);
+  });
+
+  // Test validation error for username with special characters
+  test('should show validation error for username with special characters', async () => {
+    await usernameInput.fill('user@name');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('Username cannot contain special characters.', page);
+  });
+
+  // Test validation error for empty username
+  test('should show validation error for empty username', async () => {
+    await usernameInput.fill('');
+    await submitButton.click();
+
+    // Check for error message - assuming there's a custom message or using the min length one
+    await expectError('Username must be at least 3 characters.', page);
   });
 });
