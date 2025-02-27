@@ -29,6 +29,7 @@
 **/minio-storage
 **/vite.config.js.timestamp-*
 **/vite.config.ts.timestamp-*
+tests
 .output
 .vercel
 .netlify
