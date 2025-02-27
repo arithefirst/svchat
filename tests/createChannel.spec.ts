@@ -26,7 +26,6 @@ test.describe('Create Channel', () => {
 
   test('successfully create new channel', async ({ request }) => {
     const uuid: string = generate15CharUUID();
-    console.log(uuid);
 
     // Try to create new channel
     await tryCreateChannel(page, uuid);
@@ -54,7 +53,6 @@ test.describe('Create Channel', () => {
 
   test('should not duplicate channel names', async () => {
     const uuid: string = generate15CharUUID();
-    console.log(uuid);
 
     // Try to create new channel
     await tryCreateChannel(page, uuid);
