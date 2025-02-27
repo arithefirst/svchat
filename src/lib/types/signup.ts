@@ -7,15 +7,15 @@ export const signupSchema = z
       .string()
       .min(3, 'Username must be at least 3 characters.')
       .max(15, 'Username must be no more than 15 characters.')
-      .regex(/^(?![A-Z])/gm, 'Username cannot contain uppercase letters')
-      .regex(/^(?=[a-z0-9-_]+$)/gm, 'Username cannot contain special characters'),
+      .regex(/^(?![A-Z])/gm, 'Username cannot contain uppercase letters.')
+      .regex(/^(?=[a-z0-9-_]+$)/gm, 'Username cannot contain special characters.'),
     password: z
       .string()
       .min(8, 'Password must be at least 8 characters.')
-      .regex(/(?=.*[A-Z])/gm, 'Password must contain at uppercase letter.')
-      .regex(/(?=.*[a-z])/gm, 'Password must contain at lowercase letter.')
+      .regex(/(?=.*[A-Z])/gm, 'Password must contain an uppercase letter.')
+      .regex(/(?=.*[a-z])/gm, 'Password must contain a lowercase letter.')
       .regex(/(?=.*\d)/gm, 'Password must contain at least one number.')
-      .regex(/(?=.*\W)/gm, 'Password must contain at least one special character'),
+      .regex(/(?=.*\W)/gm, 'Password must contain at least one special character.'),
     verify: z.string().nonempty('Passwords do not match.'),
   })
   .refine((schema) => schema.password !== 'Password123!', {

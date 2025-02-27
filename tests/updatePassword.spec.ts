@@ -46,16 +46,6 @@ test.describe('Password Update Form', () => {
     await expectError('Invalid password', page);
   });
 
-  // Test validation error for weak new password
-  test('should show validation error for weak new password', async () => {
-    await currentPasswordInput.fill(currentPassword);
-    await newPasswordInput.fill('weak');
-    await submitButton.click();
-
-    // Check for error message
-    await expectError('New password must be at least 8 characters.', page);
-  });
-
   // Test empty fields validation
   test('should show validation errors when fields are empty', async () => {
     // Leave fields empty and try to submit
@@ -63,6 +53,56 @@ test.describe('Password Update Form', () => {
 
     // Check for error messages on both fields
     await expectError('Password must not be empty.', page);
+  });
+
+  // Test validation error for missing uppercase letter
+  test('should show validation error for password without uppercase letter', async () => {
+    await currentPasswordInput.fill(currentPassword);
+    await newPasswordInput.fill('password123!');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('New password must contain an uppercase letter.', page);
+  });
+
+  // Test validation error for missing lowercase letter
+  test('should show validation error for password without lowercase letter', async () => {
+    await currentPasswordInput.fill(currentPassword);
+    await newPasswordInput.fill('PASSWORD123!');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('New password must contain a lowercase letter.', page);
+  });
+
+  // Test validation error for missing number
+  test('should show validation error for password without number', async () => {
+    await currentPasswordInput.fill(currentPassword);
+    await newPasswordInput.fill('Password!!!');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('New password must contain at least one number.', page);
+  });
+
+  // Test validation error for missing special character
+  test('should show validation error for password without special character', async () => {
+    await currentPasswordInput.fill(currentPassword);
+    await newPasswordInput.fill('Password123');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError('New password must contain at least one special character.', page);
+  });
+
+  // Test validation error for using example password
+  test('should show validation error for using example password', async () => {
+    await currentPasswordInput.fill(currentPassword);
+    await newPasswordInput.fill('Password123!');
+    await submitButton.click();
+
+    // Check for error message
+    await expectError("You can't use the example password, silly", page);
   });
 
   // Test update functionality
