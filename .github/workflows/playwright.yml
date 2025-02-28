@@ -11,7 +11,11 @@ jobs:
         image: cassandra:latest
         ports:
           - 9042:9042
-        options: --health-cmd="nodetool status" --health-interval=10s --health-timeout=5s --health-retries=5
+        options: >-
+          --health-cmd="nodetool status" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
         env:
           CASSANDRA_USER: admin
           CASSANDRA_PASSWORD: admin
@@ -23,7 +27,6 @@ jobs:
         env:
           MINIO_ROOT_USER: minioadmin
           MINIO_ROOT_PASSWORD: minioadmin
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -43,12 +46,12 @@ jobs:
         run: bun run migrate
 
       - name: Setup environment
-        run: |
-          cp .env.example .env
-          sudo echo "127.0.0.1   localhost" | sudo tee -a /etc/hosts
+        run: cp .env.example .env
 
       - name: Run Playwright tests
-        run: bun run test
+        run: |
+          bun run dev --host &
+          bun run test
         env:
           NODE_ENV: testing
 

@@ -19,17 +19,11 @@ export default defineConfig({
       testMatch: /(.+\.)?(test|spec)\.[jt]s/,
     },
   ],
-  retries: !process.env.CI ? 1 : 0,
+  retries: process.env.CI ? 1 : 0,
   reporter: 'list',
-  webServer: {
-    command: 'npm run dev --host',
-    port: 5173,
-    // Reuses webserver only in non-ci enviroments
-    reuseExistingServer: !process.env.CI,
-  },
   workers: 1,
   use: {
-    baseURL: 'http://127.0.0.1:5173',
+    baseURL: 'http://localhost:5173',
     trace: 'on-first-retry',
   },
 });
