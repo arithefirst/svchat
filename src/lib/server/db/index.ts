@@ -36,8 +36,8 @@ class Db {
       try {
         await this.client.connect();
         break;
-      } catch {
-        console.error(`Error communicating with DB. Retrying...`);
+      } catch (e) {
+        console.error(`Error communicating with DB (${this.clientUrl}:9042). Retrying.. ${(e as Error).message}`);
         await createDelay(1000);
       }
     }

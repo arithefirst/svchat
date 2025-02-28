@@ -51,7 +51,11 @@ class MinioClient {
       const bucket = 'profile-photos';
       if (!(await this.client.bucketExists(bucket))) {
         console.log(`\x1b[35m[S3]\x1b[0m Creating bucket '${bucket}', as it is required but does not exist.`);
-        this.client.makeBucket(bucket);
+        try {
+          await this.client.makeBucket(bucket);
+        } catch (e) {
+          console.error((e as Error).message);
+        }
       }
 
       const objectId = `${v4()}${this.getFileExtension(mime)}`;
@@ -62,7 +66,9 @@ class MinioClient {
         etag: upload.etag,
       };
     } catch (e) {
-      console.error(`Error uploading file: ${(e as Error).message}`);
+      if ((e as Error).message !== 'Unsupported file type') {
+        console.error(`Error uploading file: ${(e as Error).message}`);
+      }
       throw e;
     }
   }
