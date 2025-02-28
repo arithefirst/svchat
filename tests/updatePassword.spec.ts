@@ -111,6 +111,8 @@ test.describe('Password Update Form', () => {
     await newPasswordInput.fill('newPassword123!');
     await submitButton.click();
 
+    await page.waitForTimeout(1000);
+
     // Undo password change so other tests still pass
     await currentPasswordInput.fill('newPassword123!');
     await newPasswordInput.fill(currentPassword);
