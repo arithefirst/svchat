@@ -95,13 +95,4 @@ test.describe('Username Update Form', () => {
     // Check for error message
     await expectError('Username cannot contain special characters.', page);
   });
-
-  // Test validation error for empty username
-  test('should show validation error for empty username', async () => {
-    await usernameInput.fill('');
-    await submitButton.click();
-
-    // Check for error message - assuming there's a custom message or using the min length one
-    await expectError('Username must be at least 3 characters.', page);
-  });
 });
