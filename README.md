@@ -4,6 +4,7 @@ A simple chat app built with SvelteKit and Apache Cassandra<br>
 
 [![Prettier](https://github.com/arithefirst/sv-chat/actions/workflows/prettier.yml/badge.svg)](https://github.com/arithefirst/sv-chat/actions/workflows/prettier.yml)
 [![ESLint](https://github.com/arithefirst/sv-chat/actions/workflows/eslint.yml/badge.svg)](https://github.com/arithefirst/sv-chat/actions/workflows/eslint.yml)
+[![Playwright](https://github.com/arithefirst/sv-chat/actions/workflows/playwright.yml/badge.svg)](https://github.com/arithefirst/sv-chat/actions/workflows/playwright.yml)
 
 ## 💻 Techstack
 
