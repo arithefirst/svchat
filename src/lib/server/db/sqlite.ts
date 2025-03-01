@@ -1,9 +1,9 @@
 import Database from 'better-sqlite3';
 
-interface Profile {
+type Profile = {
   username: string;
   image: string;
-}
+};
 
 class AuthDb {
   private client = new Database('./src/lib/server/db/users.db');

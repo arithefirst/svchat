@@ -6,10 +6,10 @@ import { redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 
-interface Profile {
+type Profile = {
   username: string;
   image: string;
-}
+};
 
 export async function load({ request }) {
   const session = await auth.api.getSession({
