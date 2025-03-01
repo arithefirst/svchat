@@ -1,10 +1,10 @@
 import cassandra from 'cassandra-driver';
 import 'dotenv/config';
 
-interface Messages {
+type Messages = {
   messages: cassandra.types.Row[] | null;
   error: Error | null;
-}
+};
 
 function createDelay(ms: number) {
   return new Promise((res) => setTimeout(res, ms));

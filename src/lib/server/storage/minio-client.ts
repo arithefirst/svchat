@@ -3,13 +3,13 @@ import * as Minio from 'minio';
 import { Readable } from 'stream';
 import { v4 } from 'uuid';
 
-interface ClientParams {
+type ClientParams = {
   endPoint: string;
   port: number;
   accessKey: string;
   secretKey: string;
   useSSL: boolean;
-}
+};
 
 class MinioClient {
   private client: Minio.Client;
