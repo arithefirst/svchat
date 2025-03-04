@@ -46,7 +46,6 @@
     "@types/better-sqlite3": "^7.6.12",
     "@types/express": "^5.0.0",
     "@types/markdown-it-link-attributes": "^3.0.5",
-    "@types/minio": "^7.1.1",
     "autoprefixer": "^10.4.20",
     "better-auth": "^1.1.16",
     "better-sqlite3": "^11.8.1",
