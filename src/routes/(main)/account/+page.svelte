@@ -20,7 +20,7 @@
   <div class="relative grid w-full grid-cols-1 gap-3 md:grid-cols-2">
     <UpdatePassword data={data.newpassForm} />
     <UpdateUsername data={data.newuserForm} />
-    <UpdatePfp />
+    <UpdatePfp {data} />
 
     <!-- Account Actions -->
     <div class="grid w-full items-start gap-3">
