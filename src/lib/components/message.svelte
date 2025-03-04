@@ -15,7 +15,7 @@
     i: number;
   }
 
-  let { message, imageSrc, user, timestamp, uid, open = $bindable(), closeDialogs, i }: TypeMessage & Props = $props();
+  let { message, imageSrc, user, timestamp, uid, open = $bindable(false), closeDialogs, i }: TypeMessage & Props = $props();
 
   function copy(itemName: string, content: string | number) {
     navigator.clipboard

@@ -18,13 +18,15 @@
     <div class="flex w-full items-center align-middle">
       <p class="font-bold" id="currentuser-username">{data.user.username}</p>
     </div>
-    <Tooltip.Root>
-      <Tooltip.Trigger>
-        <Button size="icon" href="/account"><Cog /></Button>
-      </Tooltip.Trigger>
-      <Tooltip.Content>
-        <p>Account Settings</p>
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger>
+          <Button size="icon" href="/account"><Cog /></Button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <p>Account Settings</p>
+        </Tooltip.Content>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   </div>
 {/if}

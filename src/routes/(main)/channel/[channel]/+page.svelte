@@ -20,7 +20,14 @@
   const channel: string = $derived(page.params.channel);
   let textareaRef: HTMLTextAreaElement | undefined = $state();
   let formref: HTMLFormElement | undefined = $state();
-  let contextMenus: boolean[] = $state([]);
+  let contextMenus: boolean[] = $state(Array(data.messages.length).fill(false));
+
+  $effect(() => {
+    const totalMessages = (socket?.messages?.length || 0) + data.messages.length;
+    if (contextMenus.length !== totalMessages) {
+      contextMenus = Array(totalMessages).fill(false);
+    }
+  });
 
   function askNotificationPermission() {
     // Check if the browser supports notifications
@@ -84,19 +91,21 @@
   <div class="relative flex size-full h-full w-full flex-auto flex-grow flex-col-reverse overflow-x-hidden overflow-y-scroll rounded-lg border">
     {#if data.messages.length != 0 || socket?.messages.length != 0}
       <div class="flex flex-col-reverse">
-        <!-- Concatenate the two arrays together -->
-        {#each [...(socket?.messages ?? []), ...data.messages] as message, i}
-          <Message
-            bind:open={contextMenus[i]}
-            imageSrc={message.imageSrc}
-            user={message.user}
-            message={message.message}
-            timestamp={message.timestamp}
-            uid={message.uid}
-            {closeDialogs}
-            {i}
-          />
-        {/each}
+        {#if contextMenus.length === (socket?.messages?.length || 0) + data.messages.length}
+          <!-- Concatenate the two arrays together -->
+          {#each [...(socket?.messages ?? []), ...data.messages] as message, i}
+            <Message
+              bind:open={contextMenus[i]}
+              imageSrc={message.imageSrc}
+              user={message.user}
+              message={message.message}
+              timestamp={message.timestamp}
+              uid={message.uid}
+              {closeDialogs}
+              {i}
+            />
+          {/each}
+        {/if}
       </div>
     {:else}
       <EmptyChannel />
@@ -112,13 +121,15 @@
       shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
       focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
     ></textarea>
-    <Tooltip.Root>
-      <Tooltip.Trigger class="h-full min-h-10 w-14 {buttonVariants({ variant: 'default' })}" type="submit">
-        <Send class="size-full" />
-      </Tooltip.Trigger>
-      <Tooltip.Content>
-        <p>Send</p>
-      </Tooltip.Content>
-    </Tooltip.Root>
+    <Tooltip.Provider>
+      <Tooltip.Root>
+        <Tooltip.Trigger class="h-full min-h-10 w-14 {buttonVariants({ variant: 'default' })}" type="submit">
+          <Send class="size-full" />
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <p>Send</p>
+        </Tooltip.Content>
+      </Tooltip.Root>
+    </Tooltip.Provider>
   </form>
 </div>
