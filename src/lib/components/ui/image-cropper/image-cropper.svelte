@@ -11,7 +11,14 @@
   import { onDestroy } from 'svelte';
   import { useId } from 'bits-ui';
 
-  let { id = useId(), src = $bindable(''), onCropped = () => {}, children, ...rest }: ImageCropperRootProps = $props();
+  let {
+    id = useId(),
+    src = $bindable(''),
+    onCropped = () => {},
+    children,
+    error = $bindable(null),
+    ...rest
+  }: ImageCropperRootProps & { error?: string | null } = $props();
 
   const rootState = useImageCropperRoot({
     id: box.with(() => id),
@@ -31,6 +38,12 @@
   onchange={(e) => {
     const file = e.currentTarget.files?.[0];
     if (!file) return;
+    // Prevent the user from uploading non-image files
+    if (file.type.split('/')[0] !== 'image') {
+      error = 'Please upload a valid image.';
+      return;
+    }
+    error = null;
     rootState.onUpload(file);
     // reset so that we can reupload the same file
     (e.target! as HTMLInputElement).value = '';

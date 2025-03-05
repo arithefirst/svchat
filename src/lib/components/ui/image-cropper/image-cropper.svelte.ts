@@ -45,11 +45,8 @@ class ImageCropperRootState {
 
   async onCrop() {
     if (!this.pixelCrop || !this.tempUrl) return;
-
     this.opts.src.current = await getCroppedImg(this.tempUrl, this.pixelCrop);
-
     this.open = false;
-
     this.opts.onCropped(this.opts.src.current);
   }
 

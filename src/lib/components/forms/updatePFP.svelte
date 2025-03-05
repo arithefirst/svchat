@@ -10,7 +10,7 @@
 
   const { data }: { data: PageData } = $props();
   let src = $state(data.user.image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${data.session?.user.id}`);
-  let open: boolean = $state(false);
+  let error: string | null = $state(null);
 
   async function submit(file: File) {
     await generateStream(file).then((res) => {
@@ -23,6 +23,7 @@
   <fieldset class="flex size-full flex-col items-center justify-center gap-3 rounded-lg border p-4">
     <legend class="-ml-1 px-1 text-sm font-medium"> Upload Profile Image </legend>
     <ImageCropper.Root
+      bind:error
       bind:src
       onCropped={async (url) => {
         const file = await getFileFromUrl(url);
@@ -45,5 +46,6 @@
         </ImageCropper.Controls>
       </ImageCropper.Dialog>
     </ImageCropper.Root>
+    {#if error}<span class="text-sm text-red-500">{error}</span>{/if}
   </fieldset>
 </form>

@@ -15,7 +15,7 @@
   const cropState = useImageCropperCrop();
 </script>
 
-<Button {...rest} {size} {variant} onclick={cropState.onclick}>
+<Button {...rest} {size} {variant} onclick={cropState.onclick} data-testid="crop">
   <ImageUp />
   <span>Upload</span>
 </Button>
