@@ -2,6 +2,7 @@
   import { Button } from '$lib/components/ui/button/index';
   import * as Dialog from '$lib/components/ui/dialog';
   import type { PageData } from './$types';
+  import { Trash2, LogOut } from 'lucide-svelte';
 
   let { data }: { data: PageData } = $props();
 
@@ -27,9 +28,9 @@
       <fieldset class="flex size-full flex-col justify-center gap-3 rounded-lg border p-4">
         <legend class="-ml-1 px-1 text-sm font-medium"> Account Actions </legend>
         <form method="POST" action="?/signOut">
-          <Button type="submit" class="w-full">Sign Out</Button>
+          <Button type="submit" class="w-full"><LogOut /> Sign Out</Button>
         </form>
-        <Button variant="destructive" class="w-full" onclick={() => (open = !open)}>Delete Account</Button>
+        <Button variant="destructive" class="w-full" onclick={() => (open = !open)}><Trash2 /> Delete Account</Button>
       </fieldset>
     </div>
   </div>
@@ -43,7 +44,7 @@
         This action cannot be undone. This will permanently delete your account and remove your data from our database.
         <form class="mt-2 flex gap-2" method="POST" action="?/deleteAccount">
           <Button class="w-1/2" onclick={() => (open = !open)}>I changed my mind!</Button>
-          <Button variant="destructive" class="w-1/2" type="submit">Delete Account</Button>
+          <Button variant="destructive" class="w-1/2" type="submit"><Trash2 /> Delete Account</Button>
         </form>
       </Dialog.Description>
     </Dialog.Header>
