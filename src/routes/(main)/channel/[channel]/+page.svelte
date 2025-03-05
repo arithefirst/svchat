@@ -6,7 +6,7 @@
   import { buttonVariants } from '$lib/components/ui/button';
   import { autoResize } from '$lib/functions/autoresize.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
-  import Send from 'lucide-svelte/icons/send';
+  import { Send } from 'lucide-svelte';
   import { io } from 'socket.io-client';
   import { onMount } from 'svelte';
   import type { PageData } from './$types';

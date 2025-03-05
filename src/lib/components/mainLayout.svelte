@@ -1,5 +1,5 @@
 <script lang="ts">
-  import MessagesSquare from 'lucide-svelte/icons/messages-square';
+  import { MessageSquare } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
   import type { PageData } from '../../routes/(main)/$types';
   import Channel from './channel.svelte';
@@ -23,7 +23,7 @@
       <div class="flex h-full max-h-screen flex-col gap-2">
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <a href="/" class="flex items-center gap-2 font-semibold">
-            <MessagesSquare class="h-6 w-6" />
+            <MessageSquare class="h-6 w-6" />
             <span class="">SVChat</span>
           </a>
           <ModeSwitcher />

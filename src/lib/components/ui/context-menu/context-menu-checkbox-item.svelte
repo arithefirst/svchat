@@ -1,7 +1,6 @@
 <script lang="ts">
   import { ContextMenu as ContextMenuPrimitive, type WithoutChildrenOrChild } from 'bits-ui';
-  import Check from 'lucide-svelte/icons/check';
-  import Minus from 'lucide-svelte/icons/minus';
+  import { Check, Minus } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
   import { cn } from '$lib/utils.js';
 

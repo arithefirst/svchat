@@ -1,7 +1,7 @@
 <script lang="ts">
   import { Button } from '$lib/components/ui/button/index';
   import * as Tooltip from '$lib/components/ui/tooltip';
-  import Cog from 'lucide-svelte/icons/cog';
+  import { Cog } from 'lucide-svelte';
   import type { PageData } from '../../routes/(main)/$types';
   const { data }: { data: PageData } = $props();
 

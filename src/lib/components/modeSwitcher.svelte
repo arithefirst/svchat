@@ -1,8 +1,7 @@
 <script lang="ts">
   import * as Tooltip from '$lib/components/ui/tooltip';
   import { buttonVariants } from '$lib/components/ui/button';
-  import Moon from 'lucide-svelte/icons/moon-star';
-  import Sun from 'lucide-svelte/icons/sun';
+  import { Moon, Sun } from 'lucide-svelte';
   import { toggleMode } from 'mode-watcher';
 </script>
 

@@ -4,10 +4,7 @@
   import renderMarkdown from '$lib/functions/renderMarkdown';
   import { type TypeMessage } from '$lib/types';
 
-  import Clipboard from 'lucide-svelte/icons/clipboard';
-  import SquareUserRound from 'lucide-svelte/icons/square-user-round';
-  import IDCard from 'lucide-svelte/icons/id-card';
-  import CalendarClock from 'lucide-svelte/icons/calendar-clock';
+  import { Clipboard, SquareUserRound, IdCard, CalendarClock } from 'lucide-svelte';
 
   interface Props {
     open: boolean;
@@ -63,7 +60,7 @@
     >
     <!-- Copy User ID -->
     <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('user ID', uid)}
-      ><IDCard size={16} />Copy User ID</ContextMenu.Item
+      ><IdCard size={16} />Copy User ID</ContextMenu.Item
     >
     <ContextMenu.Separator />
     <!-- Copy Text -->

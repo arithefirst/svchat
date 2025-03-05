@@ -2,7 +2,7 @@
   import { page } from '$app/state';
   import { Button } from '$lib/components/ui/button';
   import * as Card from '$lib/components/ui/card';
-  import BrokenHeart from 'lucide-svelte/icons/heart-crack';
+  import { BrokenHeart } from 'lucide-svelte';
 </script>
 
 <main class="relative size-full">
