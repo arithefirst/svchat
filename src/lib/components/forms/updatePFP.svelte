@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { generateStream } from '$lib/functions/generateReadableStream';
-  import { Button } from '$lib/components/ui/button/index';
   import { buttonVariants } from '$lib/components/ui/button/index';
   import * as ImageCropper from '$lib/components/ui/image-cropper';
   import { getFileFromUrl } from '$lib/components/ui/image-cropper';
-  import type { PageData } from '../../../routes/(main)/account/$types';
-  import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+  import { generateStream } from '$lib/functions/generateReadableStream';
   import { Edit } from 'lucide-svelte';
+  import type { PageData } from '../../../routes/(main)/account/$types';
 
   const { data }: { data: PageData } = $props();
   let src = $state(data.user.image ?? `https://api.dicebear.com/9.x/identicon/svg?seed=${data.session?.user.id}`);
