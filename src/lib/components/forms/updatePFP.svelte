@@ -30,8 +30,8 @@
       }}
     >
       <div class="relative">
-        <ImageCropper.Preview class="rounded-md" />
         <ImageCropper.UploadTrigger>
+          <ImageCropper.Preview class="rounded-md bg-white" />
           <div class="absolute -bottom-3 -left-3 size-9 rounded-lg {buttonVariants({ variant: 'outline' })}">
             <Edit class="size-4" />
           </div>
