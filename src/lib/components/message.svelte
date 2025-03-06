@@ -3,6 +3,7 @@
   import * as ContextMenu from '$lib/components/ui/context-menu';
   import renderMarkdown from '$lib/functions/renderMarkdown';
   import { type TypeMessage } from '$lib/types';
+  import { copy } from '$lib/utils/copy';
 
   import { Clipboard, SquareUserRound, IdCard, CalendarClock } from 'lucide-svelte';
 
@@ -13,19 +14,6 @@
   }
 
   let { message, imageSrc, user, timestamp, uid, open = $bindable(false), closeDialogs, i }: TypeMessage & Props = $props();
-
-  function copy(itemName: string, content: string | number) {
-    navigator.clipboard
-      .writeText(content as string)
-      .then(() => {
-        console.info(`Successfully copied ${itemName} to clipboard`);
-        // dispatchToast('Successfully copied to clipboard.', true);
-      })
-      .catch((e) => {
-        console.error(`Error copying ${itemName}: ${(e as Error).message}`);
-        // dispatchToast('Copying failed. (See console)', false);
-      });
-  }
 </script>
 
 <ContextMenu.Root bind:open>

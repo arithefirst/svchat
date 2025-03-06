@@ -5,8 +5,9 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 
 - [x] Account / Profile management
 - [x] Avatar cropping
-- [ ] Channel context menus
+- [x] Channel context menus
 - [x] Containerization with docker and docker-compose
+- [ ] Copy toasts
 - [ ] Editing messages
 - [ ] Emoji picker
 - [ ] Images/Attatchments support
