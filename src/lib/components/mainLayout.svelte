@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Toaster } from '$lib/components/ui/sonner/index';
-  import { MessageSquare } from 'lucide-svelte';
+  import { MessagesSquare } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
   import type { PageData } from '../../routes/(main)/$types';
   import Channel from './channel.svelte';
@@ -25,7 +25,7 @@
       <div class="flex h-full max-h-screen flex-col gap-2">
         <div class="flex h-14 items-center border-b px-4 lg:h-[60px] lg:px-6">
           <a href="/" class="flex items-center gap-2 font-semibold">
-            <MessageSquare class="h-6 w-6" />
+            <MessagesSquare class="h-6 w-6" />
             <span class="">SVChat</span>
           </a>
           <ModeSwitcher />
