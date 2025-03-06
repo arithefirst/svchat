@@ -4,7 +4,7 @@
   import Message from '$lib/components/message.svelte';
   import MessageLengthDialog from '$lib/components/messageLengthDialog.svelte';
   import { buttonVariants } from '$lib/components/ui/button';
-  import { autoResize } from '$lib/functions/autoresize.svelte';
+  import Textbox from '$lib/components/textbox.svelte';
   import Websocket from '$lib/functions/clientWebsocket.svelte';
   import { Send } from 'lucide-svelte';
   import { io } from 'socket.io-client';
@@ -18,8 +18,8 @@
   let msg: string = $state('');
   let showDialog: boolean = $state(false);
   const channel: string = $derived(page.params.channel);
-  let textareaRef: HTMLTextAreaElement | undefined = $state();
-  let formref: HTMLFormElement | undefined = $state();
+  let textareaRef = $state<HTMLTextAreaElement>();
+  let formRef = $state<HTMLFormElement>();
   let contextMenus: boolean[] = $state(Array(data.messages.length).fill(false));
 
   $effect(() => {
@@ -65,14 +65,6 @@
 
     // Ask for notification permissions
     askNotificationPermission();
-
-    // Submit on textarea enter
-    textareaRef?.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        formref?.requestSubmit();
-      }
-    });
   });
 
   // Update channel on page refresh
@@ -111,16 +103,8 @@
       <EmptyChannel />
     {/if}
   </div>
-  <form bind:this={formref} class="flex w-full gap-1" onsubmit={submit}>
-    <textarea
-      placeholder="Type Here"
-      bind:value={msg}
-      bind:this={textareaRef}
-      use:autoResize
-      class="flex h-10 min-h-10 w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm
-      shadow-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1
-      focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50"
-    ></textarea>
+  <form bind:this={formRef} class="flex w-full gap-1" onsubmit={submit}>
+    <Textbox bind:msg bind:textareaRef={textareaRef!} bind:formRef={formRef!} />
     <Tooltip.Provider>
       <Tooltip.Root>
         <Tooltip.Trigger class="h-full min-h-10 w-14 {buttonVariants({ variant: 'default' })}" type="submit">
