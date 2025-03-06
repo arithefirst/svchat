@@ -26,7 +26,7 @@
       ><Clipboard size={16} />Copy Channel Name</ContextMenu.Item
     >
     <!-- Copy Channel URL -->
-    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('Channel Channel URL', channelURL)}
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('Channel URL', channelURL)}
       ><Link size={16} />Copy Channel URL</ContextMenu.Item
     >
   </ContextMenu.Content>

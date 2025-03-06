@@ -43,11 +43,11 @@
   </ContextMenu.Trigger>
   <ContextMenu.Content>
     <!-- Copy Username -->
-    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('username', user)}
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('Username', user)}
       ><SquareUserRound size={16} />Copy Username</ContextMenu.Item
     >
     <!-- Copy User ID -->
-    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('user ID', uid)}
+    <ContextMenu.Item class="flex cursor-pointer items-center gap-1.5" onclick={() => copy('User ID', uid)}
       ><IdCard size={16} />Copy User ID</ContextMenu.Item
     >
     <ContextMenu.Separator />
@@ -60,7 +60,7 @@
       class="flex cursor-pointer items-center gap-1.5"
       onclick={() =>
         copy(
-          'timestamp',
+          'message timestamp',
           timestamp.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',

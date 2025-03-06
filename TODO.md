@@ -7,7 +7,7 @@ A more complex version of this list is available [here](https://trello.com/b/kJw
 - [x] Avatar cropping
 - [x] Channel context menus
 - [x] Containerization with docker and docker-compose
-- [ ] Copy toasts
+- [x] Copy toasts
 - [ ] Editing messages
 - [ ] Emoji picker
 - [ ] Images/Attatchments support

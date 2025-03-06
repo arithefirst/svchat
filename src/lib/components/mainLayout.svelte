@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { Toaster } from '$lib/components/ui/sonner/index';
   import { MessageSquare } from 'lucide-svelte';
   import type { Snippet } from 'svelte';
   import type { PageData } from '../../routes/(main)/$types';
@@ -18,6 +19,7 @@
 </script>
 
 <div class="w-screen">
+  <Toaster />
   <div class="grid h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
     <div class="hidden border-r bg-muted/40 md:block" bind:clientWidth={sidebarWidth}>
       <div class="flex h-full max-h-screen flex-col gap-2">
