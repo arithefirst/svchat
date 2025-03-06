@@ -2,7 +2,7 @@
   import { page } from '$app/state';
   import { Button } from '$lib/components/ui/button';
   import * as Card from '$lib/components/ui/card';
-  import { BrokenHeart } from 'lucide-svelte';
+  import { HeartCrack } from 'lucide-svelte';
 </script>
 
 <main class="relative size-full">
@@ -11,7 +11,7 @@
       <Card.Title class="text-center">{page.status} - {page.error?.message}</Card.Title>
     </Card.Header>
     <Card.Content class="relative grow">
-      <BrokenHeart class="abs-center size-1/2" />
+      <HeartCrack class="abs-center size-1/2" />
     </Card.Content>
     <Card.Footer class="h-fit">
       <Button href="/channel/general" variant="secondary" class="mx-auto">Go Home</Button>
