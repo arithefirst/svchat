@@ -6,16 +6,24 @@
   import { superForm } from 'sveltekit-superforms';
   import { zodClient } from 'sveltekit-superforms/adapters';
   import { loginSchema } from '$lib/types/login';
+  import Loader from '$lib/components/loader.svelte';
 
   let { data } = $props();
+  let loading: boolean = $state(false);
   const { form, errors, message, enhance } = superForm(data.form, {
     validators: zodClient(loginSchema),
+    onSubmit: () => (loading = true),
+    onResult: () => (loading = false),
   });
 </script>
 
 <svelte:head>
   <title>SVChat | Log In</title>
 </svelte:head>
+
+{#if loading}
+  <Loader />
+{/if}
 
 <main class="abs-center w-96">
   <Card.Root class="mx-auto">
